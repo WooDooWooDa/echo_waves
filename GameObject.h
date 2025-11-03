@@ -25,5 +25,7 @@ public:
 
 	void Move(float x, float y);
 	void Move(vector2 vec);
+
+	void BoundPositionToScreenSize();
 };
 

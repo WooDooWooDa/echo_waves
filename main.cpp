@@ -1,21 +1,19 @@
 #define SDL_MAIN_USE_CALLBACKS 1 /* use the callbacks instead of main() */
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_main.h>
-#include "WaveContext.h"
+#include "WaveGame.h"
+#include "gameSettings.h"
 
-#define STEP_RATE_IN_MILLISECONDS  30
-#define SDL_WINDOW_WIDTH           768
-#define SDL_WINDOW_HEIGHT          768
 
 typedef struct
 {
     SDL_Window* window;
     SDL_Renderer* renderer;
-    WaveContext wave_ctx;
+    WaveGame wave_ctx;
     Uint64 last_step;
 } AppState;
 
-static SDL_AppResult handle_key_event_(WaveContext* ctx, SDL_Event* event, SDL_Scancode key_code)
+static SDL_AppResult handle_key_event_(WaveGame* ctx, SDL_Event* event, SDL_Scancode key_code)
 {
     if (event->type == SDL_EVENT_KEY_DOWN) {
         switch (key_code) {
@@ -40,19 +38,20 @@ static SDL_AppResult handle_key_event_(WaveContext* ctx, SDL_Event* event, SDL_S
 SDL_AppResult SDL_AppIterate(void* appstate)
 {
     AppState* as = (AppState*)appstate;
-    WaveContext* ctx = &as->wave_ctx;
+    WaveGame* ctx = &as->wave_ctx;
     const Uint64 now = SDL_GetTicks();
 
-    // Update each Step
-    while ((now - as->last_step) >= STEP_RATE_IN_MILLISECONDS) {
-        ctx->Update((now - as->last_step) / STEP_RATE_IN_MILLISECONDS);
-        as->last_step += STEP_RATE_IN_MILLISECONDS;
+    // Update
+    while ((now - as->last_step) >= TARGET_TICK_UPDATE_RATE) {
+        ctx->Update((now - as->last_step) / TARGET_TICK_UPDATE_RATE);
+        as->last_step += TARGET_TICK_UPDATE_RATE;
     }
 
     //Reset window
     SDL_SetRenderDrawColor(as->renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
     SDL_RenderClear(as->renderer);
 
+    // Draw
     ctx->Draw(as->renderer);
 
     //Render to screen
@@ -97,10 +96,10 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char* argv[])
 
     *appstate = as;
 
-    if (!SDL_CreateWindowAndRenderer("Echo Waves", SDL_WINDOW_WIDTH, SDL_WINDOW_HEIGHT, SDL_WINDOW_RESIZABLE, &as->window, &as->renderer)) {
+    if (!SDL_CreateWindowAndRenderer("Echo Waves", GAME_WINDOW_WIDTH, GAME_WINDOW_HEIGHT, SDL_WINDOW_RESIZABLE, &as->window, &as->renderer)) {
         return SDL_APP_FAILURE;
     }
-    SDL_SetRenderLogicalPresentation(as->renderer, SDL_WINDOW_WIDTH, SDL_WINDOW_HEIGHT, SDL_LOGICAL_PRESENTATION_LETTERBOX);
+    SDL_SetRenderLogicalPresentation(as->renderer, GAME_WINDOW_WIDTH, GAME_WINDOW_HEIGHT, SDL_LOGICAL_PRESENTATION_LETTERBOX);
 
     // INIT GAME
     (&as->wave_ctx)->InitGame();
@@ -112,7 +111,7 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char* argv[])
 
 SDL_AppResult SDL_AppEvent(void* appstate, SDL_Event* event)
 {
-    WaveContext* ctx = &((AppState*)appstate)->wave_ctx;
+    WaveGame* ctx = &((AppState*)appstate)->wave_ctx;
     switch (event->type) {
     case SDL_EVENT_QUIT:
         return SDL_APP_SUCCESS;

@@ -1,25 +1,25 @@
-#include "WaveContext.h"
+#include "WaveGame.h"
 #include <SDL3/SDL_render.h>
 #include <SDL3/SDL_scancode.h>
 
 
-void WaveContext::InitGame()
+void WaveGame::InitGame()
 {
 	player = new Player();
 	player->Init();
 }
 
-void WaveContext::Update(const Uint64 delta)
+void WaveGame::Update(const Uint64 delta)
 {
 	player->Update(delta);
 }
 
-void WaveContext::Draw(SDL_Renderer* renderer) const
+void WaveGame::Draw(SDL_Renderer* renderer) const
 {
 	player->Draw(renderer);
 }
 
-void WaveContext::HandleInputs(SDL_Event* event, SDL_Scancode key_code)
+void WaveGame::HandleInputs(SDL_Event* event, SDL_Scancode key_code)
 {
 	if (event->type == SDL_EVENT_KEY_UP) {
 		switch (key_code)
@@ -61,7 +61,7 @@ void WaveContext::HandleInputs(SDL_Event* event, SDL_Scancode key_code)
 	}
 }
 
-WaveContext::~WaveContext()
+WaveGame::~WaveGame()
 {
 	delete player;
 }

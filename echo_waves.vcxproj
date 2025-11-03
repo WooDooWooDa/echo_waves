@@ -23,12 +23,13 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="vector.h" />
-    <ClCompile Include="WaveContext.cpp" />
+    <ClCompile Include="WaveGame.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="gameSettings.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="WaveContext.h" />
+    <ClInclude Include="WaveGame.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

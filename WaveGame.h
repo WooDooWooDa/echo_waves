@@ -4,7 +4,7 @@
 #include "Player.h"
 #include <memory>
 
-class WaveContext
+class WaveGame
 {
 public:
 	void HandleInputs(SDL_Event* event, SDL_Scancode key_code);
@@ -13,7 +13,7 @@ public:
 	void Draw(SDL_Renderer* renderer) const;
 
 private:
-	~WaveContext();
+	~WaveGame();
 	Player* player;
 };
 

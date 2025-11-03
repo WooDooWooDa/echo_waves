@@ -1,4 +1,9 @@
----HOW TO BUILD FOR WEB
+# Echo Waves
+Use echolocalisation waves to navigate throught the levels and find your way out.
+
+[View on portfolio](https://grateful-quark-516.notion.site/Echo-Waves-2a02e665cdfe80dd9368f24ce9d714ab)
+
+## HOW TO BUILD FOR WEB
 1. run "B:\emscripten\emsdk\emcmdprompt.bat" in a POWERSHELL
 2. Navigate to the project web build folder using "cd B:\C++_GAMES\echo_waves\web_build"
 3. Configure the project with Emscripten using "emcmake cmake .."

@@ -12,6 +12,7 @@ class CollisionSystem
 	void ResolveCollision(GameObject&, CollisionResult&);
 
 	bool ShouldCollide(ECollisionLayer a, ECollisionLayer b) {
+		if (!isInit) InitCollisionMatrix();
 		return CollisionMatrix[a][b];
 	}
 

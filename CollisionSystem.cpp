@@ -3,8 +3,6 @@
 
 void CollisionSystem::CheckCollision(std::shared_ptr<Level> currentLevel)
 {
-    if (!isInit) InitCollisionMatrix();
-
     auto objs = currentLevel->GetAllGameObjects();
     for (auto& a : objs) {
         for (auto& b : objs) {

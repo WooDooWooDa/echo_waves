@@ -34,7 +34,7 @@ void CollisionSystem::ResolveCollision(GameObject& go, SDL_FRect& intersect)
         else {
             go.MoveTo(goPosition.X + intersect.w, goPosition.Y);
         }
-        go.SetVelocityX(0);
+        //go.SetVelocityX(0);
     }
     else {
         if (goPosition.Y < intersect.y + intersect.h / 2) {
@@ -43,6 +43,6 @@ void CollisionSystem::ResolveCollision(GameObject& go, SDL_FRect& intersect)
         else {
             go.MoveTo(goPosition.X, go.GetPosition().Y + intersect.h);
         }
-        go.SetVelocityY(0);
+        //go.SetVelocityY(0);
     }
 }

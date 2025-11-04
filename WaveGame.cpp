@@ -38,15 +38,19 @@ void WaveGame::HandleInputs(SDL_Event* event, SDL_Scancode key_code)
 		switch (key_code)
 		{
 		case SDL_SCANCODE_A:
+		case SDL_SCANCODE_LEFT:
 			player->SetVelocityX(0);
 			break;
 		case SDL_SCANCODE_D:
+		case SDL_SCANCODE_RIGHT:
 			player->SetVelocityX(0);
 			break;
 		case SDL_SCANCODE_W:
+		case SDL_SCANCODE_UP:
 			player->SetVelocityY(0);
 			break;
 		case SDL_SCANCODE_S:
+		case SDL_SCANCODE_DOWN:
 			player->SetVelocityY(0);
 			break;
 		default:
@@ -57,15 +61,19 @@ void WaveGame::HandleInputs(SDL_Event* event, SDL_Scancode key_code)
 		switch (key_code)
 		{
 		case SDL_SCANCODE_A:
+		case SDL_SCANCODE_LEFT:
 			player->SetVelocityX(-1);
 			break;
 		case SDL_SCANCODE_D:
+		case SDL_SCANCODE_RIGHT:
 			player->SetVelocityX(1);
 			break;
 		case SDL_SCANCODE_W:
+		case SDL_SCANCODE_UP:
 			player->SetVelocityY(-1);
 			break;
 		case SDL_SCANCODE_S:
+		case SDL_SCANCODE_DOWN:
 			player->SetVelocityY(1);
 			break;
 		default:

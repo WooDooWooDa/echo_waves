@@ -3,6 +3,7 @@
 #include "GameObject.h"
 #include "WallTile.h"
 #include "LevelFileReader.h"
+#include "vector.h"
 
 class LevelManager;
 
@@ -11,29 +12,9 @@ class Level : public GameObject
 private:
 	LevelManager* manager;
 	vector<std::shared_ptr<GameObject>> levelGameObjects;
+	vector2 playerSpawnPosition;
 
-	static vector<std::shared_ptr<GameObject>> ConvertLevelTilesDataToGO(LevelData data) {
-		vector<std::shared_ptr<GameObject>> levelGOs;
-		int i = 0;
-		int j = 0;
-		for (vector<char> line : data.tiles) {
-			j = 0;
-			for (char c : line) {
-				// WallTile
-				std::cout << c;
-				if (c == '1') {
-					auto newWall = make_shared<WallTile>();
-					newWall->MoveTo(j * LEVEL_TILE_SIZE + LEVEL_TILE_SIZE / 2,
-						i * LEVEL_TILE_SIZE + LEVEL_TILE_SIZE / 2);
-					levelGOs.push_back(newWall);
-				}
-				j++;
-			}
-			i++;
-			std::cout << std::endl;
-		}
-		return levelGOs;
-	}
+	vector<std::shared_ptr<GameObject>> ConvertLevelTilesDataToGO(LevelData);
 
 public:
 	Level() = default;
@@ -42,6 +23,7 @@ public:
 	void Update(Uint64 delta) override;
 	void Draw(SDL_Renderer* renderer) const override;
 
+	vector2 GetPlayerSpawn() { return playerSpawnPosition; }
 	void AddGameObject(std::shared_ptr<GameObject> newObj) {
 		levelGameObjects.push_back(newObj);
 	}

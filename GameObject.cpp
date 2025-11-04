@@ -43,6 +43,13 @@ void GameObject::MoveTo(float x, float y)
 	BoundPositionToScreenSize();
 }
 
+void GameObject::MoveTo(vector2 vec)
+{
+	position.X = vec.X;
+	position.Y = vec.Y;
+	BoundPositionToScreenSize();
+}
+
 void GameObject::MoveBy(float x, float y) {
 	position.X += x;
 	position.Y += y;

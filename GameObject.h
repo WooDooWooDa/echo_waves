@@ -33,6 +33,7 @@ public:
 	void SetVelocityY(float y);
 
 	void MoveTo(float x, float y);
+	void MoveTo(vector2 vec);
 	void MoveBy(float x, float y);
 	void MoveBy(vector2 vec);
 

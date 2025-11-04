@@ -10,6 +10,7 @@ void WaveGame::InitGame()
 	if (levelManager.LoadAllLevels()) {
 		currentLevel = levelManager.GetLevel(1);
 		currentLevel->AddGameObject(player);
+		player->MoveTo(currentLevel->GetPlayerSpawn());
 	}
 }
 

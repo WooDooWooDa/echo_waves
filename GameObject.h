@@ -44,7 +44,7 @@ public:
 	virtual void OnTriggerEnter(GameObject* other) {
 		// custom behavior for triggers
 	}
-	virtual void OnCollisionEnter(GameObject* other) {
+	virtual void OnCollisionEnter(CollisionResult res) {
 		// custom behavior for collisions
 	}
 };

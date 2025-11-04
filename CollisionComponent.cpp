@@ -7,9 +7,9 @@ void CollisionComponent::OnTriggerEnter(GameObject* other)
 	owner->OnTriggerEnter(other);
 }
 
-void CollisionComponent::OnCollisionEnter(GameObject* other)
+void CollisionComponent::OnCollisionEnter(CollisionResult res)
 {
-	owner->OnCollisionEnter(other);
+	owner->OnCollisionEnter(res);
 }
 
 bool CollisionComponent::Intersects(const GameObject& other, SDL_FRect& intersectResult)

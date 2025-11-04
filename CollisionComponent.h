@@ -1,6 +1,7 @@
 #pragma once
 #include <SDL3/SDL_rect.h>
 #include "CollisionLayers.h"
+#include "CollisionResult.h"
 
 class GameObject; // forward declare so compiler knows it exists
 
@@ -8,11 +9,12 @@ class CollisionComponent
 {
 private:
     GameObject* owner;
-    bool isTrigger = false;
-    bool isCollidable = true;
     ECollisionLayer layer;
 
 public:
+    bool isTrigger = false;
+    bool isCollidable = true;
+
     void SetOwner(GameObject* o) {
         owner = o;
     }
@@ -22,7 +24,7 @@ public:
     ECollisionLayer GetLayer() { return layer; }
 
     void OnTriggerEnter(GameObject*);
-    void OnCollisionEnter(GameObject*);
+    void OnCollisionEnter(CollisionResult);
     bool IsTrigger() const { return isTrigger; }
     bool IsCollisionEnable() const { return isCollidable; }
     bool Intersects(const GameObject&, SDL_FRect&);

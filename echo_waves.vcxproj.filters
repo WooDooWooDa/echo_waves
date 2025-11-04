@@ -95,6 +95,9 @@
     <ClInclude Include="CollisionLayers.h">
       <Filter>Fichiers d%27en-tête\Collision</Filter>
     </ClInclude>
+    <ClInclude Include="CollisionResult.h">
+      <Filter>Fichiers d%27en-tête\Collision</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="assets\level1.txt">

@@ -10,6 +10,6 @@ public:
 
 	void Init() override;
 	void Update(Uint64 delta) override;
-	void OnCollisionEnter(GameObject* other) override;
+	void OnCollisionEnter(CollisionResult) override;
 };
 

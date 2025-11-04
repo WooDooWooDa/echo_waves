@@ -15,7 +15,7 @@ void Player::Update(Uint64 delta)
 	GameObject::Update(delta);
 }
 
-void Player::OnCollisionEnter(GameObject* other)
+void Player::OnCollisionEnter(CollisionResult res)
 {
-	//std::cout << "Colliding" << std::endl;
+	std::cout << res.collisionNormal.ToString() << std::endl;
 }

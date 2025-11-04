@@ -34,6 +34,7 @@
   <ItemGroup>
     <ClInclude Include="CollisionComponent.h" />
     <ClInclude Include="CollisionLayers.h" />
+    <ClInclude Include="CollisionResult.h" />
     <ClInclude Include="CollisionSystem.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="gameSettings.h" />

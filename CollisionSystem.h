@@ -1,6 +1,7 @@
 #pragma once
 #include "Level.h"
 #include "CollisionLayers.h"
+#include "CollisionResult.h"
 
 class CollisionSystem
 {
@@ -8,7 +9,7 @@ class CollisionSystem
 	bool CollisionMatrix[LCount][LCount] = {};
 	//CollisionEventQueue collisionEvents;
 
-	void ResolveCollision(GameObject&, SDL_FRect&);
+	void ResolveCollision(GameObject&, CollisionResult&);
 
 	bool ShouldCollide(ECollisionLayer a, ECollisionLayer b) {
 		return CollisionMatrix[a][b];

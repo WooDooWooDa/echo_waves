@@ -19,14 +19,15 @@ struct vector2
         return vector2(X * a, Y * a);
     }
 
-    std::string ToString()
+    std::string ToString() const
     {
         return "(x = " + std::to_string(X) + ", Y = " + std::to_string(Y) + ")";
     }
 
-    float Length() {
+    float Length() const {
         return SDL_sqrtf(X*X + Y*Y);
     }
+
     void Normalize() {
         float l = Length();
         if (l <= 0) return;

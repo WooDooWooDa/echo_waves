@@ -4,7 +4,12 @@
 class Player : public GameObject
 {
 public:
+	Player() {
+		collision.SetLayer(ECollisionLayer::LPlayer);
+	}
+
+	void Init() override;
 	void Update(Uint64 delta) override;
-	Player() = default;
+	void OnCollisionEnter(GameObject* other) override;
 };
 

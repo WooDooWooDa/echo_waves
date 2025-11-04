@@ -13,6 +13,21 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Fichiers d%27en-tête\Helper">
+      <UniqueIdentifier>{c0adbac8-f09d-41ae-b25b-ec6d41bf1c91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\GameObjects">
+      <UniqueIdentifier>{9ec994b8-4507-4d2f-b10d-ac1a0a332d39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets">
+      <UniqueIdentifier>{a2c6d0b6-8e94-4d70-bd8b-fad01aa62059}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Collision">
+      <UniqueIdentifier>{eccbe3f3-9358-416f-8d5d-52559fc9de38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Collision">
+      <UniqueIdentifier>{b4a34e81-30d1-4662-b6ba-c6728a74f676}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -24,25 +39,69 @@
     <ClCompile Include="Player.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="vector.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Level.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="WallTile.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelFileReader.h">
+      <Filter>Fichiers d%27en-tête\Helper</Filter>
+    </ClCompile>
+    <ClCompile Include="vector.h">
+      <Filter>Fichiers d%27en-tête\Helper</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelManager.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionComponent.cpp">
+      <Filter>Fichiers sources\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionSystem.cpp">
+      <Filter>Fichiers sources\Collision</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WaveGame.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
+    <ClInclude Include="LevelManager.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="gameSettings.h">
-      <Filter>Fichiers d%27en-tête</Filter>
+      <Filter>Fichiers d%27en-tête\Helper</Filter>
     </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Fichiers d%27en-tête\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Fichiers d%27en-tête\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="WallTile.h">
+      <Filter>Fichiers d%27en-tête\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Level.h">
+      <Filter>Fichiers d%27en-tête\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionComponent.h">
+      <Filter>Fichiers d%27en-tête\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionSystem.h">
+      <Filter>Fichiers d%27en-tête\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionLayers.h">
+      <Filter>Fichiers d%27en-tête\Collision</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="assets\level1.txt">
+      <Filter>Assets</Filter>
+    </Text>
+    <Text Include="assets\level2.txt">
+      <Filter>Assets</Filter>
+    </Text>
   </ItemGroup>
 </Project>

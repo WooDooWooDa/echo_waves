@@ -2,8 +2,26 @@
 #include <iostream>
 #include "gameSettings.h"
 
+void GameObject::Init()
+{
+	// noop
+}
+
 void GameObject::Update(Uint64 delta) {
-	Move(velocity * speed * delta);
+	MoveBy(velocity * speed * delta);
+}
+
+void GameObject::Draw(SDL_Renderer* renderer) const
+{
+	vector3 drawColor = DEBUG_MODE ? vector3(255, 0, 0) : color;
+	auto drawRect = GetBounds();
+	SDL_SetRenderDrawColor(renderer, drawColor.X, drawColor.Y, drawColor.Z, SDL_ALPHA_OPAQUE);
+	if (DEBUG_MODE) {
+		SDL_RenderRect(renderer, &drawRect);
+	}
+	else {
+		SDL_RenderFillRect(renderer, &drawRect);
+	}
 }
 
 void GameObject::SetVelocityX(float x)
@@ -18,29 +36,45 @@ void GameObject::SetVelocityY(float y)
 	velocity.Normalize();
 }
 
-void GameObject::Move(float x, float y) {
+void GameObject::MoveTo(float x, float y)
+{
+	position.X = x;
+	position.Y = y;
+	BoundPositionToScreenSize();
+}
+
+void GameObject::MoveBy(float x, float y) {
 	position.X += x;
 	position.Y += y;
 	BoundPositionToScreenSize();
 }
 
-void GameObject::Move(vector2 vec) {
+void GameObject::MoveBy(vector2 vec) {
 	position.X += vec.X;
 	position.Y += vec.Y;
 	BoundPositionToScreenSize();
 }
 
+SDL_FRect GameObject::GetBounds() const
+{
+	SDL_FRect rect;
+	rect.x = position.X - size / 2;
+	rect.y = position.Y - size / 2;
+	rect.w = rect.h = size;
+	return rect;
+}
+
 void GameObject::BoundPositionToScreenSize() {
 	float size2 = size / 2;
-	if (position.X + size2 > GAME_WINDOW_WIDTH) {
-		position.X = GAME_WINDOW_WIDTH - size2;
+	if (position.X + size2 > GAME_WINDOW_SIZE) {
+		position.X = GAME_WINDOW_SIZE - size2;
 	}
 	if (position.X - size2 < 0) {
 		position.X = size2;
 	}
 
-	if (position.Y + size2 > GAME_WINDOW_HEIGHT) {
-		position.Y = GAME_WINDOW_HEIGHT - size2;
+	if (position.Y + size2 > GAME_WINDOW_SIZE) {
+		position.Y = GAME_WINDOW_SIZE - size2;
 	}
 	if (position.Y - size2 < 0) {
 		position.Y = size2;

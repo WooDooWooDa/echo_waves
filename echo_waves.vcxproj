@@ -19,17 +19,33 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CollisionComponent.cpp" />
+    <ClCompile Include="CollisionSystem.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="Level.cpp" />
+    <ClCompile Include="LevelFileReader.h" />
+    <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="vector.h" />
+    <ClCompile Include="WallTile.cpp" />
     <ClCompile Include="WaveGame.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CollisionComponent.h" />
+    <ClInclude Include="CollisionLayers.h" />
+    <ClInclude Include="CollisionSystem.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="gameSettings.h" />
+    <ClInclude Include="Level.h" />
+    <ClInclude Include="LevelManager.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="WallTile.h" />
     <ClInclude Include="WaveGame.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="assets\level1.txt" />
+    <Text Include="assets\level2.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

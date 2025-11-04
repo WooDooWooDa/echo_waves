@@ -1,5 +1,9 @@
 #pragma once
 
-#define TARGET_TICK_UPDATE_RATE  30
-#define GAME_WINDOW_WIDTH           768
-#define GAME_WINDOW_HEIGHT          768
+#define DEBUG_MODE					true
+
+#define TARGET_MS_PER_FRAME			30
+#define GAME_WINDOW_SIZE            768
+
+#define LEVEL_TILE_COUNT			32
+#define LEVEL_TILE_SIZE				GAME_WINDOW_SIZE / LEVEL_TILE_COUNT

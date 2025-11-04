@@ -1,8 +1,11 @@
 #pragma once
 #include <SDL3/SDL_stdinc.h>
 #include <SDL3/SDL_render.h>
-#include "Player.h"
 #include <memory>
+#include "Player.h"
+#include "Level.h"
+#include "LevelManager.h"
+#include "CollisionSystem.h"
 
 class WaveGame
 {
@@ -13,7 +16,9 @@ public:
 	void Draw(SDL_Renderer* renderer) const;
 
 private:
-	~WaveGame();
-	Player* player;
+	std::shared_ptr<Player> player;
+	LevelManager levelManager;
+	std::shared_ptr<Level> currentLevel;
+	CollisionSystem collisionSystem;
 };
 

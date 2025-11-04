@@ -1,22 +1,34 @@
 #include "WaveGame.h"
 #include <SDL3/SDL_render.h>
 #include <SDL3/SDL_scancode.h>
-
+#include "LevelFileReader.h"
 
 void WaveGame::InitGame()
 {
-	player = new Player();
+	player = std::make_shared<Player>();
 	player->Init();
+	if (levelManager.LoadAllLevels()) {
+		currentLevel = levelManager.GetLevel(1);
+		currentLevel->AddGameObject(player);
+	}
 }
 
 void WaveGame::Update(const Uint64 delta)
 {
 	player->Update(delta);
+
+	if (currentLevel != nullptr)
+		currentLevel->Update(delta);
+
+	collisionSystem.CheckCollision(currentLevel);
 }
 
 void WaveGame::Draw(SDL_Renderer* renderer) const
 {
 	player->Draw(renderer);
+
+	if (currentLevel != nullptr)
+		currentLevel->Draw(renderer);
 }
 
 void WaveGame::HandleInputs(SDL_Event* event, SDL_Scancode key_code)
@@ -59,9 +71,4 @@ void WaveGame::HandleInputs(SDL_Event* event, SDL_Scancode key_code)
 			break;
 		}
 	}
-}
-
-WaveGame::~WaveGame()
-{
-	delete player;
 }

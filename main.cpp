@@ -42,9 +42,9 @@ SDL_AppResult SDL_AppIterate(void* appstate)
     const Uint64 now = SDL_GetTicks();
 
     // Update
-    while ((now - as->last_step) >= TARGET_TICK_UPDATE_RATE) {
-        ctx->Update((now - as->last_step) / TARGET_TICK_UPDATE_RATE);
-        as->last_step += TARGET_TICK_UPDATE_RATE;
+    while ((now - as->last_step) >= TARGET_MS_PER_FRAME) {
+        ctx->Update((now - as->last_step) / TARGET_MS_PER_FRAME);
+        as->last_step += TARGET_MS_PER_FRAME;
     }
 
     //Reset window
@@ -96,10 +96,10 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char* argv[])
 
     *appstate = as;
 
-    if (!SDL_CreateWindowAndRenderer("Echo Waves", GAME_WINDOW_WIDTH, GAME_WINDOW_HEIGHT, SDL_WINDOW_RESIZABLE, &as->window, &as->renderer)) {
+    if (!SDL_CreateWindowAndRenderer("Echo Waves", GAME_WINDOW_SIZE, GAME_WINDOW_SIZE, SDL_WINDOW_RESIZABLE, &as->window, &as->renderer)) {
         return SDL_APP_FAILURE;
     }
-    SDL_SetRenderLogicalPresentation(as->renderer, GAME_WINDOW_WIDTH, GAME_WINDOW_HEIGHT, SDL_LOGICAL_PRESENTATION_LETTERBOX);
+    SDL_SetRenderLogicalPresentation(as->renderer, GAME_WINDOW_SIZE, GAME_WINDOW_SIZE, SDL_LOGICAL_PRESENTATION_LETTERBOX);
 
     // INIT GAME
     (&as->wave_ctx)->InitGame();

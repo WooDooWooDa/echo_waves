@@ -5,31 +5,43 @@
 
 void WaveGame::InitGame()
 {
-	player = std::make_shared<Player>();
+	levelManager = make_unique<LevelManager>();
+
+	player = make_shared<Player>();
 	player->Init();
-	if (levelManager.LoadAllLevels()) {
-		currentLevel = levelManager.GetLevel(1);
-		currentLevel->AddGameObject(player);
-		player->MoveTo(currentLevel->GetPlayerSpawn());
+
+	if (levelManager->LoadAllLevels()) {
+		//Load to first level
+		ChangeToLevel(1);
 	}
 }
 
 void WaveGame::Update(const Uint64 delta)
 {
-	player->Update(delta);
+	//player->Update(delta);
 
-	if (currentLevel != nullptr)
-		currentLevel->Update(delta);
+	if (levelManager->GetCurrentLevel() != nullptr)
+		levelManager->GetCurrentLevel()->Update(delta);
 
-	collisionSystem.CheckCollision(currentLevel);
+	collisionSystem.CheckCollision(levelManager->GetCurrentLevel());
 }
 
 void WaveGame::Draw(SDL_Renderer* renderer) const
 {
-	player->Draw(renderer);
+	//player->Draw(renderer);
 
-	if (currentLevel != nullptr)
-		currentLevel->Draw(renderer);
+	if (levelManager->GetCurrentLevel() != nullptr)
+		levelManager->GetCurrentLevel()->Draw(renderer);
+}
+
+void WaveGame::ChangeToLevel(int)
+{
+	// Remove player from previous/current level if any
+	levelManager->RemoveGameObjectFromLevel(player);
+	levelManager->SetCurrentLevel(1);
+	// Add player to new level
+	levelManager->AddGameObjectToLevel(player);
+	player->MoveTo(levelManager->GetCurrentLevel()->GetPlayerSpawn());
 }
 
 void WaveGame::HandleInputs(SDL_Event* event, SDL_Scancode key_code)
@@ -76,6 +88,8 @@ void WaveGame::HandleInputs(SDL_Event* event, SDL_Scancode key_code)
 		case SDL_SCANCODE_DOWN:
 			player->SetVelocityY(1);
 			break;
+		case SDL_SCANCODE_SPACE:
+			player->TryLaunchSoundWave(36, 100);
 		default:
 			break;
 		}

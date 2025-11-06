@@ -13,9 +13,9 @@ void GameObject::Update(Uint64 delta) {
 
 void GameObject::Draw(SDL_Renderer* renderer) const
 {
-	vector3 drawColor = DEBUG_MODE ? vector3(255, 0, 0) : color;
+	RGBColor drawColor = DEBUG_MODE ? COLOR_RED : color;
 	auto drawRect = GetBounds();
-	SDL_SetRenderDrawColor(renderer, drawColor.X, drawColor.Y, drawColor.Z, SDL_ALPHA_OPAQUE);
+	SDL_SetRenderDrawColor(renderer, drawColor.R, drawColor.G, drawColor.B, drawColor.A);
 	if (DEBUG_MODE) {
 		SDL_RenderRect(renderer, &drawRect);
 	}

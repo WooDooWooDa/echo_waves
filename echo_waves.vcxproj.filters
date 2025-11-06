@@ -63,6 +63,12 @@
     <ClCompile Include="CollisionSystem.cpp">
       <Filter>Fichiers sources\Collision</Filter>
     </ClCompile>
+    <ClCompile Include="SoundWave.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundParticle.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WaveGame.h">
@@ -98,12 +104,24 @@
     <ClInclude Include="CollisionResult.h">
       <Filter>Fichiers d%27en-tête\Collision</Filter>
     </ClInclude>
+    <ClInclude Include="SoundWave.h">
+      <Filter>Fichiers d%27en-tête\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundParticle.h">
+      <Filter>Fichiers d%27en-tête\GameObjects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="assets\level1.txt">
       <Filter>Assets</Filter>
     </Text>
     <Text Include="assets\level2.txt">
+      <Filter>Assets</Filter>
+    </Text>
+    <Text Include="assets\level1_16.txt">
+      <Filter>Assets</Filter>
+    </Text>
+    <Text Include="assets\level2_16.txt">
       <Filter>Assets</Filter>
     </Text>
   </ItemGroup>

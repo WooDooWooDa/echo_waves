@@ -24,8 +24,15 @@ public:
 	void Draw(SDL_Renderer* renderer) const override;
 
 	vector2 GetPlayerSpawn() { return playerSpawnPosition; }
+	
 	void AddGameObject(std::shared_ptr<GameObject> newObj) {
 		levelGameObjects.push_back(newObj);
+	}
+	void RemoveGameObject(std::shared_ptr<GameObject> objToRemove) {
+		auto it = std::find(levelGameObjects.begin(), levelGameObjects.end(), objToRemove);
+		if (it != levelGameObjects.end()) {
+			levelGameObjects.erase(it);
+		}
 	}
 	vector<std::shared_ptr<GameObject>> GetAllGameObjects() { return levelGameObjects; }
 };

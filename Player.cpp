@@ -1,21 +1,56 @@
 #include "Player.h"
 #include <iostream>
+#include "SoundWave.h"
+#include "LevelManager.h"
 
 void Player::Init()
 {
-	position.X = 768.0 / 2;
-	position.Y = 768.0 / 2;
-	speed = 1.0;
-	size = LEVEL_TILE_SIZE / 2;
-	color = vector3(255, 255, 255);
+	speed = 2.0;
+	size = LEVEL_TILE_SIZE / 4;
 }
 
 void Player::Update(Uint64 delta)
 {
+	auto lastPos = position;
 	GameObject::Update(delta);
+
+	if (currentSoundWaveTimer >= 0)
+		currentSoundWaveTimer -= delta;
+
+	auto posDiff = lastPos - position;
+	isWalking = posDiff.Length() > 0;
+	if (isWalking) {
+		distanceMoved += posDiff.Length();
+
+		if (distanceMoved >= distanceBetweenStep) {
+			StepSound();
+			distanceMoved = 0;
+		}
+	}
+}
+
+void Player::TryLaunchSoundWave(int nbSoundPoint, float soundPointTTL)
+{
+	if (currentSoundWaveTimer >= 0) return;
+
+	LaunchSoundWave(nbSoundPoint, soundPointTTL);
+
+	currentSoundWaveTimer = soundWaveTimer;
 }
 
 void Player::OnCollisionEnter(CollisionResult res)
 {
-	std::cout << res.collisionNormal.ToString() << std::endl;
+	
+}
+
+void Player::LaunchSoundWave(int nbSoundP, float soundPointTTL)
+{
+	auto wave = SoundWave(nbSoundP, soundPointTTL);
+	wave.MoveTo(position);
+	wave.Init();
+}
+
+void Player::StepSound()
+{
+	LaunchSoundWave(5, 10);
 }

@@ -12,9 +12,11 @@ protected:
 	vector2 velocity;
 	float speed = 0.0;
 	float size = 0.0;
-	vector3 color;
+	RGBColor color;
 
 	CollisionComponent collision;
+
+	bool isDestroyed = false;
 
 public:
 	GameObject() {
@@ -40,6 +42,7 @@ public:
 	SDL_FRect GetBounds() const;
 	void BoundPositionToScreenSize();
 
+	//Collision
 	CollisionComponent& GetCollider() { return collision; }
 	virtual void OnTriggerEnter(GameObject* other) {
 		// custom behavior for triggers
@@ -47,5 +50,9 @@ public:
 	virtual void OnCollisionEnter(CollisionResult res) {
 		// custom behavior for collisions
 	}
+
+	//Life Cycle
+	void Destroy() { isDestroyed = true; }
+	bool IsDestroyed() { return isDestroyed; }
 };
 

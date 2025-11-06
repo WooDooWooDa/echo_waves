@@ -17,8 +17,9 @@ public:
 
 private:
 	std::shared_ptr<Player> player;
-	LevelManager levelManager;
-	std::shared_ptr<Level> currentLevel;
+	std::unique_ptr<LevelManager> levelManager;
 	CollisionSystem collisionSystem;
+
+	void ChangeToLevel(int);
 };
 

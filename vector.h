@@ -1,7 +1,7 @@
 #pragma once
 #include "C:\SDL\include\SDL3\SDL_stdinc.h"
-
 #include <string>
+
 struct vector2
 {
     float X, Y;
@@ -17,6 +17,22 @@ struct vector2
 
     vector2 operator*(float a) {
         return vector2(X * a, Y * a);
+    }
+
+    vector2 operator*(const vector2& b) {
+        return vector2(X * b.X, Y * b.Y);
+    }
+
+    float dot(const vector2& b) const {
+        return (this->X * b.X) + (this->Y * b.Y);
+    }
+
+    vector2 operator-(const vector2& b) {
+        return vector2(X - b.X, Y - b.Y);
+    }
+
+    vector2 operator+(const vector2& b) {
+        return vector2(X + b.X, Y + b.Y);
     }
 
     std::string ToString() const
@@ -48,3 +64,23 @@ struct vector3
         X = x; Y = y; Z = z;
     }
 };
+
+struct RGBColor {
+    float R, G, B, A;
+
+    inline RGBColor() {
+        R = G = B = A = 0;
+    }
+    inline RGBColor(const float r, const float g, const float b)
+    {
+        R = r; G = g; B = b;
+        A = 255;
+    }
+    inline RGBColor(const float r, const float g, const float b, const float a) : RGBColor(r,g,b)
+    {
+        A = a;
+    }
+};
+
+#define COLOR_WHITE         RGBColor(255, 255, 255)
+#define COLOR_RED           RGBColor(255, 0, 0)

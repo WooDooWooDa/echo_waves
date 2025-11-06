@@ -1,7 +1,7 @@
 #include "CollisionSystem.h"
 #include "CollisionResult.h"
 
-void CollisionSystem::CheckCollision(std::shared_ptr<Level> currentLevel)
+void CollisionSystem::CheckCollision(Level* currentLevel)
 {
     auto objs = currentLevel->GetAllGameObjects();
     for (auto& a : objs) {

@@ -36,11 +36,12 @@ public:
 		CollisionMatrix[LObject][LWall] = true;
 		CollisionMatrix[LObject][LObject] = false;
 
-		CollisionMatrix[LWave][LWall] = true;
-		CollisionMatrix[LWave][LObject] = true;
+		CollisionMatrix[LSoundParticle][LWall] = true;
+		CollisionMatrix[LSoundParticle][LObject] = true;
+		CollisionMatrix[LSoundParticle][LPlayer] = false;
 		isInit = true;
 	}
 
-	void CheckCollision(std::shared_ptr<Level>);
+	void CheckCollision(Level*);
 };
 

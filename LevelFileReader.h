@@ -18,7 +18,6 @@ static LevelData ReadLevelFileData(string filePath) {
 	LevelData levelData;
 
 	ifstream levelFile(filePath);
-	//SDL_IOStream* file = SDL_IOFromFile(filePath.c_str(), "r");
 	
 	if (!levelFile.is_open()) {
 		cerr << "Error opening level file : " << filePath << endl;

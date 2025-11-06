@@ -1,6 +1,7 @@
 #define SDL_MAIN_USE_CALLBACKS 1 /* use the callbacks instead of main() */
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_main.h>
+#include <SDL3/SDL_blendmode.h>
 #include "WaveGame.h"
 #include "gameSettings.h"
 
@@ -100,6 +101,7 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char* argv[])
         return SDL_APP_FAILURE;
     }
     SDL_SetRenderLogicalPresentation(as->renderer, GAME_WINDOW_SIZE, GAME_WINDOW_SIZE, SDL_LOGICAL_PRESENTATION_LETTERBOX);
+    SDL_SetRenderDrawBlendMode(as->renderer, SDL_BLENDMODE_BLEND);
 
     // INIT GAME
     (&as->wave_ctx)->InitGame();

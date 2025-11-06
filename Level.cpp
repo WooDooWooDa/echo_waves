@@ -11,7 +11,6 @@ vector<std::shared_ptr<GameObject>> Level::ConvertLevelTilesDataToGO(LevelData d
 		j = 0;
 		for (char c : line) {
 			// WallTile
-			std::cout << c;
 			if (c == 'W') {
 				auto newWall = make_shared<WallTile>();
 				newWall->MoveTo(j * LEVEL_TILE_SIZE + LEVEL_TILE_SIZE / 2,
@@ -25,34 +24,42 @@ vector<std::shared_ptr<GameObject>> Level::ConvertLevelTilesDataToGO(LevelData d
 			j++;
 		}
 		i++;
-		std::cout << std::endl;
 	}
 	return levelGOs;
 }
 
 void Level::SetData(LevelManager* manager, LevelData data)
 {
-	manager = manager;
+	this->manager = manager;
 	auto GOs = ConvertLevelTilesDataToGO(data);
 	levelGameObjects = GOs;
 }
 
 void Level::Init() {
-	for (auto obj : levelGameObjects) {
+	for (auto& obj : levelGameObjects) {
 		obj->Init();
 	}
 }
 
 void Level::Update(Uint64 delta)
 {
-	for (auto obj : levelGameObjects) {
+	// Update all level objects
+	for (auto& obj : levelGameObjects) {
 		obj->Update(delta);
 	}
+
+	// Clean up all destroyed objects
+	levelGameObjects.erase(
+		std::remove_if(levelGameObjects.begin(), levelGameObjects.end(),
+			[](const std::shared_ptr<GameObject>& obj) {
+				return obj->IsDestroyed();
+			}),
+		levelGameObjects.end());
 }
 
 void Level::Draw(SDL_Renderer* renderer) const
 {
-	for (auto obj : levelGameObjects) {
+	for (auto& obj : levelGameObjects) {
 		obj->Draw(renderer);
 	}
 }

@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include "Level.h"
+#include "LevelFileReader.h"
 
 class LevelManager
 {

@@ -6,6 +6,7 @@ class GameObject;
 
 struct CollisionResult {
 	SDL_FRect intersect;
+	vector2 hitPosition;
 	GameObject* other;
 	vector2 collisionNormal;
 };

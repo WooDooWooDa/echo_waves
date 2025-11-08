@@ -28,6 +28,9 @@
     <Filter Include="Fichiers d%27en-tête\Collision">
       <UniqueIdentifier>{b4a34e81-30d1-4662-b6ba-c6728a74f676}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers d%27en-tête\GameObjects\Interaction">
+      <UniqueIdentifier>{a2fbd119-bcc5-48d5-8772-e210bf9a284c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -69,6 +72,21 @@
     <ClCompile Include="SoundParticle.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="SoundLine.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelFileReader.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Door.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Key.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="ICollectable.h">
+      <Filter>Fichiers d%27en-tête\GameObjects\Interaction</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WaveGame.h">
@@ -109,6 +127,21 @@
     </ClInclude>
     <ClInclude Include="SoundParticle.h">
       <Filter>Fichiers d%27en-tête\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundLine.h">
+      <Filter>Fichiers d%27en-tête\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="math.h">
+      <Filter>Fichiers d%27en-tête\Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="Door.h">
+      <Filter>Fichiers d%27en-tête\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Key.h">
+      <Filter>Fichiers d%27en-tête\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="IInteractable.h">
+      <Filter>Fichiers d%27en-tête\GameObjects\Interaction</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,4 @@
 #include "LevelManager.h"
-#include "LevelFileReader.h"
 
 // static member needs a definition (if not declared with "inline" in the .h prior to c++ 17)
 //std::shared_ptr<Level> LevelManager::currentLevel = nullptr;

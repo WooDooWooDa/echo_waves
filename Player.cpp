@@ -5,8 +5,7 @@
 
 void Player::Init()
 {
-	speed = 2.0;
-	size = LEVEL_TILE_SIZE / 4;
+	
 }
 
 void Player::Update(Uint64 delta)
@@ -33,7 +32,7 @@ void Player::TryLaunchSoundWave(int nbSoundPoint, float soundPointTTL)
 {
 	if (currentSoundWaveTimer >= 0) return;
 
-	LaunchSoundWave(nbSoundPoint, soundPointTTL);
+	LaunchSoundWave(nbSoundPoint, soundPointTTL, 5.0);
 
 	currentSoundWaveTimer = soundWaveTimer;
 }
@@ -43,14 +42,19 @@ void Player::OnCollisionEnter(CollisionResult res)
 	
 }
 
-void Player::LaunchSoundWave(int nbSoundP, float soundPointTTL)
+void Player::TryInteract()
 {
-	auto wave = SoundWave(nbSoundP, soundPointTTL);
+
+}
+
+void Player::LaunchSoundWave(int nbSoundP, float soundPointTTL, float speed)
+{
+	auto wave = SoundWave(nbSoundP, soundPointTTL, speed);
 	wave.MoveTo(position);
 	wave.Init();
 }
 
 void Player::StepSound()
 {
-	LaunchSoundWave(5, 10);
+	LaunchSoundWave(5, 10, 2.0);
 }

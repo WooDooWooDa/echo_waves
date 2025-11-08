@@ -8,8 +8,10 @@ class GameObject; // forward declare so compiler knows it exists
 class CollisionComponent
 {
 private:
+    std::string tag;
     GameObject* owner;
     ECollisionLayer layer = ECollisionLayer::LNone;
+    vector2 bounds; //aka collider size
 
 public:
     bool isTrigger = false;
@@ -23,12 +25,19 @@ public:
         layer = l;
     }
 
+    void SetTag(std::string newTag) { tag = newTag; }
+    const std::string& GetTag() const 
+    { return tag; }
+
+    void SetBounds(vector2 newBounds) { bounds = newBounds; }
+    SDL_FRect GetBounds() const;
+
     ECollisionLayer GetLayer() const { return layer; }
 
     void OnTriggerEnter(GameObject*);
     void OnCollisionEnter(CollisionResult);
     bool IsTrigger() const { return isTrigger; }
     bool IsCollisionEnable() const { return isCollidable; }
-    bool Intersects(const GameObject&, SDL_FRect&);
+    bool Intersects(const CollisionComponent&, SDL_FRect&);
 };
 

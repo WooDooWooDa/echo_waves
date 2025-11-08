@@ -10,6 +10,10 @@ struct vector2
         X = Y = 0;
     }
 
+    inline vector2(float x) {
+        X = Y = x;
+    }
+
     inline vector2(const float x, const float y)
     {
         X = x; Y = y;
@@ -21,6 +25,10 @@ struct vector2
 
     vector2 operator*(const vector2& b) {
         return vector2(X * b.X, Y * b.Y);
+    }
+    
+    vector2 operator/(float b) {
+        return vector2(X / b, Y / b);
     }
 
     float dot(const vector2& b) const {

@@ -5,17 +5,19 @@
 class Player : public GameObject
 {
 private:
-
 	float soundWaveTimer = 100.0;		//~1 sec?
 	float currentSoundWaveTimer = 0.0;
 
-	float distanceBetweenStep = LEVEL_TILE_SIZE;
+	float distanceBetweenStep = LEVEL_TILE_SIZE / 2;
 	float distanceMoved = 0.0;
 	bool isWalking = false;
 
 public:
 	Player() {
-		collision.SetLayer(ECollisionLayer::LPlayer);
+		name = "Player";
+		speed = 2.0;
+		size = LEVEL_TILE_SIZE / 4;
+		AddCollider(size)->SetLayer(ECollisionLayer::LPlayer);
 	}
 
 	void Init() override;
@@ -25,8 +27,10 @@ public:
 
 	void OnCollisionEnter(CollisionResult) override;
 
+	void TryInteract();
+
 private:
-	void LaunchSoundWave(int nbSoundP, float soundPointTTL);
+	void LaunchSoundWave(int nbSoundP, float soundPointTTL, float spd);
 	void StepSound();
 };
 

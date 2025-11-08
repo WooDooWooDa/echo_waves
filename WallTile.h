@@ -6,7 +6,7 @@ class WallTile : public GameObject
 public:
 	WallTile() {
 		size = LEVEL_TILE_SIZE;
-		collision.SetLayer(ECollisionLayer::LWall);
+		AddCollider(size)->SetLayer(ECollisionLayer::LWall);
 	}
 };
 

@@ -6,5 +6,6 @@ enum ECollisionLayer {
     LWall,
     LObject,
     LSoundParticle,
+    LInteraction,
     LCount
 };

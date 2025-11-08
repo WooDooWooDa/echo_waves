@@ -39,6 +39,8 @@ public:
 		CollisionMatrix[LSoundParticle][LWall] = true;
 		CollisionMatrix[LSoundParticle][LObject] = true;
 		CollisionMatrix[LSoundParticle][LPlayer] = false;
+
+		CollisionMatrix[LInteraction][LPlayer] = true;
 		isInit = true;
 	}
 

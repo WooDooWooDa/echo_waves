@@ -1,7 +1,7 @@
 #include "WaveGame.h"
 #include <SDL3/SDL_render.h>
 #include <SDL3/SDL_scancode.h>
-#include "LevelFileReader.h"
+#include "gameSettings.h"
 
 void WaveGame::InitGame()
 {
@@ -90,6 +90,16 @@ void WaveGame::HandleInputs(SDL_Event* event, SDL_Scancode key_code)
 			break;
 		case SDL_SCANCODE_SPACE:
 			player->TryLaunchSoundWave(36, 100);
+			break;
+		case SDL_SCANCODE_E:
+			player->TryInteract();
+			break;
+		case SDL_SCANCODE_V:
+			SETTINGS::SHOW_COLLIDER_MODE = (SETTINGS::SHOW_COLLIDER_MODE + 1) % 2;
+			break;
+		case SDL_SCANCODE_C:
+			SETTINGS::SHOW_COLLIDERS = !SETTINGS::SHOW_COLLIDERS;
+			break;
 		default:
 			break;
 		}

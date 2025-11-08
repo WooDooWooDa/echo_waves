@@ -4,6 +4,8 @@
 #include "vector.h"
 #include "gameSettings.h"
 #include "CollisionComponent.h"
+#include <vector>
+#include <memory>
 
 class GameObject
 {
@@ -11,17 +13,16 @@ protected:
 	vector2 position;
 	vector2 velocity;
 	float speed = 0.0;
-	float size = 0.0;
+	vector2 size = 0.0;
 	RGBColor color;
 
-	CollisionComponent collision;
+	std::vector<std::shared_ptr<CollisionComponent>> colliders;
 
 	bool isDestroyed = false;
 
 public:
-	GameObject() {
-		collision.SetOwner(this);
-	}
+	std::string name;
+	GameObject() = default;
 
 	virtual void Init();
 	virtual void Update(Uint64 delta);
@@ -43,7 +44,9 @@ public:
 	void BoundPositionToScreenSize();
 
 	//Collision
-	CollisionComponent& GetCollider() { return collision; }
+	CollisionComponent* AddCollider(vector2);
+	CollisionComponent* AddCollider(vector2, ECollisionLayer);
+	std::vector<std::shared_ptr<CollisionComponent>> GetColliders() { return colliders; }
 	virtual void OnTriggerEnter(GameObject* other) {
 		// custom behavior for triggers
 	}

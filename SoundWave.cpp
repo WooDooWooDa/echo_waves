@@ -17,7 +17,7 @@ void SoundWave::SpawnParticles()
 	{
 		auto dir = vector2(cosf(angle), sinf(angle));
 
-		auto newParticle = std::make_shared<SoundParticle>(particleTtl, position, dir);
+		auto newParticle = std::make_shared<SoundParticle>(particleTtl, position, dir, speed);
 		LevelManager::AddGameObjectToLevel(newParticle);
 
 		angle += angleInc;

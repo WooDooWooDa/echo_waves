@@ -1,50 +1,46 @@
 #pragma once
+#include "gameSettings.h"
+#include "SDL3/SDL.h"
 #include <vector>
 #include <string>
 #include <iostream>
 #include <fstream>
-#include "gameSettings.h"
-#include "GameObject.h"
-#include "SDL3/SDL.h"
-#include "WallTile.h"
+#include <unordered_map>
+#include <algorithm>
+
 using namespace std;
+
+enum LevelDataStep {
+	TILE,
+	DOORS,
+	KEYS,
+	LINKS,
+	END
+};
+
+static unordered_map<string, LevelDataStep> fileSteps = {
+	{"#tile", TILE},
+	{"#doors", DOORS},
+	{"#keys", KEYS},
+	{"#key_door_links", LINKS},
+	{"#end", END}
+};
 
 struct LevelData {
 	bool success;
 	vector<vector<char>> tiles;
+	vector<char> doors;
+	vector<char> keys;
+	unordered_map<char, char> keyToDoor;
+
+	bool IsTileADoor(char tile) {
+		return std::find(doors.begin(), doors.end(), tile) != doors.end();
+	}
+
+	bool IsTileAKey(char tile) {
+		return std::find(keys.begin(), keys.end(), tile) != keys.end();
+	}
 };
 
-static LevelData ReadLevelFileData(string filePath) {
-	LevelData levelData;
-
-	ifstream levelFile(filePath);
-	
-	if (!levelFile.is_open()) {
-		cerr << "Error opening level file : " << filePath << endl;
-		return levelData;
-	}
-
-	string line;
-	while (getline(levelFile, line)) {
-
-		if (line.length() < LEVEL_TILE_COUNT) {
-			cerr << "Invalid level file. Each line must be of length : " << LEVEL_TILE_COUNT << endl;
-			return levelData;
-		}
-
-		vector<char> tileLine;
-		for (char c : line) {
-			tileLine.push_back(c);
-		}
-		levelData.tiles.push_back(tileLine);
-	}
-
-	if (levelData.tiles.size() < LEVEL_TILE_COUNT) {
-		cerr << "Invalid level file. Each col must be of length : " << LEVEL_TILE_COUNT << endl;
-		return levelData;
-	}
-	//SDL_CloseIO(file);
-
-	levelData.success = true;
-	return levelData;
-}
+// This fonction is public to the .h file and from who includes it
+LevelData ReadLevelFileData(string filePath);

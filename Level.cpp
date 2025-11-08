@@ -1,6 +1,13 @@
 #include "Level.h"
 #include "LevelFileReader.h"
 #include "LevelManager.h"
+#include "Door.h"
+#include "Key.h"
+
+vector2 TileCenter(int j, int i) {
+	return vector2(j * LEVEL_TILE_SIZE + LEVEL_TILE_SIZE / 2,
+		i * LEVEL_TILE_SIZE + LEVEL_TILE_SIZE / 2);
+}
 
 vector<std::shared_ptr<GameObject>> Level::ConvertLevelTilesDataToGO(LevelData data)
 {
@@ -13,13 +20,23 @@ vector<std::shared_ptr<GameObject>> Level::ConvertLevelTilesDataToGO(LevelData d
 			// WallTile
 			if (c == 'W') {
 				auto newWall = make_shared<WallTile>();
-				newWall->MoveTo(j * LEVEL_TILE_SIZE + LEVEL_TILE_SIZE / 2,
-					i * LEVEL_TILE_SIZE + LEVEL_TILE_SIZE / 2);
+				newWall->MoveTo(TileCenter(j, i));
 				levelGOs.push_back(newWall);
 			}
 			if (c == 'P') {
-				playerSpawnPosition = vector2(j * LEVEL_TILE_SIZE + LEVEL_TILE_SIZE / 2,
-					i * LEVEL_TILE_SIZE + LEVEL_TILE_SIZE / 2);
+				playerSpawnPosition = TileCenter(j, i);
+			}
+			if (data.IsTileADoor(c)) {
+				bool isDoorHorizontal = std::isupper(c);
+				auto newDoor = make_shared<Door>(c, isDoorHorizontal);
+				newDoor->MoveTo(TileCenter(j, i));
+				levelGOs.push_back(newDoor);
+			}
+			if (data.IsTileAKey(c)) {
+				char keyUnlocks = data.keyToDoor[c];
+				auto newKey = make_shared<Key>(c, keyUnlocks);
+				newKey->MoveTo(TileCenter(j, i));
+				levelGOs.push_back(newKey);
 			}
 			j++;
 		}

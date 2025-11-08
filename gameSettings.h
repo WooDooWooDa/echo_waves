@@ -7,3 +7,9 @@
 
 #define LEVEL_TILE_COUNT			16
 #define LEVEL_TILE_SIZE				GAME_WINDOW_SIZE / LEVEL_TILE_COUNT
+
+class SETTINGS {
+public:
+	inline static bool SHOW_COLLIDERS = false;
+	inline static int SHOW_COLLIDER_MODE = 0;
+};

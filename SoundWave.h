@@ -12,15 +12,16 @@ private:
 
 	float particleTtl;
 	int nbParticles;
+	float speed;
 
 	void SpawnParticles();
 
 public:
-	SoundWave(int nbSoundParticle, float ttl = 100.0) : GameObject() {
+	SoundWave(int nbSoundParticle, float ttl = 100.0, float spd = 5) {
 		size = LEVEL_TILE_SIZE / 4;
 		nbParticles = nbSoundParticle;
 		particleTtl = ttl;
-		collision.isCollidable = false;
+		speed = spd;
 		waveAngleDist = std::uniform_int_distribution<int>(0, 90);
 	}
 

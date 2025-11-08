@@ -18,18 +18,14 @@ void WaveGame::InitGame()
 
 void WaveGame::Update(const Uint64 delta)
 {
-	//player->Update(delta);
+	collisionSystem.CheckCollision(levelManager->GetCurrentLevel());
 
 	if (levelManager->GetCurrentLevel() != nullptr)
 		levelManager->GetCurrentLevel()->Update(delta);
-
-	collisionSystem.CheckCollision(levelManager->GetCurrentLevel());
 }
 
 void WaveGame::Draw(SDL_Renderer* renderer) const
 {
-	//player->Draw(renderer);
-
 	if (levelManager->GetCurrentLevel() != nullptr)
 		levelManager->GetCurrentLevel()->Draw(renderer);
 }

@@ -48,10 +48,15 @@ public:
 	CollisionComponent* AddCollider(vector2, ECollisionLayer);
 	std::vector<std::shared_ptr<CollisionComponent>> GetColliders() { return colliders; }
 	virtual void OnTriggerEnter(GameObject* other) {
-		// custom behavior for triggers
+		// noop
 	}
+
+	virtual void OnTriggerExit(GameObject* other) {
+		// noop
+	}
+
 	virtual void OnCollisionEnter(CollisionResult res) {
-		// custom behavior for collisions
+		// noop
 	}
 
 	//Life Cycle

@@ -59,7 +59,7 @@ namespace {
 				return line;
 			}
 
-			data.keyToDoor.insert({ line.at(0), line.at(1) });
+			data.DoorNeedKey.insert({ line.at(0), line.at(1) });
 		}
 		return line;
 	}

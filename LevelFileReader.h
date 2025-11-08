@@ -22,7 +22,7 @@ static unordered_map<string, LevelDataStep> fileSteps = {
 	{"#tile", TILE},
 	{"#doors", DOORS},
 	{"#keys", KEYS},
-	{"#key_door_links", LINKS},
+	{"#door_key_links", LINKS},
 	{"#end", END}
 };
 
@@ -31,7 +31,7 @@ struct LevelData {
 	vector<vector<char>> tiles;
 	vector<char> doors;
 	vector<char> keys;
-	unordered_map<char, char> keyToDoor;
+	unordered_map<char, char> DoorNeedKey;
 
 	bool IsTileADoor(char tile) {
 		return std::find(doors.begin(), doors.end(), tile) != doors.end();

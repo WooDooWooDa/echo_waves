@@ -3,23 +3,36 @@
 
 void CollisionSystem::CheckCollision(Level* currentLevel)
 {
+    std::unordered_map<CollisionComponent*, std::unordered_set<GameObject*>> newOverlaps;
     auto objs = currentLevel->GetAllGameObjects();
+
+    //Test all obj colliders against all obj colliders
     for (auto& a : objs) {
+        if (a->IsDestroyed()) continue;
         auto colliders = a->GetColliders();
         for (auto& collider : colliders) {
             if (!collider->IsCollisionEnable()) continue;
 
             for (auto& b : objs) {
+                if (b->IsDestroyed()) continue;
                 if (a == b) continue;
 
                 auto bColliders = b->GetColliders();
                 for (auto& bCollider : bColliders) {
+                    if (!bCollider->IsCollisionEnable()) continue;
                     if (!ShouldCollide(collider->GetLayer(), bCollider->GetLayer())) continue;
 
                     SDL_FRect intersectResult;
-                    if (collider->IsTrigger() && collider->Intersects(*bCollider, intersectResult)) {
-                        a->OnTriggerEnter(b.get());
+                    // Handle trigger Enter
+                    if ((collider->IsTrigger() || bCollider->IsTrigger()) && collider->Intersects(*bCollider, intersectResult)) {
+                        newOverlaps[collider.get()].insert(b.get());
+                        
+                        if (!collider->IsOverlapping(b.get())) {
+                            a->OnTriggerEnter(b.get());
+                            collider->RegisterOverlap(b.get());
+                        }
                     }
+                    // Handle Collision Enter
                     else if (collider->Intersects(*bCollider, intersectResult)) {
                         CollisionResult collisionResult;
                         collisionResult.intersect = intersectResult;
@@ -29,6 +42,32 @@ void CollisionSystem::CheckCollision(Level* currentLevel)
                     }
                 }
             }
+        }
+    }
+
+    //Handle trigger exit
+    for (auto& obj : objs) {
+        auto colliders = obj->GetColliders();
+        for (auto& collider : colliders) {
+            std::unordered_set<GameObject*> currentFrameOverlaps;
+            
+            // Get currentFrameOverlap of this collider, if any
+            auto found = newOverlaps.find(collider.get());
+            if (found != newOverlaps.end()) {
+                currentFrameOverlaps = found->second;
+            }
+            // Get collider previous overlaps
+            auto& prevOverlaps = collider->GetCurrentOverlaps();
+            // Do nothing if sets are still equal, same overlaps
+            if (prevOverlaps == currentFrameOverlaps) continue;
+            // Call onExit on previous overlaps not overlapping this frame
+            for (auto* prev : prevOverlaps) {
+                if (currentFrameOverlaps.find(prev) == currentFrameOverlaps.end()) {
+                    collider->OnTriggerExit(prev);
+                }
+            }
+            //Update collider current overlaps (via ref)
+            collider->GetCurrentOverlaps() = currentFrameOverlaps;
         }
     }
 }

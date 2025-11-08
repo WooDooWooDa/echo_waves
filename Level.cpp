@@ -28,13 +28,13 @@ vector<std::shared_ptr<GameObject>> Level::ConvertLevelTilesDataToGO(LevelData d
 			}
 			if (data.IsTileADoor(c)) {
 				bool isDoorHorizontal = std::isupper(c);
-				auto newDoor = make_shared<Door>(c, isDoorHorizontal);
+				char unlockedBy = data.DoorNeedKey[c];
+				auto newDoor = make_shared<Door>(c, isDoorHorizontal, unlockedBy);
 				newDoor->MoveTo(TileCenter(j, i));
 				levelGOs.push_back(newDoor);
 			}
 			if (data.IsTileAKey(c)) {
-				char keyUnlocks = data.keyToDoor[c];
-				auto newKey = make_shared<Key>(c, keyUnlocks);
+				auto newKey = make_shared<Key>(c);
 				newKey->MoveTo(TileCenter(j, i));
 				levelGOs.push_back(newKey);
 			}

@@ -37,14 +37,34 @@ void Player::TryLaunchSoundWave(int nbSoundPoint, float soundPointTTL)
 	currentSoundWaveTimer = soundWaveTimer;
 }
 
-void Player::OnCollisionEnter(CollisionResult res)
+void Player::OnTriggerEnter(GameObject* other)
 {
-	
+	std::cout << "enter : " << other->name << std::endl;
+	IInteractable* interactable = dynamic_cast<IInteractable*>(other);
+	if (interactable != nullptr) {
+		currentInteractable = interactable;
+		currentInteractable->Hover();
+	}
 }
+
+void Player::OnTriggerExit(GameObject* other)
+{
+	if (other == nullptr) return;
+	std::cout << "exit : " << other->name << std::endl;
+	IInteractable* interactable = dynamic_cast<IInteractable*>(other);
+	if (interactable != nullptr && interactable == currentInteractable) {
+		currentInteractable->UnHover();
+		currentInteractable = nullptr;
+	}
+}
+
+void Player::OnCollisionEnter(CollisionResult res) { }
 
 void Player::TryInteract()
 {
-
+	if (currentInteractable != nullptr) {
+		currentInteractable->Interact(this);
+	}
 }
 
 void Player::LaunchSoundWave(int nbSoundP, float soundPointTTL, float speed)

@@ -21,7 +21,7 @@ B
 #keys
 1
 2
-#key_door_links
-1a
-2B
+#door_key_links
+A1
+B2
 #end

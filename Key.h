@@ -6,14 +6,13 @@ class Key : public GameObject, public IInteractable
 {
 private:
 	char keyId;
-	char unlocks;
 
 	CollisionComponent* collectCollider;
 
 public:
-	Key(char id, char unlocks) : GameObject() {
+	Key(char id) : GameObject() {
+		name = "Key";
 		keyId = id;
-		this->unlocks = unlocks;
 		size = LEVEL_TILE_SIZE / 4;
 		AddCollider(size)->SetLayer(ECollisionLayer::LWall);
 		collectCollider = AddCollider(vector2(LEVEL_TILE_SIZE), ECollisionLayer::LInteraction);
@@ -21,7 +20,9 @@ public:
 	}
 
 	void OnTriggerEnter(GameObject* other) override;
-	
-	void Interact() override;
+
+	void UnHover() override;
+	void Hover() override;
+	void Interact(GameObject*) override;
 };
 

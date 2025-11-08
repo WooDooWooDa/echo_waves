@@ -2,5 +2,7 @@
 
 class IInteractable {
 public:
-	virtual void Interact() = 0;
+	virtual void Hover() = 0;
+	virtual void UnHover() = 0;
+	virtual void Interact(GameObject*) = 0;
 };

@@ -6,6 +6,7 @@
 #include "Level.h"
 #include "LevelManager.h"
 #include "CollisionSystem.h"
+#include "SpriteManager.h"
 
 class WaveGame
 {

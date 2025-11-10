@@ -23,7 +23,7 @@ public:
 		name = "Player";
 		speed = 2.0;
 		size = LEVEL_TILE_SIZE / 4;
-		AddCollider(size)->SetLayer(ECollisionLayer::LPlayer);
+		AddCollider(size, ECollisionLayer::LPlayer);
 	}
 
 	void Init() override;

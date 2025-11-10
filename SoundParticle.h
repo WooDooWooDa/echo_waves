@@ -2,7 +2,6 @@
 #include "GameObject.h"
 #include <SDL3/SDL_stdinc.h>
 //#include <queue>
-#include "SoundLine.h"
 
 class SoundParticle : public GameObject
 {
@@ -18,6 +17,7 @@ private:
 
 public:
 	SoundParticle(float ttl, vector2 pos, vector2 dir, float spd) : GameObject() {
+		name = "SoundParticle";
 		size = LEVEL_TILE_SIZE / 10;
 		this->ttl = ttl;
 		currentTTL = ttl;
@@ -26,7 +26,7 @@ public:
 		maxSpeed = spd;
 		speed = maxSpeed;
 		color = COLOR_WHITE;
-		AddCollider(size)->SetLayer(ECollisionLayer::LSoundParticle);
+		AddCollider(size, ECollisionLayer::LSoundParticle);
 
 		//trailPoints.push(pos);
 	}

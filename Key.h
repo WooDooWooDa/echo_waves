@@ -1,8 +1,8 @@
 #pragma once
-#include "GameObject.h"
+#include "LitableGameObject.h"
 #include "IInteractable.h"
 
-class Key : public GameObject, public IInteractable
+class Key : public LitableGameObject, public IInteractable
 {
 private:
 	char keyId;
@@ -10,16 +10,16 @@ private:
 	CollisionComponent* collectCollider;
 
 public:
-	Key(char id) : GameObject() {
+	Key(char id) : LitableGameObject() {
 		name = "Key";
 		keyId = id;
 		size = LEVEL_TILE_SIZE / 4;
-		AddCollider(size)->SetLayer(ECollisionLayer::LWall);
+		AddCollider(size, ECollisionLayer::LWall);
 		collectCollider = AddCollider(vector2(LEVEL_TILE_SIZE), ECollisionLayer::LInteraction);
 		collectCollider->isTrigger = true;
 	}
 
-	void OnTriggerEnter(GameObject* other) override;
+	void Init() override;
 
 	void UnHover() override;
 	void Hover() override;

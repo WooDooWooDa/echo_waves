@@ -1,6 +1,5 @@
 #pragma once
 #include "gameSettings.h"
-#include "SDL3/SDL.h"
 #include <vector>
 #include <string>
 #include <iostream>

@@ -4,7 +4,11 @@
 #include <SDL3/SDL_blendmode.h>
 #include "WaveGame.h"
 #include "gameSettings.h"
+#ifdef __EMSCRIPTEN__
+#include <emscripten.h>
+#endif
 
+std::unique_ptr<SpriteManager> spriteManager;
 
 typedef struct
 {
@@ -104,6 +108,18 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char* argv[])
     SDL_SetRenderDrawBlendMode(as->renderer, SDL_BLENDMODE_BLEND);
 
     // INIT GAME
+    //Wait for file system to be loaded
+#ifdef __EMSCRIPTEN__
+    EM_ASM(
+        FS.syncfs(true, function(err) {
+        if (err) console.error("FS sync failed", err);
+    });
+    );
+#endif
+
+    spriteManager = make_unique<SpriteManager>();
+    spriteManager->LoadAllTextures(as->renderer);
+
     (&as->wave_ctx)->InitGame();
 
     as->last_step = SDL_GetTicks();

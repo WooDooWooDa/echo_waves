@@ -72,9 +72,6 @@
     <ClCompile Include="SoundParticle.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="SoundLine.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="LevelFileReader.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
@@ -86,6 +83,12 @@
     </ClCompile>
     <ClCompile Include="ICollectable.h">
       <Filter>Fichiers d%27en-tête\GameObjects\Interaction</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteManager.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="LitableGameObject.cpp">
+      <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -128,9 +131,6 @@
     <ClInclude Include="SoundParticle.h">
       <Filter>Fichiers d%27en-tête\GameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="SoundLine.h">
-      <Filter>Fichiers d%27en-tête\GameObjects</Filter>
-    </ClInclude>
     <ClInclude Include="math.h">
       <Filter>Fichiers d%27en-tête\Helper</Filter>
     </ClInclude>
@@ -143,18 +143,24 @@
     <ClInclude Include="IInteractable.h">
       <Filter>Fichiers d%27en-tête\GameObjects\Interaction</Filter>
     </ClInclude>
+    <ClInclude Include="SpriteManager.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="LitableGameObject.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="assets\level1.txt">
-      <Filter>Assets</Filter>
-    </Text>
-    <Text Include="assets\level2.txt">
-      <Filter>Assets</Filter>
-    </Text>
     <Text Include="assets\level1_16.txt">
       <Filter>Assets</Filter>
     </Text>
     <Text Include="assets\level2_16.txt">
+      <Filter>Assets</Filter>
+    </Text>
+    <Text Include="assets\level1_32.txt">
+      <Filter>Assets</Filter>
+    </Text>
+    <Text Include="assets\level2_32.txt">
       <Filter>Assets</Filter>
     </Text>
   </ItemGroup>

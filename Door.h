@@ -1,31 +1,33 @@
 #pragma once
-#include "GameObject.h"
+#include "LitableGameObject.h"
 #include "IInteractable.h"
 
-class Door : public GameObject, public IInteractable
+class Door : public LitableGameObject, public IInteractable
 {
 private:
 	char doorId;
 	char unlockedByKey;
 	bool isLocked = true;
 
+	SDL_Texture* openSpriteTexture;
+
 	CollisionComponent* unlockCollider;
 
 public:
-	Door(char id, bool isHorizontal, char key) : GameObject() {
+	Door(char id, bool isHorizontal, char key) : LitableGameObject() {
 		name = "Door";
 		doorId = id;
 		unlockedByKey = key;
-		size = isHorizontal ? 
-			vector2(LEVEL_TILE_SIZE, LEVEL_TILE_SIZE / 4) : 
-			vector2(LEVEL_TILE_SIZE / 4, LEVEL_TILE_SIZE);
-		AddCollider(size)->SetLayer(ECollisionLayer::LWall);
+		size = vector2(LEVEL_TILE_SIZE);
+		auto colliderSize = isHorizontal ? 
+			vector2(LEVEL_TILE_SIZE, LEVEL_TILE_SIZE / 2) : 
+			vector2(LEVEL_TILE_SIZE / 2, LEVEL_TILE_SIZE);
+		AddCollider(colliderSize, ECollisionLayer::LWall);
 		unlockCollider = AddCollider(vector2(LEVEL_TILE_SIZE), ECollisionLayer::LInteraction);
 		unlockCollider->isTrigger = true;
 	}
 
-	void OnTriggerEnter(GameObject* other) override;
-	void OnTriggerExit(GameObject* other) override;
+	void Init() override;
 
 	void UnHover() override;
 	void Hover() override;

@@ -1,6 +1,6 @@
 #pragma once
 
-#define DEBUG_MODE					true
+#define DEBUG_MODE					false
 
 #define TARGET_MS_PER_FRAME			30
 #define GAME_WINDOW_SIZE            768

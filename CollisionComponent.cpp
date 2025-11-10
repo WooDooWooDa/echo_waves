@@ -14,6 +14,11 @@ void CollisionComponent::OnTriggerEnter(GameObject* other)
 	owner->OnTriggerEnter(other);
 }
 
+void CollisionComponent::OnTriggerStay(GameObject* other)
+{
+	owner->OnTriggerStay(other);
+}
+
 void CollisionComponent::OnTriggerExit(GameObject* other)
 {
 	owner->OnTriggerExit(other);

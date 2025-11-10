@@ -2,6 +2,7 @@
 #include <iostream>
 #include "SoundWave.h"
 #include "LevelManager.h"
+#include "LitableGameObject.h"
 
 void Player::Init()
 {
@@ -39,7 +40,8 @@ void Player::TryLaunchSoundWave(int nbSoundPoint, float soundPointTTL)
 
 void Player::OnTriggerEnter(GameObject* other)
 {
-	std::cout << "enter : " << other->name << std::endl;
+	if (other == nullptr) return;
+
 	IInteractable* interactable = dynamic_cast<IInteractable*>(other);
 	if (interactable != nullptr) {
 		currentInteractable = interactable;
@@ -50,7 +52,7 @@ void Player::OnTriggerEnter(GameObject* other)
 void Player::OnTriggerExit(GameObject* other)
 {
 	if (other == nullptr) return;
-	std::cout << "exit : " << other->name << std::endl;
+
 	IInteractable* interactable = dynamic_cast<IInteractable*>(other);
 	if (interactable != nullptr && interactable == currentInteractable) {
 		currentInteractable->UnHover();
@@ -63,6 +65,9 @@ void Player::OnCollisionEnter(CollisionResult res) { }
 void Player::TryInteract()
 {
 	if (currentInteractable != nullptr) {
+		LitableGameObject* litable = dynamic_cast<LitableGameObject*>(currentInteractable);
+		if (litable && !litable->IsLitUp()) return;
+
 		currentInteractable->Interact(this);
 	}
 }
@@ -76,5 +81,5 @@ void Player::LaunchSoundWave(int nbSoundP, float soundPointTTL, float speed)
 
 void Player::StepSound()
 {
-	LaunchSoundWave(5, 10, 2.0);
+	LaunchSoundWave(5, 10, 1.0);
 }

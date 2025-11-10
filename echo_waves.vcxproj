@@ -29,11 +29,12 @@
     <ClCompile Include="LevelFileReader.cpp" />
     <ClCompile Include="LevelFileReader.h" />
     <ClCompile Include="LevelManager.cpp" />
+    <ClCompile Include="LitableGameObject.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="SoundLine.cpp" />
     <ClCompile Include="SoundParticle.cpp" />
     <ClCompile Include="SoundWave.cpp" />
+    <ClCompile Include="SpriteManager.cpp" />
     <ClCompile Include="vector.h" />
     <ClCompile Include="WallTile.cpp" />
     <ClCompile Include="WaveGame.cpp" />
@@ -50,19 +51,20 @@
     <ClInclude Include="Key.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="LevelManager.h" />
+    <ClInclude Include="LitableGameObject.h" />
     <ClInclude Include="math.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="SoundLine.h" />
     <ClInclude Include="SoundParticle.h" />
     <ClInclude Include="SoundWave.h" />
+    <ClInclude Include="SpriteManager.h" />
     <ClInclude Include="WallTile.h" />
     <ClInclude Include="WaveGame.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="assets\level1.txt" />
     <Text Include="assets\level1_16.txt" />
-    <Text Include="assets\level2.txt" />
+    <Text Include="assets\level1_32.txt" />
     <Text Include="assets\level2_16.txt" />
+    <Text Include="assets\level2_32.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
@@ -117,7 +119,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <PublicIncludeDirectories>C:\SDL\include;$(PublicIncludeDirectories)</PublicIncludeDirectories>
+    <PublicIncludeDirectories>C:\SDL3_image-3.2.4\include;C:\SDL\include;$(PublicIncludeDirectories)</PublicIncludeDirectories>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -153,8 +155,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\SDL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>C:\SDL3_image-3.2.4\include;C:\SDL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

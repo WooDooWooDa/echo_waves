@@ -39,13 +39,15 @@ void CollisionSystem::CheckCollision(Level* currentLevel)
                         collisionResult.other = b.get();
                         ResolveCollision(*a, collisionResult);
                         a->OnCollisionEnter(collisionResult);
+                        collisionResult.other = a.get();
+                        b->OnCollisionEnter(collisionResult);
                     }
                 }
             }
         }
     }
 
-    //Handle trigger exit
+    //Handle trigger exit & stay
     for (auto& obj : objs) {
         auto colliders = obj->GetColliders();
         for (auto& collider : colliders) {
@@ -58,12 +60,20 @@ void CollisionSystem::CheckCollision(Level* currentLevel)
             }
             // Get collider previous overlaps
             auto& prevOverlaps = collider->GetCurrentOverlaps();
-            // Do nothing if sets are still equal, same overlaps
-            if (prevOverlaps == currentFrameOverlaps) continue;
+            // Do nothing if sets are still equal, trigger stay on prevs
+            if (prevOverlaps == currentFrameOverlaps) {
+                for (auto* prev : prevOverlaps) {
+                    collider->OnTriggerStay(prev);
+                }
+                continue;
+            }
             // Call onExit on previous overlaps not overlapping this frame
             for (auto* prev : prevOverlaps) {
                 if (currentFrameOverlaps.find(prev) == currentFrameOverlaps.end()) {
                     collider->OnTriggerExit(prev);
+                }
+                else {
+                    collider->OnTriggerStay(prev);
                 }
             }
             //Update collider current overlaps (via ref)

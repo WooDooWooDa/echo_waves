@@ -1,5 +1,5 @@
 CXX=emcc
-CXXFLAGS=-I C:/SDL/include -s USE_SDL=3
+CXXFLAGS=-std=c++20 -I C:/SDL/include -s USE_SDL=3
 SRCS=$(wildcard *.cpp)
 OBJS=$(SRCS:.cpp=.o)
 TARGET=index.html

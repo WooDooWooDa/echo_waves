@@ -27,6 +27,7 @@ public:
 	virtual void Init();
 	virtual void Update(Uint64 delta);
 	virtual void Draw(SDL_Renderer* renderer) const;
+	void DrawCollider(SDL_Renderer* renderer) const;
 
 	vector2 GetPosition() const {
 		return position;
@@ -48,6 +49,10 @@ public:
 	CollisionComponent* AddCollider(vector2, ECollisionLayer);
 	std::vector<std::shared_ptr<CollisionComponent>> GetColliders() { return colliders; }
 	virtual void OnTriggerEnter(GameObject* other) {
+		// noop
+	}
+
+	virtual void OnTriggerStay(GameObject* other) {
 		// noop
 	}
 

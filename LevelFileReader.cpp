@@ -1,16 +1,22 @@
 #include "LevelFileReader.h"
 
+static inline std::string TrimLineEndings(const std::string& str) {
+	size_t end = str.find_last_not_of("\r\n");
+	return (end == std::string::npos) ? "" : str.substr(0, end + 1);
+}
+
 // anonymous namespace makes those fonction private to this cpp file
 namespace {
 	string ReadTiles(ifstream& levelFile, LevelData& data) {
 		string line;
 		while (getline(levelFile, line)) {
-			if (line._Starts_with("#")) {
+			line = TrimLineEndings(line);
+			if (line.starts_with("#")) {
 				return line;
 			}
 
 			if (line.length() != LEVEL_TILE_COUNT) {
-				cerr << "Invalid level file. Each line must be of length : " << LEVEL_TILE_COUNT << endl;
+				cout << "Invalid level file. Each line must be of length : " << LEVEL_TILE_COUNT << endl;
 				return line;
 			}
 
@@ -22,7 +28,7 @@ namespace {
 		}
 
 		if (data.tiles.size() != LEVEL_TILE_COUNT) {
-			cerr << "Invalid level file. Each col must be of length : " << LEVEL_TILE_COUNT << endl;
+			cout << "Invalid level file. Each col must be of length : " << LEVEL_TILE_COUNT << endl;
 			return line;
 		}
 		return line;
@@ -31,7 +37,8 @@ namespace {
 	string ReadDoors(ifstream& levelFile, LevelData& data) {
 		string line;
 		while (getline(levelFile, line)) {
-			if (line._Starts_with("#")) {
+			line = TrimLineEndings(line);
+			if (line.starts_with("#")) {
 				return line;
 			}
 
@@ -43,7 +50,8 @@ namespace {
 	string ReadKeys(ifstream& levelFile, LevelData& data) {
 		string line;
 		while (getline(levelFile, line)) {
-			if (line._Starts_with("#")) {
+			line = TrimLineEndings(line);
+			if (line.starts_with("#")) {
 				return line;
 			}
 
@@ -55,7 +63,8 @@ namespace {
 	string ReadLinks(ifstream& levelFile, LevelData& data) {
 		string line;
 		while (getline(levelFile, line)) {
-			if (line._Starts_with("#")) {
+			line = TrimLineEndings(line);
+			if (line.starts_with("#")) {
 				return line;
 			}
 
@@ -78,8 +87,9 @@ LevelData ReadLevelFileData(string filePath) {
 	bool continueReading = true;
 	string line;
 	getline(levelFile, line);
+	line = TrimLineEndings(line);
 	while (continueReading) {
-		if (line._Starts_with("#")) {
+		if (line.starts_with("#")) {
 			LevelDataStep step = fileSteps[line];
 			switch (step) {
 			case TILE:

@@ -39,10 +39,6 @@ void SoundParticle::Update(Uint64 delta)
 
 void SoundParticle::OnCollisionEnter(CollisionResult collision)
 {
-	//auto soundLine = std::make_shared<SoundLine>(collision.collisionNormal, currentTTL);
-	//soundLine->MoveTo(collision.hitPosition);
-	//LevelManager::AddGameObjectToLevel(soundLine);
-
 	currentTTL /= 2;
 	collision.collisionNormal.Normalize();
 	velocity = velocity - collision.collisionNormal * (2 * (velocity.dot(collision.collisionNormal)));

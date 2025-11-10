@@ -1,10 +1,14 @@
 #include "Door.h"
 #include <iostream>
 #include "Player.h"
+#include "SpriteManager.h"
+#include "SoundWave.h"
 
-void Door::OnTriggerEnter(GameObject* other) { }
-
-void Door::OnTriggerExit(GameObject* other) { }
+void Door::Init()
+{
+	spriteTexture = SpriteManager::GetTexture("close_door");
+	openSpriteTexture = SpriteManager::GetTexture("open_door");
+}
 
 void Door::UnHover()
 {
@@ -27,6 +31,12 @@ void Door::Interact(GameObject* other)
 
 void Door::Unlock()
 {
+	auto pickupWave = SoundWave(20, 50);
+	pickupWave.MoveTo(position);
+	pickupWave.Init();
+
 	isLocked = false;
-	Destroy();
+	spriteTexture = openSpriteTexture;
+	colliders.at(0)->isCollidable = false;
+	ResetLitUpTime();
 }

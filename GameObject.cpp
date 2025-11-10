@@ -24,6 +24,11 @@ void GameObject::Draw(SDL_Renderer* renderer) const
 		SDL_RenderFillRect(renderer, &drawRect);
 	}
 
+	DrawCollider(renderer);
+}
+
+void GameObject::DrawCollider(SDL_Renderer* renderer) const
+{
 	if (SETTINGS::SHOW_COLLIDERS) {
 		SDL_SetRenderDrawColor(renderer, 0, 0, 255, 155);
 		for (auto& collider : colliders) {

@@ -38,6 +38,7 @@ public:
     ECollisionLayer GetLayer() const { return layer; }
 
     void OnTriggerEnter(GameObject*);
+    void OnTriggerStay(GameObject*);
     void OnTriggerExit(GameObject*);
     void OnCollisionEnter(CollisionResult);
     bool IsTrigger() const { return isTrigger; }

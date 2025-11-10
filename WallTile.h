@@ -1,12 +1,14 @@
 #pragma once
-#include "GameObject.h"
+#include "LitableGameObject.h"
 
-class WallTile : public GameObject
+class WallTile : public LitableGameObject
 {
 public:
-	WallTile() {
+	WallTile() : LitableGameObject() {
 		size = LEVEL_TILE_SIZE;
-		AddCollider(size)->SetLayer(ECollisionLayer::LWall);
+		AddCollider(size, ECollisionLayer::LWall);
 	}
+
+	void Init() override;
 };
 

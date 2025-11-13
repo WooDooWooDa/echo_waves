@@ -32,6 +32,7 @@
     <ClCompile Include="LitableGameObject.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="SoundParticle.cpp" />
     <ClCompile Include="SoundWave.cpp" />
     <ClCompile Include="SpriteManager.cpp" />
@@ -54,6 +55,7 @@
     <ClInclude Include="LitableGameObject.h" />
     <ClInclude Include="math.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="SoundManager.h" />
     <ClInclude Include="SoundParticle.h" />
     <ClInclude Include="SoundWave.h" />
     <ClInclude Include="SpriteManager.h" />

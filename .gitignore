@@ -2,5 +2,5 @@
 /.vs
 /x64
 /web_build
-/dist/*
+/dist
 /Itch_Packages

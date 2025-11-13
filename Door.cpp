@@ -10,12 +10,24 @@ void Door::Init()
 	openSpriteTexture = SpriteManager::GetTexture("open_door");
 }
 
+void Door::Draw(SDL_Renderer* renderer) const
+{
+	LitableGameObject::Draw(renderer);
+
+	if (isHover && IsLitUp()) {
+		std::string text = isLocked ? "Door locked" : "Door open";
+		IInteractable::ShowInteractText(renderer, text, GetBounds(), color);
+	}
+}
+
 void Door::UnHover()
 {
+	isHover = false;
 }
 
 void Door::Hover()
 {
+	isHover = true;
 }
 
 void Door::Interact(GameObject* other)
@@ -27,6 +39,11 @@ void Door::Interact(GameObject* other)
 		player->GetKeys().erase(found);
 		Unlock();
 	}
+}
+
+bool Door::HasCorrectKey()
+{
+	return false;
 }
 
 void Door::Unlock()

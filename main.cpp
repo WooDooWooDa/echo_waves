@@ -1,14 +1,18 @@
 #define SDL_MAIN_USE_CALLBACKS 1 /* use the callbacks instead of main() */
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_main.h>
+#include <SDL3/SDL_audio.h>
 #include <SDL3/SDL_blendmode.h>
 #include "WaveGame.h"
 #include "gameSettings.h"
 #ifdef __EMSCRIPTEN__
 #include <emscripten.h>
 #endif
+#include "SpriteManager.h"
+#include "SoundManager.h"
 
 std::unique_ptr<SpriteManager> spriteManager;
+std::unique_ptr<SoundManager> soundManager;
 
 typedef struct
 {
@@ -89,7 +93,7 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char* argv[])
         }
     }
 
-    if (!SDL_Init(SDL_INIT_VIDEO | SDL_INIT_JOYSTICK)) {
+    if (!SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO)) {
         SDL_Log("Couldn't initialize SDL: %s", SDL_GetError());
         return SDL_APP_FAILURE;
     }
@@ -119,6 +123,9 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char* argv[])
 
     spriteManager = make_unique<SpriteManager>();
     spriteManager->LoadAllTextures(as->renderer);
+
+    soundManager = make_unique<SoundManager>();
+    soundManager->LoadAllSounds();
 
     (&as->wave_ctx)->InitGame();
 

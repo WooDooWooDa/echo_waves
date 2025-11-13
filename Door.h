@@ -8,6 +8,7 @@ private:
 	char doorId;
 	char unlockedByKey;
 	bool isLocked = true;
+	bool isHover = false;
 
 	SDL_Texture* openSpriteTexture;
 
@@ -28,11 +29,13 @@ public:
 	}
 
 	void Init() override;
+	void Draw(SDL_Renderer*) const override;
 
 	void UnHover() override;
 	void Hover() override;
 	void Interact(GameObject*) override;
 
+	bool HasCorrectKey();
 	void Unlock();
 };
 

@@ -1,10 +1,10 @@
 #pragma once
-#include "GameObject.h"
+#include "LitableGameObject.h"
 #include <random>
 #include "IInteractable.h"
 #include <set>
 
-class Player : public GameObject
+class Player : public LitableGameObject
 {
 private:
 	float soundWaveTimer = 100.0;		//~1 sec?
@@ -13,6 +13,8 @@ private:
 	float distanceBetweenStep = LEVEL_TILE_SIZE / 2;
 	float distanceMoved = 0.0;
 	bool isWalking = false;
+	std::uniform_int_distribution<> nb_steps = std::uniform_int_distribution<>(1, 3);
+	std::uniform_real_distribution<> step_volume = std::uniform_real_distribution<>(0.1, 0.25);
 
 	IInteractable* currentInteractable = nullptr;
 

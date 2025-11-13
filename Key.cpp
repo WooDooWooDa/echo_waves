@@ -3,6 +3,7 @@
 #include "SpriteManager.h"
 #include "SoundWave.h"
 #include "SoundManager.h"
+#include <format>
 
 void Key::Init()
 {
@@ -14,7 +15,7 @@ void Key::Draw(SDL_Renderer* renderer) const
 	LitableGameObject::Draw(renderer);
 
 	if (isHover && IsLitUp()) {
-		IInteractable::ShowInteractText(renderer, "[E] Pick up", GetBounds(), color);
+		IInteractable::ShowInteractText(renderer, std::format("[E] Key {}", keyId), GetBounds(), color);
 	}
 }
 

@@ -3,6 +3,8 @@
 #include "Player.h"
 #include "SpriteManager.h"
 #include "SoundWave.h"
+#include <format>
+
 
 void Door::Init()
 {
@@ -15,7 +17,7 @@ void Door::Draw(SDL_Renderer* renderer) const
 	LitableGameObject::Draw(renderer);
 
 	if (isHover && IsLitUp()) {
-		std::string text = isLocked ? "Door locked" : "Door open";
+		std::string text = isLocked ? std::format("Door {} locked", unlockedByKey) : "Door open";
 		IInteractable::ShowInteractText(renderer, text, GetBounds(), color);
 	}
 }
@@ -36,7 +38,7 @@ void Door::Interact(GameObject* other)
 	auto& playerKeys = player->GetKeys();
 	auto found = playerKeys.find(unlockedByKey);
 	if (isLocked && found != playerKeys.end()) {
-		player->GetKeys().erase(found);
+		playerKeys.erase(found);
 		Unlock();
 	}
 }

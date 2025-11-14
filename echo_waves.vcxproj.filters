@@ -31,6 +31,9 @@
     <Filter Include="Fichiers d%27en-tête\GameObjects\Interaction">
       <UniqueIdentifier>{a2fbd119-bcc5-48d5-8772-e210bf9a284c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers d%27en-tête\Managers">
+      <UniqueIdentifier>{ca60a846-c2ac-4fa5-a749-e9ad3a0f75b5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -93,12 +96,15 @@
     <ClCompile Include="SoundManager.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="Xylophone.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="XylophonePuzzle.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WaveGame.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="LevelManager.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="gameSettings.h">
@@ -146,13 +152,22 @@
     <ClInclude Include="IInteractable.h">
       <Filter>Fichiers d%27en-tête\GameObjects\Interaction</Filter>
     </ClInclude>
-    <ClInclude Include="SpriteManager.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="LitableGameObject.h">
-      <Filter>Fichiers d%27en-tête</Filter>
+      <Filter>Fichiers d%27en-tête\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Xylophone.h">
+      <Filter>Fichiers d%27en-tête\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelManager.h">
+      <Filter>Fichiers d%27en-tête\Managers</Filter>
     </ClInclude>
     <ClInclude Include="SoundManager.h">
+      <Filter>Fichiers d%27en-tête\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteManager.h">
+      <Filter>Fichiers d%27en-tête\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="XylophonePuzzle.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>

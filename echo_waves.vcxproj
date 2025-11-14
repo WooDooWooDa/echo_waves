@@ -39,6 +39,8 @@
     <ClCompile Include="vector.h" />
     <ClCompile Include="WallTile.cpp" />
     <ClCompile Include="WaveGame.cpp" />
+    <ClCompile Include="Xylophone.cpp" />
+    <ClCompile Include="XylophonePuzzle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionComponent.h" />
@@ -61,6 +63,8 @@
     <ClInclude Include="SpriteManager.h" />
     <ClInclude Include="WallTile.h" />
     <ClInclude Include="WaveGame.h" />
+    <ClInclude Include="Xylophone.h" />
+    <ClInclude Include="XylophonePuzzle.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="assets\level1_16.txt" />

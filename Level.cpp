@@ -3,10 +3,28 @@
 #include "LevelManager.h"
 #include "Door.h"
 #include "Key.h"
+#include "Xylophone.h"
+#include "XylophonePuzzle.h"
 
 vector2 TileCenter(int j, int i) {
 	return vector2(j * LEVEL_TILE_SIZE + LEVEL_TILE_SIZE / 2,
 		i * LEVEL_TILE_SIZE + LEVEL_TILE_SIZE / 2);
+}
+
+XylophonePuzzle* FindOrCreateXylophonePuzzle(vector<std::shared_ptr<GameObject>>& objs, LevelData& data) {
+	auto found = std::find_if(objs.begin(), objs.end(), [](const std::shared_ptr<GameObject>& obj) {
+		return dynamic_cast<XylophonePuzzle*>(obj.get()) != nullptr;
+		});
+	if (found != objs.end()) {
+		return dynamic_cast<XylophonePuzzle*>(found->get());
+	}
+
+	auto newPuzzle = make_shared<XylophonePuzzle>();
+	for (auto& pattern : data.xylophonePatterns) {
+		newPuzzle->AddPattern(pattern);
+	}
+	objs.push_back(newPuzzle);
+	return newPuzzle.get();
 }
 
 vector<std::shared_ptr<GameObject>> Level::ConvertLevelTilesDataToGO(LevelData data)
@@ -37,6 +55,19 @@ vector<std::shared_ptr<GameObject>> Level::ConvertLevelTilesDataToGO(LevelData d
 				auto newKey = make_shared<Key>(c);
 				newKey->MoveTo(TileCenter(j, i));
 				levelGOs.push_back(newKey);
+			}
+			if (data.IsTileAXylophone(c)) {
+				auto newXylo = make_shared<Xylophone>(c);
+				newXylo->MoveTo(TileCenter(j, i));
+				levelGOs.push_back(newXylo);
+
+				auto puzzle = FindOrCreateXylophonePuzzle(levelGOs, data);
+				if (isupper(c)) {
+					puzzle->RegisterPlayableXylophone(newXylo.get());
+				}
+				else {
+					puzzle->RegisterPatternXylophone(newXylo.get());
+				}
 			}
 			j++;
 		}

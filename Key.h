@@ -15,7 +15,7 @@ public:
 		name = "Key";
 		keyId = id;
 		size = LEVEL_TILE_SIZE / 4;
-		AddCollider(size, ECollisionLayer::LWall);
+		AddCollider(size, ECollisionLayer::LObject);
 		collectCollider = AddCollider(vector2(LEVEL_TILE_SIZE / 2), ECollisionLayer::LInteraction);
 		collectCollider->isTrigger = true;
 	}

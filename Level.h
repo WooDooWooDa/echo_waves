@@ -34,6 +34,7 @@ public:
 			levelGameObjects.erase(it);
 		}
 	}
-	vector<std::shared_ptr<GameObject>> GetAllGameObjects() { return levelGameObjects; }
+
+	const vector<std::shared_ptr<GameObject>>& GetAllGameObjects() const { return levelGameObjects; }
 };
 

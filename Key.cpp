@@ -15,7 +15,7 @@ void Key::Draw(SDL_Renderer* renderer) const
 	LitableGameObject::Draw(renderer);
 
 	if (isHover && IsLitUp()) {
-		IInteractable::ShowInteractText(renderer, std::format("[E] Key {}", keyId), GetBounds(), color);
+		IInteractable::ShowInteractText(renderer, std::format("Key {}", keyId), GetBounds(), color);
 	}
 }
 

@@ -14,6 +14,7 @@ enum LevelDataStep {
 	DOORS,
 	KEYS,
 	LINKS,
+	XYLO,
 	END
 };
 
@@ -22,6 +23,7 @@ static unordered_map<string, LevelDataStep> fileSteps = {
 	{"#doors", DOORS},
 	{"#keys", KEYS},
 	{"#door_key_links", LINKS},
+	{"#xylophones", XYLO},
 	{"#end", END}
 };
 
@@ -30,6 +32,8 @@ struct LevelData {
 	vector<vector<char>> tiles;
 	vector<char> doors;
 	vector<char> keys;
+	vector<char> xylophones;
+	vector<string> xylophonePatterns;
 	unordered_map<char, char> DoorNeedKey;
 
 	bool IsTileADoor(char tile) {
@@ -38,6 +42,10 @@ struct LevelData {
 
 	bool IsTileAKey(char tile) {
 		return std::find(keys.begin(), keys.end(), tile) != keys.end();
+	}
+
+	bool IsTileAXylophone(char tile) {
+		return std::find(xylophones.begin(), xylophones.end(), std::toupper(tile)) != xylophones.end();
 	}
 };
 

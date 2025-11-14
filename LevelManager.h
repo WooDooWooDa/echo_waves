@@ -29,5 +29,19 @@ public:
 			currentLevel->RemoveGameObject(obj);
 		}
 	}
+
+	template <typename T>
+	static vector<T*> GetObjectsOfType() {
+		vector<T*> objs;
+		auto& allObjects = currentLevel->GetAllGameObjects();
+		T* casted = nullptr;
+		for (auto& obj : allObjects) {
+			casted = dynamic_cast<T*>(obj.get());
+			if (casted) {
+				objs.push_back(casted);
+			}
+		}
+		return objs;
+	}
 };
 

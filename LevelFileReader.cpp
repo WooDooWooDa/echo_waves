@@ -72,6 +72,30 @@ namespace {
 		}
 		return line;
 	}
+
+	string ReadXylophones(ifstream& levelFile, LevelData& data) {
+		string line;
+		bool readingPatterns = false;
+		while (getline(levelFile, line)) {
+			line = TrimLineEndings(line);
+			if (line.starts_with("#")) {
+				return line;
+			}
+
+			if (line.starts_with("=patterns")){
+				readingPatterns = true;
+				continue;
+			}
+
+			if (readingPatterns) {
+				data.xylophonePatterns.push_back(line);
+				continue;
+			}
+
+			data.xylophones.push_back(line.at(0));
+		}
+		return line;
+	}
 }
 
 LevelData ReadLevelFileData(string filePath) {
@@ -103,6 +127,9 @@ LevelData ReadLevelFileData(string filePath) {
 				break;
 			case LINKS:
 				line = ReadLinks(levelFile, levelData);
+				break;
+			case XYLO:
+				line = ReadXylophones(levelFile, levelData);
 				break;
 			case END:
 			default:

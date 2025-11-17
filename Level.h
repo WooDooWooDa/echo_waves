@@ -11,10 +11,11 @@ class Level : public GameObject
 {
 private:
 	LevelManager* manager;
+	LevelData levelData;
 	vector<std::shared_ptr<GameObject>> levelGameObjects;
 	vector2 playerSpawnPosition;
 
-	vector<std::shared_ptr<GameObject>> ConvertLevelTilesDataToGO(LevelData);
+	vector<std::shared_ptr<GameObject>> CreateLevelObjsFromData(LevelData);
 
 public:
 	Level() = default;

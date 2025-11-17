@@ -19,15 +19,15 @@ XylophonePuzzle* FindOrCreateXylophonePuzzle(vector<std::shared_ptr<GameObject>>
 		return dynamic_cast<XylophonePuzzle*>(found->get());
 	}
 
-	auto newPuzzle = make_shared<XylophonePuzzle>();
-	for (auto& pattern : data.xylophonePatterns) {
+	auto newPuzzle = make_shared<XylophonePuzzle>(data.xylophonePuzzleData.doorUnlocked);
+	for (auto& pattern : data.xylophonePuzzleData.xylophonePatterns) {
 		newPuzzle->AddPattern(pattern);
 	}
 	objs.push_back(newPuzzle);
 	return newPuzzle.get();
 }
 
-vector<std::shared_ptr<GameObject>> Level::ConvertLevelTilesDataToGO(LevelData data)
+vector<std::shared_ptr<GameObject>> Level::CreateLevelObjsFromData(LevelData data)
 {
 	vector<std::shared_ptr<GameObject>> levelGOs;
 	int i = 0;
@@ -56,8 +56,9 @@ vector<std::shared_ptr<GameObject>> Level::ConvertLevelTilesDataToGO(LevelData d
 				newKey->MoveTo(TileCenter(j, i));
 				levelGOs.push_back(newKey);
 			}
-			if (data.IsTileAXylophone(c)) {
-				auto newXylo = make_shared<Xylophone>(c);
+			int note;
+			if (data.IsTileAXylophone(c, note)) {
+				auto newXylo = make_shared<Xylophone>(c, note);
 				newXylo->MoveTo(TileCenter(j, i));
 				levelGOs.push_back(newXylo);
 
@@ -66,7 +67,7 @@ vector<std::shared_ptr<GameObject>> Level::ConvertLevelTilesDataToGO(LevelData d
 					puzzle->RegisterPlayableXylophone(newXylo.get());
 				}
 				else {
-					puzzle->RegisterPatternXylophone(newXylo.get());
+					puzzle->RegisterPatternXylophone(std::toupper(c), newXylo.get());
 				}
 			}
 			j++;
@@ -79,11 +80,14 @@ vector<std::shared_ptr<GameObject>> Level::ConvertLevelTilesDataToGO(LevelData d
 void Level::SetData(LevelManager* manager, LevelData data)
 {
 	this->manager = manager;
-	auto GOs = ConvertLevelTilesDataToGO(data);
-	levelGameObjects = GOs;
+	this->levelData = data;
 }
 
 void Level::Init() {
+	levelGameObjects.clear();
+
+	levelGameObjects = CreateLevelObjsFromData(levelData);
+
 	for (auto& obj : levelGameObjects) {
 		obj->Init();
 	}

@@ -7,15 +7,17 @@ class Xylophone : public LitableGameObject, public IInteractable
 {
 private:
 	char xyloId;
+	int soundNumber;
 	bool isHover = false;
 
 public:
 	std::function<void(char)> OnPlayDelegate;
 
-	Xylophone(char id) : LitableGameObject() {
+	Xylophone(char id, int soundNb) : LitableGameObject() {
 		name = "Xylophone";
 		xyloId = id;
-		size = vector2(LEVEL_TILE_SIZE / 2);
+		soundNumber = soundNb;
+		size = vector2(LEVEL_TILE_SIZE / 1.5);
 
 		litUpTime = 200;
 

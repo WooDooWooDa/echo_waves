@@ -22,6 +22,7 @@ protected:
 
 public:
 	std::string name;
+	bool shouldCache = true;
 	GameObject() = default;
 
 	virtual void Init();

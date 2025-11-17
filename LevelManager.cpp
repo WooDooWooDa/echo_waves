@@ -41,6 +41,8 @@ void LevelManager::SetCurrentLevel(int levelNumber)
 		return;
 	}
 
+	InvalidateCache();
+
 	currentLevel = GetLevel(levelNumber);
 	currentLevel->Init();
 }

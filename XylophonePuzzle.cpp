@@ -6,25 +6,31 @@
 void XylophonePuzzle::Update(Uint64 delta)
 {
 	if (isPlaying) {
-		if (currentIdx > patterns[currentPattern].length()) {
+		if (currentNotePlayedIdx >= patterns[currentPatternIdx].length()) {
 			isPlaying = false;
 			return;
 		}
 
 		currentTimeBetweenPlay -= delta;
 		if (currentTimeBetweenPlay <= 0) {
-			auto x = patterns[currentPattern][currentIdx];
-			std::cout << "playing" << x << std::endl;
+			auto x = patterns[currentPatternIdx][currentNotePlayedIdx];
+			auto patternXylo = patternXylophones[x];
+			if (patternXylo == nullptr) {
+				isPlaying = false;
+				std::cout << "No pattern xylophone for this note : " << std::toupper(x) << std::endl;
+				return;
+			}
+			patternXylo->Play();
 
-			currentIdx++;
+			currentNotePlayedIdx++;
 			currentTimeBetweenPlay = timeBetweenPlay;
 		}
 	}
 }
 
-void XylophonePuzzle::RegisterPatternXylophone(Xylophone* newXylo)
+void XylophonePuzzle::RegisterPatternXylophone(char id, Xylophone* newXylo)
 {
-	patternXylophones.push_back(newXylo);
+	patternXylophones.insert({ id, newXylo });
 }
 
 void XylophonePuzzle::RegisterPlayableXylophone(Xylophone* newXylo)
@@ -44,15 +50,60 @@ void XylophonePuzzle::AddPattern(std::string const nextPattern)
 	patterns.push_back(nextPattern);
 }
 
-void XylophonePuzzle::PlayCurrentPattern()
+void XylophonePuzzle::StartCurrentPattern()
 {
 	isPlaying = true;
 	currentTimeBetweenPlay = timeBetweenPlay;
-	currentIdx = 0;
+	currentNotePlayedIdx = 0;
+}
+
+void XylophonePuzzle::VerifyInputPattern()
+{
+	auto& pattern = patterns[currentPatternIdx];
+
+	for (size_t i = 0; i < inputPattern.length(); i++)
+	{
+		if (inputPattern[i] != pattern[i]) {
+			inputPattern = "";
+			StartCurrentPattern();
+			return;
+		}
+	}
+
+	if (inputPattern != pattern) return;
+
+	CorrectPattern();
+}
+
+void XylophonePuzzle::CorrectPattern()
+{
+	inputPattern = "";
+	currentPatternIdx++;
+	if (currentPatternIdx < patterns.size()) {
+		StartCurrentPattern();
+		return;
+	}
+
+	solved = true;
+	auto doors = LevelManager::GetObjectsOfType<Door>();
+	for (auto& door : doors) {
+		if (door->doorId == unlockedDoor) {
+			door->Unlock();
+			break;
+		}
+	}
 }
 
 void XylophonePuzzle::OnXyloPlayed(char xyloId)
 {
-	std::cout << xyloId << " played!" << std::endl;
-	auto doors = LevelManager::GetObjectsOfType<Door>();
+	if (solved || isPlaying) return;
+
+	if (!hasBeenPlayedOnce) {
+		StartCurrentPattern();
+		hasBeenPlayedOnce = true;
+		return;
+	}
+
+	inputPattern.push_back(xyloId);
+	VerifyInputPattern();
 }

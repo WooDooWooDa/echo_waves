@@ -5,7 +5,6 @@
 class Door : public LitableGameObject, public IInteractable
 {
 private:
-	char doorId;
 	char unlockedByKey;
 	bool isLocked = true;
 	bool isHover = false;
@@ -15,6 +14,8 @@ private:
 	CollisionComponent* unlockCollider;
 
 public:
+	char doorId;
+
 	Door(char id, bool isHorizontal, char key) : LitableGameObject() {
 		name = "Door";
 		doorId = id;

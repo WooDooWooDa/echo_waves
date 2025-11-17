@@ -5,27 +5,35 @@
 class XylophonePuzzle : public GameObject
 {
 private:
+	bool solved = false;
 	bool isPlaying = false;
-	float timeBetweenPlay = 50.0;
+	bool hasBeenPlayedOnce = false;
+	float timeBetweenPlay = 25.0;
 	float currentTimeBetweenPlay = 0.0;
 
-	int currentPattern = 0;
-	int currentIdx = 0;
+	int currentPatternIdx = 0;
+	int currentNotePlayedIdx = 0;
 	std::vector<std::string> patterns;
-	std::vector<Xylophone*> patternXylophones;
+	std::unordered_map<char, Xylophone*> patternXylophones;
 
+	std::string inputPattern;
 	std::vector<Xylophone*> xylophones;
 
+	char unlockedDoor;
 public:
-	XylophonePuzzle() = default;
+	XylophonePuzzle(char unlockedDoorId) : GameObject() {
+		unlockedDoor = unlockedDoorId;
+	}
 
 	void Update(Uint64) override;
 
-	void RegisterPatternXylophone(Xylophone*);
-	void RegisterXylophone(Xylophone*);
+	void RegisterPatternXylophone(char, Xylophone*);
+	void RegisterPlayableXylophone(Xylophone*);
 	void AddPattern(std::string const);
 
-	void PlayCurrentPattern();
+	void StartCurrentPattern();
+	void VerifyInputPattern();
+	void CorrectPattern();
 
 	void OnXyloPlayed(char);
 };

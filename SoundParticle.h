@@ -14,6 +14,7 @@ public:
 	GameObject* emitter;
 
 	SoundParticle(float ttl, vector2 pos, vector2 dir, float spd) : GameObject() {
+		shouldCache = false;
 		name = "SoundParticle";
 		size = LEVEL_TILE_SIZE / 10;
 		this->ttl = ttl;

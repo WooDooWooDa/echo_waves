@@ -49,6 +49,8 @@ void Player::OnTriggerEnter(GameObject* other)
 
 	IInteractable* interactable = dynamic_cast<IInteractable*>(other);
 	if (interactable != nullptr) {
+		if (currentInteractable != nullptr)
+			currentInteractable->UnHover();
 		currentInteractable = interactable;
 		currentInteractable->Hover();
 	}

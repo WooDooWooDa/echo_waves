@@ -27,13 +27,18 @@ static unordered_map<string, LevelDataStep> fileSteps = {
 	{"#end", END}
 };
 
+struct XylophonePuzzleData {
+	vector<pair<char, int>> xylophones;
+	vector<string> xylophonePatterns;
+	char doorUnlocked;
+};
+
 struct LevelData {
 	bool success;
 	vector<vector<char>> tiles;
 	vector<char> doors;
 	vector<char> keys;
-	vector<char> xylophones;
-	vector<string> xylophonePatterns;
+	XylophonePuzzleData xylophonePuzzleData;
 	unordered_map<char, char> DoorNeedKey;
 
 	bool IsTileADoor(char tile) {
@@ -44,8 +49,14 @@ struct LevelData {
 		return std::find(keys.begin(), keys.end(), tile) != keys.end();
 	}
 
-	bool IsTileAXylophone(char tile) {
-		return std::find(xylophones.begin(), xylophones.end(), std::toupper(tile)) != xylophones.end();
+	bool IsTileAXylophone(char tile, int& note) {
+		for (auto& xyloPair : xylophonePuzzleData.xylophones) {
+			if (xyloPair.first == toupper(tile)) {
+				note = xyloPair.second;
+				return true;
+			}
+		}
+		return false;
 	}
 };
 

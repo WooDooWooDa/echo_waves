@@ -2,6 +2,7 @@
 #include "SpriteManager.h"
 #include "SoundManager.h"
 #include "SoundWave.h"
+#include <format>
 
 void Xylophone::Init()
 {
@@ -30,17 +31,17 @@ void Xylophone::Hover()
 void Xylophone::Interact(GameObject* other)
 {
 	Play();
-	ResetLitUpTime();
 }
 
 void Xylophone::Play()
 {
-	//SoundManager::PlaySound("xylophone_1");
+	SoundManager::PlaySound(std::format("xylophone_{}", std::to_string(soundNumber)), 0.5);
 
-	auto playWave = SoundWave(5, 20, 5);
+	auto playWave = SoundWave(10, 25);
 	playWave.emitter = this;
 	playWave.MoveTo(position);
 	playWave.Init();
 
-	OnPlayDelegate(xyloId);
+	if (OnPlayDelegate) OnPlayDelegate(xyloId);
+	ResetLitUpTime();
 }

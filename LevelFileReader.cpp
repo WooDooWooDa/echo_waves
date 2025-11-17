@@ -82,17 +82,23 @@ namespace {
 				return line;
 			}
 
+			if (line.starts_with("=unlocks")) {
+				getline(levelFile, line);
+				data.xylophonePuzzleData.doorUnlocked = line.at(0);
+				continue;
+			}
+
 			if (line.starts_with("=patterns")){
 				readingPatterns = true;
 				continue;
 			}
 
 			if (readingPatterns) {
-				data.xylophonePatterns.push_back(line);
+				data.xylophonePuzzleData.xylophonePatterns.push_back(line);
 				continue;
 			}
 
-			data.xylophones.push_back(line.at(0));
+			data.xylophonePuzzleData.xylophones.push_back({ line.at(0), line.at(1) - '0'});
 		}
 		return line;
 	}

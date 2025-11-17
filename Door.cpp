@@ -17,7 +17,7 @@ void Door::Draw(SDL_Renderer* renderer) const
 	LitableGameObject::Draw(renderer);
 
 	if (isHover && IsLitUp()) {
-		std::string text = isLocked ? std::format("Door {} locked", unlockedByKey) : "Door open";
+		std::string text = isLocked ? std::format("Door {} locked", doorId) : "Door open";
 		IInteractable::ShowInteractText(renderer, text, GetBounds(), color);
 	}
 }

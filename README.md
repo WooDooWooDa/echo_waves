@@ -1,7 +1,12 @@
 # Echo Waves
 Use echolocalisation waves to navigate throught the levels and find your way out.
 
-[View on portfolio](https://grateful-quark-516.notion.site/Echo-Waves-2a02e665cdfe80dd9368f24ce9d714ab)
+## Attributions
+All sprites are from [game-icons.net](https://game-icons.net/)
+
+All sounds are from [Pixabay](https://pixabay.com/sound-effects/)
+
+[View more details in my portfolio](https://grateful-quark-516.notion.site/Echo-Waves-2a02e665cdfe80dd9368f24ce9d714ab)
 
 ## HOW TO BUILD FOR WEB
 1. run "B:\emscripten\emsdk\emcmdprompt.bat" in a POWERSHELL

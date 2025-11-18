@@ -31,6 +31,8 @@
     <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="LitableGameObject.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Piano.cpp" />
+    <ClCompile Include="PianoPuzzle.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="SoundParticle.cpp" />
@@ -56,6 +58,8 @@
     <ClInclude Include="LevelManager.h" />
     <ClInclude Include="LitableGameObject.h" />
     <ClInclude Include="math.h" />
+    <ClInclude Include="Piano.h" />
+    <ClInclude Include="PianoPuzzle.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="SoundParticle.h" />

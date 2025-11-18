@@ -27,16 +27,21 @@ public:
 
 	void InitCollisionMatrix() {
 		CollisionMatrix[LPlayer][LWall] = true;
+		CollisionMatrix[LPlayer][LBrokenWall] = true;
 		CollisionMatrix[LPlayer][LObject] = true;
 
 		CollisionMatrix[LWall][LPlayer] = false;
 		CollisionMatrix[LWall][LWall] = false;
+		CollisionMatrix[LBrokenWall][LPlayer] = false;
+		CollisionMatrix[LBrokenWall][LBrokenWall] = false;
 
 		CollisionMatrix[LObject][LPlayer] = true;
 		CollisionMatrix[LObject][LWall] = true;
 		CollisionMatrix[LObject][LObject] = false;
 
+		CollisionMatrix[LSoundParticle][LSoundParticle] = false;
 		CollisionMatrix[LSoundParticle][LWall] = true;
+		CollisionMatrix[LSoundParticle][LBrokenWall] = false;
 		CollisionMatrix[LSoundParticle][LObject] = true;
 		CollisionMatrix[LSoundParticle][LPlayer] = false;
 

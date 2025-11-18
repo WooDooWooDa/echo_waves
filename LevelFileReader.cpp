@@ -102,6 +102,26 @@ namespace {
 		}
 		return line;
 	}
+
+	string ReadPianos(ifstream& levelFile, LevelData& data) {
+		string line;
+		bool readingPatterns = false;
+		while (getline(levelFile, line)) {
+			line = TrimLineEndings(line);
+			if (line.starts_with("#")) {
+				return line;
+			}
+
+			if (line.starts_with("=unlocks")) {
+				getline(levelFile, line);
+				data.pianoPuzzleData.doorUnlocked = line.at(0);
+				continue;
+			}
+
+			data.pianoPuzzleData.pianos.push_back({ line.at(0), line.at(1) - '0' });
+		}
+		return line;
+	}
 }
 
 LevelData ReadLevelFileData(string filePath) {
@@ -136,6 +156,9 @@ LevelData ReadLevelFileData(string filePath) {
 				break;
 			case XYLO:
 				line = ReadXylophones(levelFile, levelData);
+				break;
+			case PIANO:
+				line = ReadPianos(levelFile, levelData);
 				break;
 			case END:
 			default:

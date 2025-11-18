@@ -62,7 +62,13 @@ void SpriteManager::LoadAllTextures(SDL_Renderer* renderer)
     LoadTexture(renderer, "open_door");
     LoadTexture(renderer, "key");
     LoadTexture(renderer, "wall");
+    LoadTexture(renderer, "broken_wall");
     LoadTexture(renderer, "xylophone");
+    LoadTexture(renderer, "piano_0");
+    LoadTexture(renderer, "piano_1");
+    LoadTexture(renderer, "piano_2");
+    LoadTexture(renderer, "piano_3");
+    LoadTexture(renderer, "piano_4");
 
     isInit = true;
 }

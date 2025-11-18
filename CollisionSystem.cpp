@@ -20,20 +20,28 @@ void CollisionSystem::CheckCollision(Level* currentLevel)
                 auto bColliders = b->GetColliders();
                 for (auto& bCollider : bColliders) {
                     if (!bCollider->IsCollisionEnable()) continue;
-                    if (!ShouldCollide(collider->GetLayer(), bCollider->GetLayer())) continue;
-
+                    
                     SDL_FRect intersectResult;
                     // Handle trigger Enter
                     if ((collider->IsTrigger() || bCollider->IsTrigger()) && collider->Intersects(*bCollider, intersectResult)) {
                         newOverlaps[collider.get()].insert(b.get());
-                        
+                        newOverlaps[bCollider.get()].insert(a.get());
+
                         if (!collider->IsOverlapping(b.get())) {
                             a->OnTriggerEnter(b.get());
                             collider->RegisterOverlap(b.get());
+                        } else if (bCollider->IsOverlapping(a.get())) {
+                            b->OnTriggerEnter(a.get());
+                            bCollider->RegisterOverlap(a.get());
                         }
+
+                        continue;
                     }
+
+                    if (!ShouldCollide(collider->GetLayer(), bCollider->GetLayer())) continue;
+
                     // Handle Collision Enter
-                    else if (collider->Intersects(*bCollider, intersectResult)) {
+                    if (collider->Intersects(*bCollider, intersectResult)) {
                         CollisionResult collisionResult;
                         collisionResult.intersect = intersectResult;
                         collisionResult.other = b.get();

@@ -5,6 +5,8 @@
 #include "Key.h"
 #include "Xylophone.h"
 #include "XylophonePuzzle.h"
+#include "Piano.h"
+#include "PianoPuzzle.h"
 
 vector2 TileCenter(int j, int i) {
 	return vector2(j * LEVEL_TILE_SIZE + LEVEL_TILE_SIZE / 2,
@@ -27,6 +29,19 @@ XylophonePuzzle* FindOrCreateXylophonePuzzle(vector<std::shared_ptr<GameObject>>
 	return newPuzzle.get();
 }
 
+PianoPuzzle* FindOrCreatePianoPuzzle(vector<std::shared_ptr<GameObject>>& objs, LevelData& data) {
+	auto found = std::find_if(objs.begin(), objs.end(), [](const std::shared_ptr<GameObject>& obj) {
+		return dynamic_cast<PianoPuzzle*>(obj.get()) != nullptr;
+		});
+	if (found != objs.end()) {
+		return dynamic_cast<PianoPuzzle*>(found->get());
+	}
+
+	auto newPuzzle = make_shared<PianoPuzzle>(data.pianoPuzzleData.doorUnlocked);
+	objs.push_back(newPuzzle);
+	return newPuzzle.get();
+}
+
 vector<std::shared_ptr<GameObject>> Level::CreateLevelObjsFromData(LevelData data)
 {
 	vector<std::shared_ptr<GameObject>> levelGOs;
@@ -36,8 +51,8 @@ vector<std::shared_ptr<GameObject>> Level::CreateLevelObjsFromData(LevelData dat
 		j = 0;
 		for (char c : line) {
 			// WallTile
-			if (c == 'W') {
-				auto newWall = make_shared<WallTile>();
+			if (c == 'W' || c == 'w') {
+				auto newWall = make_shared<WallTile>(!std::isupper(c));
 				newWall->MoveTo(TileCenter(j, i));
 				levelGOs.push_back(newWall);
 			}
@@ -68,6 +83,16 @@ vector<std::shared_ptr<GameObject>> Level::CreateLevelObjsFromData(LevelData dat
 				}
 				else {
 					puzzle->RegisterPatternXylophone(std::toupper(c), newXylo.get());
+				}
+			}
+			if (data.IsTileAPiano(c, note)) {
+				auto newPiano = make_shared<Piano>(c, isupper(c) ? 0 : note, note);
+				newPiano->MoveTo(TileCenter(j, i));
+				levelGOs.push_back(newPiano);
+
+				if (isupper(c)) {
+					auto puzzle = FindOrCreatePianoPuzzle(levelGOs, data);
+					puzzle->RegisterPlayablePiano(newPiano.get());
 				}
 			}
 			j++;

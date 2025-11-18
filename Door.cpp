@@ -8,8 +8,9 @@
 
 void Door::Init()
 {
-	spriteTexture = SpriteManager::GetTexture("close_door");
+	closeSpriteTexture = SpriteManager::GetTexture("close_door");
 	openSpriteTexture = SpriteManager::GetTexture("open_door");
+	spriteTexture = closeSpriteTexture;
 }
 
 void Door::Draw(SDL_Renderer* renderer) const
@@ -17,7 +18,7 @@ void Door::Draw(SDL_Renderer* renderer) const
 	LitableGameObject::Draw(renderer);
 
 	if (isHover && IsLitUp()) {
-		std::string text = isLocked ? std::format("Door {} locked", doorId) : "Door open";
+		std::string text = isLocked ? "Door locked" : "Door open";
 		IInteractable::ShowInteractText(renderer, text, GetBounds(), color);
 	}
 }
@@ -50,12 +51,20 @@ bool Door::HasCorrectKey()
 
 void Door::Unlock()
 {
-	auto pickupWave = SoundWave(20, 50);
+	auto pickupWave = SoundWave(20, 25);
 	pickupWave.MoveTo(position);
 	pickupWave.Init();
 
 	isLocked = false;
 	spriteTexture = openSpriteTexture;
 	colliders.at(0)->isCollidable = false;
+	ResetLitUpTime();
+}
+
+void Door::Lock()
+{
+	isLocked = true;
+	spriteTexture = closeSpriteTexture;
+	colliders.at(0)->isCollidable = true;
 	ResetLitUpTime();
 }

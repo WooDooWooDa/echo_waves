@@ -16,6 +16,7 @@ enum LevelDataStep {
 	LINKS,
 	XYLO,
 	PIANO,
+	GONGS,
 	END
 };
 
@@ -26,6 +27,7 @@ static unordered_map<string, LevelDataStep> fileSteps = {
 	{"#door_key_links", LINKS},
 	{"#xylophones", XYLO},
 	{"#pianos", PIANO},
+	{"#gongs", 	GONGS},
 	{"#end", END}
 };
 
@@ -48,6 +50,7 @@ struct LevelData {
 	vector<char> keys;
 	XylophonePuzzleData xylophonePuzzleData;
 	PianoPuzzleData pianoPuzzleData;
+	vector<pair<char, char>> gongs;
 	unordered_map<char, char> DoorNeedKey;
 
 	bool IsTileADoor(char tile) {
@@ -72,6 +75,16 @@ struct LevelData {
 		for (auto& pianoPair : pianoPuzzleData.pianos) {
 			if (pianoPair.first == toupper(tile)) {
 				solutionNote = pianoPair.second;
+				return true;
+			}
+		}
+		return false;
+	}
+
+	bool IsTileAGong(char tile, char& door) {
+		for (auto& gong : gongs) {
+			if (gong.first == tile) {
+				door = gong.second;
 				return true;
 			}
 		}

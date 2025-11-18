@@ -11,7 +11,7 @@ private:
 	float maxSpeed = 5;
 
 public:
-	GameObject* emitter;
+	GameObject* emitter = nullptr;
 
 	SoundParticle(float ttl, vector2 pos, vector2 dir, float spd) : GameObject() {
 		shouldCache = false;

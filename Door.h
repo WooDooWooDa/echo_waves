@@ -6,15 +6,16 @@ class Door : public LitableGameObject, public IInteractable
 {
 private:
 	char unlockedByKey;
-	bool isLocked = true;
 	bool isHover = false;
 
-	SDL_Texture* openSpriteTexture;
+	SDL_Texture* closeSpriteTexture = nullptr;
+	SDL_Texture* openSpriteTexture = nullptr;
 
 	CollisionComponent* unlockCollider;
 
 public:
 	char doorId;
+	bool isLocked = true;
 
 	Door(char id, bool isHorizontal, char key) : LitableGameObject() {
 		name = "Door";
@@ -38,5 +39,6 @@ public:
 
 	bool HasCorrectKey();
 	void Unlock();
+	void Lock();
 };
 

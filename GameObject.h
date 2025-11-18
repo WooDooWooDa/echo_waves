@@ -48,7 +48,7 @@ public:
 	//Collision
 	CollisionComponent* AddCollider(vector2);
 	CollisionComponent* AddCollider(vector2, ECollisionLayer);
-	std::vector<std::shared_ptr<CollisionComponent>> GetColliders() { return colliders; }
+	const std::vector<std::shared_ptr<CollisionComponent>> GetColliders() const { return colliders; }
 	virtual void OnTriggerEnter(GameObject* other) {
 		// noop
 	}

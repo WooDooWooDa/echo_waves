@@ -17,7 +17,7 @@ private:
 	void SpawnParticles();
 
 public:
-	GameObject* emitter;
+	GameObject* emitter = nullptr;
 
 	SoundWave(int nbSoundParticle, float ttl = 100.0, float spd = 5) {
 		size = LEVEL_TILE_SIZE / 4;

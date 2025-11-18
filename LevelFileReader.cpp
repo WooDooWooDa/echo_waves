@@ -122,6 +122,20 @@ namespace {
 		}
 		return line;
 	}
+
+	string ReadGongs(ifstream& levelFile, LevelData& data) {
+		string line;
+		bool readingPatterns = false;
+		while (getline(levelFile, line)) {
+			line = TrimLineEndings(line);
+			if (line.starts_with("#")) {
+				return line;
+			}
+
+			data.gongs.push_back({ line.at(0), line.at(1) });
+		}
+		return line;
+	}
 }
 
 LevelData ReadLevelFileData(string filePath) {
@@ -159,6 +173,9 @@ LevelData ReadLevelFileData(string filePath) {
 				break;
 			case PIANO:
 				line = ReadPianos(levelFile, levelData);
+				break;
+			case GONGS:
+				line = ReadGongs(levelFile, levelData);
 				break;
 			case END:
 			default:

@@ -49,7 +49,7 @@ void Piano::Play()
 {
 	SoundManager::PlaySound(std::format("piano_{}", std::to_string(currentNote)), 0.5);
 
-	auto playWave = SoundWave(10, 25);
+	auto playWave = SoundWave(5, 10);
 	playWave.emitter = this;
 	playWave.MoveTo(position);
 	playWave.Init();

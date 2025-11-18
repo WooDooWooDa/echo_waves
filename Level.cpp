@@ -7,6 +7,7 @@
 #include "XylophonePuzzle.h"
 #include "Piano.h"
 #include "PianoPuzzle.h"
+#include "Gong.h"
 
 vector2 TileCenter(int j, int i) {
 	return vector2(j * LEVEL_TILE_SIZE + LEVEL_TILE_SIZE / 2,
@@ -94,6 +95,12 @@ vector<std::shared_ptr<GameObject>> Level::CreateLevelObjsFromData(LevelData dat
 					auto puzzle = FindOrCreatePianoPuzzle(levelGOs, data);
 					puzzle->RegisterPlayablePiano(newPiano.get());
 				}
+			}
+			char door;
+			if (data.IsTileAGong(c, door)) {
+				auto newGong = make_shared<Gong>(c, door);
+				newGong->MoveTo(TileCenter(j, i));
+				levelGOs.push_back(newGong);
 			}
 			j++;
 		}

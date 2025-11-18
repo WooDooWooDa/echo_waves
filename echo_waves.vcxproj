@@ -23,6 +23,7 @@
     <ClCompile Include="CollisionSystem.cpp" />
     <ClCompile Include="Door.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="Gong.cpp" />
     <ClCompile Include="ICollectable.h" />
     <ClCompile Include="Key.cpp" />
     <ClCompile Include="Level.cpp" />
@@ -52,6 +53,7 @@
     <ClInclude Include="Door.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="gameSettings.h" />
+    <ClInclude Include="Gong.h" />
     <ClInclude Include="IInteractable.h" />
     <ClInclude Include="Key.h" />
     <ClInclude Include="Level.h" />

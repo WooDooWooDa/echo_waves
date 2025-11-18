@@ -64,6 +64,7 @@ void SpriteManager::LoadAllTextures(SDL_Renderer* renderer)
     LoadTexture(renderer, "wall");
     LoadTexture(renderer, "broken_wall");
     LoadTexture(renderer, "xylophone");
+    LoadTexture(renderer, "gong");
     LoadTexture(renderer, "piano_0");
     LoadTexture(renderer, "piano_1");
     LoadTexture(renderer, "piano_2");

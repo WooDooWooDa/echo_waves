@@ -1,5 +1,6 @@
 #include "CollisionSystem.h"
 #include "CollisionResult.h"
+#include "SoundParticle.h"
 
 void CollisionSystem::CheckCollision(Level* currentLevel)
 {
@@ -9,7 +10,7 @@ void CollisionSystem::CheckCollision(Level* currentLevel)
     //Test all obj colliders against all obj colliders
     for (auto& a : objs) {
         if (a->IsDestroyed()) continue;
-        auto colliders = a->GetColliders();
+        auto& colliders = a->GetColliders();
         for (auto& collider : colliders) {
             if (!collider->IsCollisionEnable()) continue;
 
@@ -17,7 +18,13 @@ void CollisionSystem::CheckCollision(Level* currentLevel)
                 if (b->IsDestroyed()) continue;
                 if (a == b) continue;
 
-                auto bColliders = b->GetColliders();
+                // Skip collision for a soundParticle's emitter
+                if (a->name == "SoundParticle" && b.get() == ((SoundParticle*)a.get())->emitter)
+                    continue;
+                if (b->name == "SoundParticle" && a.get() == ((SoundParticle*)b.get())->emitter)
+                    continue;
+
+                auto& bColliders = b->GetColliders();
                 for (auto& bCollider : bColliders) {
                     if (!bCollider->IsCollisionEnable()) continue;
                     

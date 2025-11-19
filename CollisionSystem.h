@@ -1,13 +1,13 @@
 #pragma once
-#include "Level.h"
 #include "CollisionLayers.h"
 #include "CollisionResult.h"
+
+class Level;
 
 class CollisionSystem
 {
 	bool isInit = false;
 	bool CollisionMatrix[LCount][LCount] = {};
-	//CollisionEventQueue collisionEvents;
 
 	void ResolveCollision(GameObject&, CollisionResult&);
 
@@ -15,15 +15,6 @@ class CollisionSystem
 		if (!isInit) InitCollisionMatrix();
 		return CollisionMatrix[a][b];
 	}
-
-public:
-	CollisionSystem() {
-		InitCollisionMatrix();
-	}
-
-	/*void ResolveAllEvents() {
-		collisionEvents.ExecuteAll();
-	}*/
 
 	void InitCollisionMatrix() {
 		CollisionMatrix[LPlayer][LWall] = true;
@@ -48,6 +39,11 @@ public:
 		CollisionMatrix[LPlayer][LInteraction] = true;
 		CollisionMatrix[LInteraction][LPlayer] = true;
 		isInit = true;
+	}
+
+public:
+	CollisionSystem() {
+		InitCollisionMatrix();
 	}
 
 	void CheckCollision(Level*);

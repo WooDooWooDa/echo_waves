@@ -18,8 +18,6 @@ void WaveGame::InitGame()
 
 void WaveGame::Update(const Uint64 delta)
 {
-	collisionSystem.CheckCollision(levelManager->GetCurrentLevel());
-
 	if (levelManager->GetCurrentLevel() != nullptr)
 		levelManager->GetCurrentLevel()->Update(delta);
 }

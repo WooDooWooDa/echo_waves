@@ -1,62 +1,70 @@
 #include "CollisionSystem.h"
 #include "CollisionResult.h"
 #include "SoundParticle.h"
+#include "Level.h"
 
 void CollisionSystem::CheckCollision(Level* currentLevel)
 {
     std::unordered_map<CollisionComponent*, std::unordered_set<GameObject*>> newOverlaps;
-    auto objs = currentLevel->GetAllGameObjects();
+    auto& objs = currentLevel->GetAllGameObjects();
 
-    //Test all obj colliders against all obj colliders
-    for (auto& a : objs) {
+    //Test all obj colliders against all NEAR objs
+    for (auto& A : objs) {
+        auto a = A.get();
         if (a->IsDestroyed()) continue;
-        auto& colliders = a->GetColliders();
-        for (auto& collider : colliders) {
-            if (!collider->IsCollisionEnable()) continue;
+        //std::vector<GameObject*> nearObjs;
+        //currentLevel->GetGrid().Query(a, nearObjs);
 
-            for (auto& b : objs) {
-                if (b->IsDestroyed()) continue;
-                if (a == b) continue;
+        //if (nearObjs.empty()) continue;
+
+        auto& aColliders = a->GetColliders();
+        for (auto& aCollider : aColliders) {
+            if (aCollider->GetCollisionType() == STATIC || !aCollider->IsCollisionEnable()) continue;
+
+            for (auto& B : objs) {//nearObjs) {
+                auto b = B.get();
+                if (b->IsDestroyed() || a == b) continue;
 
                 // Skip collision for a soundParticle's emitter
-                if (a->name == "SoundParticle" && b.get() == ((SoundParticle*)a.get())->emitter)
+                if (a->name == "SoundParticle" && b == ((SoundParticle*)a)->emitter)
                     continue;
-                if (b->name == "SoundParticle" && a.get() == ((SoundParticle*)b.get())->emitter)
+                if (b->name == "SoundParticle" && a == ((SoundParticle*)b)->emitter)
                     continue;
 
                 auto& bColliders = b->GetColliders();
                 for (auto& bCollider : bColliders) {
                     if (!bCollider->IsCollisionEnable()) continue;
-                    
-                    SDL_FRect intersectResult;
-                    // Handle trigger Enter
-                    if ((collider->IsTrigger() || bCollider->IsTrigger()) && collider->Intersects(*bCollider, intersectResult)) {
-                        newOverlaps[collider.get()].insert(b.get());
-                        newOverlaps[bCollider.get()].insert(a.get());
 
-                        if (!collider->IsOverlapping(b.get())) {
-                            a->OnTriggerEnter(b.get());
-                            collider->RegisterOverlap(b.get());
-                        } else if (bCollider->IsOverlapping(a.get())) {
-                            b->OnTriggerEnter(a.get());
-                            bCollider->RegisterOverlap(a.get());
+                    SDL_FRect intersectResult;
+                    bool hasIntersection = aCollider->Intersects(*bCollider, intersectResult);
+                    if (!hasIntersection) continue;
+                    // Handle trigger Enter
+                    if ((aCollider->IsTrigger() || bCollider->IsTrigger())) {
+                        newOverlaps[aCollider.get()].insert(b);
+                        newOverlaps[bCollider.get()].insert(a);
+
+                        if (!aCollider->IsOverlapping(b)) {
+                            a->OnTriggerEnter(b);
+                            aCollider->RegisterOverlap(b);
+                        }
+                        else if (bCollider->IsOverlapping(a)) {
+                            b->OnTriggerEnter(a);
+                            bCollider->RegisterOverlap(a);
                         }
 
                         continue;
                     }
 
-                    if (!ShouldCollide(collider->GetLayer(), bCollider->GetLayer())) continue;
+                    if (!ShouldCollide(aCollider->GetLayer(), bCollider->GetLayer())) continue;
 
                     // Handle Collision Enter
-                    if (collider->Intersects(*bCollider, intersectResult)) {
-                        CollisionResult collisionResult;
-                        collisionResult.intersect = intersectResult;
-                        collisionResult.other = b.get();
-                        ResolveCollision(*a, collisionResult);
-                        a->OnCollisionEnter(collisionResult);
-                        collisionResult.other = a.get();
-                        b->OnCollisionEnter(collisionResult);
-                    }
+                    CollisionResult collisionResult;
+                    collisionResult.intersect = intersectResult;
+                    collisionResult.other = b;
+                    ResolveCollision(*a, collisionResult);
+                    a->OnCollisionEnter(collisionResult);
+                    collisionResult.other = a;
+                    b->OnCollisionEnter(collisionResult);
                 }
             }
         }

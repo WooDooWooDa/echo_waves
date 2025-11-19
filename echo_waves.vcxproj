@@ -19,12 +19,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AccelerationGrid.cpp" />
     <ClCompile Include="CollisionComponent.cpp" />
     <ClCompile Include="CollisionSystem.cpp" />
     <ClCompile Include="Door.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Gong.cpp" />
-    <ClCompile Include="ICollectable.h" />
     <ClCompile Include="Key.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="LevelFileReader.cpp" />
@@ -46,10 +46,12 @@
     <ClCompile Include="XylophonePuzzle.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AccelerationGrid.h" />
     <ClInclude Include="CollisionComponent.h" />
     <ClInclude Include="CollisionLayers.h" />
     <ClInclude Include="CollisionResult.h" />
     <ClInclude Include="CollisionSystem.h" />
+    <ClInclude Include="CollisionType.h" />
     <ClInclude Include="Door.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="gameSettings.h" />

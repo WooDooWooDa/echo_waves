@@ -43,7 +43,7 @@ void Gong::Bang()
 	banged = true;
 	//SoundManager::PlaySound(std::format("gong"));
 
-	auto gongWave = SoundWave(10, 10);
+	auto gongWave = SoundWave(20, 25);
 	gongWave.emitter = this;
 	gongWave.MoveTo(position);
 	gongWave.Init();

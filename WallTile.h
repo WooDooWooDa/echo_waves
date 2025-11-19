@@ -7,6 +7,7 @@ private:
 	bool isBroken;
 public:
 	WallTile(bool broken) : LitableGameObject() {
+		name = "Wall";
 		isBroken = broken;
 		size = LEVEL_TILE_SIZE;
 

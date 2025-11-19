@@ -43,6 +43,10 @@ struct vector2
         return vector2(X + b.X, Y + b.Y);
     }
 
+    bool operator==(const vector2& other) const {
+        return X == other.X && Y == other.Y;
+    }
+
     std::string ToString() const
     {
         return "(x = " + std::to_string(X) + ", Y = " + std::to_string(Y) + ")";

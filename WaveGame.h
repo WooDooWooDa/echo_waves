@@ -5,7 +5,6 @@
 #include "Player.h"
 #include "Level.h"
 #include "LevelManager.h"
-#include "CollisionSystem.h"
 
 class WaveGame
 {
@@ -18,7 +17,6 @@ public:
 private:
 	std::shared_ptr<Player> player;
 	std::unique_ptr<LevelManager> levelManager;
-	CollisionSystem collisionSystem;
 
 	void ChangeToLevel(int);
 };

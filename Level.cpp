@@ -122,23 +122,37 @@ void Level::Init() {
 
 	for (auto& obj : levelGameObjects) {
 		obj->Init();
+		//accGrid.Insert(obj.get());
 	}
 }
 
 void Level::Update(Uint64 delta)
 {
+	// Update acc grid, before collision
+	/*for (auto& obj : levelGameObjects) {
+		accGrid.Update(obj.get());
+	}*/
+
+	// Check collision
+	collisionSystem.CheckCollision(this);
+
 	// Update all level objects
 	for (auto& obj : levelGameObjects) {
 		obj->Update(delta);
 	}
 
 	// Clean up all destroyed objects
-	levelGameObjects.erase(
-		std::remove_if(levelGameObjects.begin(), levelGameObjects.end(),
-			[](const std::shared_ptr<GameObject>& obj) {
-				return obj->IsDestroyed();
-			}),
-		levelGameObjects.end());
+	auto objToRemove = std::remove_if(levelGameObjects.begin(), levelGameObjects.end(),
+		[](const std::shared_ptr<GameObject>& obj) {
+			return obj->IsDestroyed();
+		});
+	
+	if (objToRemove == levelGameObjects.end()) return;
+
+	/*for (auto it = objToRemove; it != levelGameObjects.end(); ++it) {
+		accGrid.Remove(it->get());
+	}*/
+	levelGameObjects.erase(objToRemove, levelGameObjects.end());
 }
 
 void Level::Draw(SDL_Renderer* renderer) const

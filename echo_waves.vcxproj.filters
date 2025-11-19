@@ -84,9 +84,6 @@
     <ClCompile Include="Key.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="ICollectable.h">
-      <Filter>Fichiers d%27en-tête\GameObjects\Interaction</Filter>
-    </ClCompile>
     <ClCompile Include="SpriteManager.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
@@ -109,6 +106,9 @@
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="Gong.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="AccelerationGrid.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
@@ -185,8 +185,14 @@
     <ClInclude Include="PianoPuzzle.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="Gong.h">
+    <ClInclude Include="AccelerationGrid.h">
       <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionType.h">
+      <Filter>Fichiers d%27en-tête\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Gong.h">
+      <Filter>Fichiers d%27en-tête\GameObjects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

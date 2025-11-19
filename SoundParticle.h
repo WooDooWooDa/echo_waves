@@ -24,7 +24,8 @@ public:
 		maxSpeed = spd;
 		speed = maxSpeed;
 		color = COLOR_WHITE;
-		AddCollider(size, ECollisionLayer::LSoundParticle);
+		AddCollider(size, ECollisionLayer::LSoundParticle)
+			->SetCollisionType(ECollisionType::MOVABLE);
 	}
 
 	void Draw(SDL_Renderer*) const override;

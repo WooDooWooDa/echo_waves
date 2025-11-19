@@ -3,6 +3,7 @@
 #include "CollisionResult.h"
 #include "CollisionLayers.h"
 #include <unordered_set>
+#include "CollisionType.h"
 
 class GameObject; // forward declare so compiler knows it exists
 
@@ -12,6 +13,7 @@ private:
     std::string tag;
     GameObject* owner;
     ECollisionLayer layer = ECollisionLayer::LNone;
+    ECollisionType type = ECollisionType::STATIC;
     vector2 bounds; //aka collider size
 
     std::unordered_set<GameObject*> currentOverlaps;
@@ -24,8 +26,14 @@ public:
         owner = o;
     }
 
+    ECollisionLayer GetLayer() const { return layer; }
     void SetLayer(ECollisionLayer l) {
         layer = l;
+    }
+
+    ECollisionType GetCollisionType() const { return type; }
+    void SetCollisionType(ECollisionType t) {
+        type = t;
     }
 
     void SetTag(std::string newTag) { tag = newTag; }
@@ -34,8 +42,6 @@ public:
 
     void SetBounds(vector2 newBounds) { bounds = newBounds; }
     SDL_FRect GetBounds() const;
-
-    ECollisionLayer GetLayer() const { return layer; }
 
     void OnTriggerEnter(GameObject*);
     void OnTriggerStay(GameObject*);
@@ -55,6 +61,10 @@ public:
 
     void ClearOverlap(GameObject* other) {
         currentOverlaps.erase(other);
+    }
+
+    void ClearAllOverlaps() {
+        currentOverlaps.clear();
     }
 
     std::unordered_set<GameObject*>& GetCurrentOverlaps() {

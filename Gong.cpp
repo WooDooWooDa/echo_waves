@@ -41,7 +41,7 @@ void Gong::OnCollisionEnter(CollisionResult res)
 void Gong::Bang()
 {
 	banged = true;
-	//SoundManager::PlaySound(std::format("gong"));
+	SoundManager::PlaySound("gong", 0.4);
 
 	auto gongWave = SoundWave(20, 25);
 	gongWave.emitter = this;

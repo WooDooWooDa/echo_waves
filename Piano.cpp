@@ -47,12 +47,15 @@ void Piano::ChangeNote()
 
 void Piano::Play()
 {
-	SoundManager::PlaySound(std::format("piano_{}", std::to_string(currentNote)), 0.5);
+	if (currentNote != 0) {
+		SoundManager::PlaySound(std::format("piano_{}", 
+			std::to_string(currentNote)), 0.3 + (0.1 * currentNote));
 
-	auto playWave = SoundWave(5, 10);
-	playWave.emitter = this;
-	playWave.MoveTo(position);
-	playWave.Init();
+		auto playWave = SoundWave(5, 10);
+		playWave.emitter = this;
+		playWave.MoveTo(position);
+		playWave.Init();
+	}
 
 	if (OnPlayDelegate) OnPlayDelegate();
 	ResetLitUpTime();

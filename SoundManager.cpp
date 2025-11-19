@@ -33,6 +33,7 @@ bool SoundManager::LoadWAV(std::string soundName)
 SoundManager::~SoundManager()
 {
 	for (auto& sound : loaded_sounds) {
+		SDL_DestroyAudioStream(sound.second->stream);
 		SDL_free(sound.second->wav);
 		delete sound.second;
 	}

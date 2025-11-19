@@ -4,6 +4,7 @@
 #include "SpriteManager.h"
 #include "SoundWave.h"
 #include <format>
+#include "SoundManager.h"
 
 
 void Door::Init()
@@ -51,6 +52,8 @@ bool Door::HasCorrectKey()
 
 void Door::Unlock()
 {
+	SoundManager::PlaySound("open_door", 0.5);
+
 	auto pickupWave = SoundWave(20, 25);
 	pickupWave.MoveTo(position);
 	pickupWave.Init();

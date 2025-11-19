@@ -6,6 +6,7 @@
 #include <fstream>
 #include <unordered_map>
 #include <algorithm>
+#include "vector.h"
 
 using namespace std;
 
@@ -17,6 +18,7 @@ enum LevelDataStep {
 	XYLO,
 	PIANO,
 	GONGS,
+	TUBAS,
 	END
 };
 
@@ -28,6 +30,7 @@ static unordered_map<string, LevelDataStep> fileSteps = {
 	{"#xylophones", XYLO},
 	{"#pianos", PIANO},
 	{"#gongs", 	GONGS},
+	{"#tubas", TUBAS},
 	{"#end", END}
 };
 
@@ -51,7 +54,9 @@ struct LevelData {
 	XylophonePuzzleData xylophonePuzzleData;
 	PianoPuzzleData pianoPuzzleData;
 	vector<pair<char, char>> gongs;
+	vector<char> tubas;
 	unordered_map<char, char> DoorNeedKey;
+	unordered_map<char, vector2> spriteDirectionPerTile;
 
 	bool IsTileADoor(char tile) {
 		return std::find(doors.begin(), doors.end(), tile) != doors.end();
@@ -87,6 +92,19 @@ struct LevelData {
 				door = gong.second;
 				return true;
 			}
+		}
+		return false;
+	}
+
+	bool IsTileATuba(char tile) {
+		return std::find(tubas.begin(), tubas.end(), tile) != tubas.end();
+	}
+
+	bool HasASpriteDirection(char tile, vector2& dir) {
+		auto found = spriteDirectionPerTile.find(toupper(tile));
+		if (found != spriteDirectionPerTile.end()) {
+			dir = found->second;
+			return true;
 		}
 		return false;
 	}

@@ -8,6 +8,7 @@
 #include "Piano.h"
 #include "PianoPuzzle.h"
 #include "Gong.h"
+#include "Tuba.h"
 
 vector2 TileCenter(int j, int i) {
 	return vector2(j * LEVEL_TILE_SIZE + LEVEL_TILE_SIZE / 2,
@@ -52,10 +53,9 @@ vector<std::shared_ptr<GameObject>> Level::CreateLevelObjsFromData(LevelData dat
 		j = 0;
 		for (char c : line) {
 			// WallTile
+			shared_ptr<GameObject> newObject = nullptr;
 			if (c == 'W' || c == 'w') {
-				auto newWall = make_shared<WallTile>(!std::isupper(c));
-				newWall->MoveTo(TileCenter(j, i));
-				levelGOs.push_back(newWall);
+				newObject = make_shared<WallTile>(!std::isupper(c));
 			}
 			if (c == 'P') {
 				playerSpawnPosition = TileCenter(j, i);
@@ -63,17 +63,12 @@ vector<std::shared_ptr<GameObject>> Level::CreateLevelObjsFromData(LevelData dat
 			if (data.IsTileADoor(c)) {
 				bool isDoorHorizontal = std::isupper(c);
 				char unlockedBy = data.DoorNeedKey[c];
-				auto newDoor = make_shared<Door>(c, isDoorHorizontal, unlockedBy);
-				newDoor->MoveTo(TileCenter(j, i));
-				levelGOs.push_back(newDoor);
+				newObject = make_shared<Door>(c, isDoorHorizontal, unlockedBy);
 			}
 			if (data.IsTileAKey(c)) {
-				auto newKey = make_shared<Key>(c);
-				newKey->MoveTo(TileCenter(j, i));
-				levelGOs.push_back(newKey);
+				newObject = make_shared<Key>(c);
 			}
-			int note;
-			if (data.IsTileAXylophone(c, note)) {
+			if (int note; data.IsTileAXylophone(c, note)) {
 				auto newXylo = make_shared<Xylophone>(c, note);
 				newXylo->MoveTo(TileCenter(j, i));
 				levelGOs.push_back(newXylo);
@@ -86,21 +81,30 @@ vector<std::shared_ptr<GameObject>> Level::CreateLevelObjsFromData(LevelData dat
 					puzzle->RegisterPatternXylophone(std::toupper(c), newXylo.get());
 				}
 			}
-			if (data.IsTileAPiano(c, note)) {
-				auto newPiano = make_shared<Piano>(c, isupper(c) ? 0 : note, note);
-				newPiano->MoveTo(TileCenter(j, i));
-				levelGOs.push_back(newPiano);
+			if (int note; data.IsTileAPiano(c, note)) {
+				newObject = make_shared<Piano>(c, isupper(c) ? 0 : note, note);
 
 				if (isupper(c)) {
 					auto puzzle = FindOrCreatePianoPuzzle(levelGOs, data);
-					puzzle->RegisterPlayablePiano(newPiano.get());
+					puzzle->RegisterPlayablePiano(newObject.get());
 				}
 			}
-			char door;
-			if (data.IsTileAGong(c, door)) {
-				auto newGong = make_shared<Gong>(c, door);
-				newGong->MoveTo(TileCenter(j, i));
-				levelGOs.push_back(newGong);
+			if (char door; data.IsTileAGong(c, door)) {
+				newObject = make_shared<Gong>(c, door);
+			}
+			if (data.IsTileATuba(c)) {
+				newObject = make_shared<Tuba>(c);
+			}
+
+			// Handle new object
+			if (newObject) {
+				newObject->MoveTo(TileCenter(j, i));
+				levelGOs.push_back(newObject);
+				vector2 dir;
+				auto litable = dynamic_cast<LitableGameObject*>(newObject.get());
+				if (litable && data.HasASpriteDirection(c, dir)) {
+					litable->SetSpriteDirection(dir);
+				}
 			}
 			j++;
 		}

@@ -2,12 +2,13 @@
 #include "LevelManager.h"
 #include "Door.h"
 
-void PianoPuzzle::RegisterPlayablePiano(Piano* newPiano)
+void PianoPuzzle::RegisterPlayablePiano(GameObject * newPiano)
 {
-	pianos.push_back(newPiano);
+	auto piano = dynamic_cast<Piano*>(newPiano);
+	pianos.push_back(piano);
 
 	// Creating a lambda capturing "this" so it can be executed with the right obj
-	newPiano->OnPlayDelegate = [this]() { VerifyPianos(); };
+	piano->OnPlayDelegate = [this]() { VerifyPianos(); };
 }
 
 void PianoPuzzle::VerifyPianos()

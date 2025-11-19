@@ -14,7 +14,7 @@ public:
 		unlockedDoor = doorUnlocked;
 	}
 
-	void RegisterPlayablePiano(Piano*);
+	void RegisterPlayablePiano(GameObject * newPiano);
 	void VerifyPianos();
 	void CorrectSolution();
 };

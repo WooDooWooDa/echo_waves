@@ -7,6 +7,33 @@ static inline std::string TrimLineEndings(const std::string& str) {
 
 // anonymous namespace makes those fonction private to this cpp file
 namespace {
+
+	bool AddDirectionIfAny(char tile, string& line, LevelData& data) {
+		auto pos = line.find(">");
+		if (pos != std::string::npos) {
+			char dirChar = line.at(pos + 1);
+			vector2 dir;
+			switch (dirChar)
+			{
+			case 'u':
+				dir = vector2(0, -1);
+				break;
+			case 'r':
+				dir = vector2(1, 0);
+				break;
+			case 'd':
+				dir = vector2(0, 1);
+				break;
+			case 'l':
+				dir = vector2(-1, 0);
+				break;
+			}
+			data.spriteDirectionPerTile.insert({ tile, dir });
+			return true;
+		}
+		return false;
+	}
+
 	string ReadTiles(ifstream& levelFile, LevelData& data) {
 		string line;
 		while (getline(levelFile, line)) {
@@ -119,6 +146,7 @@ namespace {
 			}
 
 			data.pianoPuzzleData.pianos.push_back({ line.at(0), line.at(1) - '0' });
+			AddDirectionIfAny(line.at(0), line, data);
 		}
 		return line;
 	}
@@ -133,6 +161,20 @@ namespace {
 			}
 
 			data.gongs.push_back({ line.at(0), line.at(1) });
+		}
+		return line;
+	}
+
+	string ReadTubas(ifstream& levelFile, LevelData& data) {
+		string line;
+		bool readingPatterns = false;
+		while (getline(levelFile, line)) {
+			line = TrimLineEndings(line);
+			if (line.starts_with("#")) {
+				return line;
+			}
+			data.tubas.push_back(line.at(0));
+			AddDirectionIfAny(line.at(0), line, data);
 		}
 		return line;
 	}
@@ -176,6 +218,9 @@ LevelData ReadLevelFileData(string filePath) {
 				break;
 			case GONGS:
 				line = ReadGongs(levelFile, levelData);
+				break;
+			case TUBAS:
+				line = ReadTubas(levelFile, levelData);
 				break;
 			case END:
 			default:

@@ -1,8 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include <random>
-
-constexpr double pi = 3.14159265358979323846;
+#include <corecrt_math_defines.h>
 
 class SoundWave : public GameObject
 {
@@ -24,7 +23,7 @@ public:
 		nbParticles = nbSoundParticle;
 		particleTtl = ttl;
 		speed = spd;
-		waveAngleDist = std::uniform_int_distribution<int>(0, 90);
+		waveAngleDist = std::uniform_int_distribution<int>(0, M_PI / 2);
 	}
 
 	void Init() override;

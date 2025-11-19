@@ -11,7 +11,7 @@ void SoundWave::Init()
 
 void SoundWave::SpawnParticles()
 {
-	float angleInc = 2.0f * pi / nbParticles;
+	float angleInc = 2.0f * M_PI / nbParticles;
 	float angle = waveAngleDist(random);
 	for (size_t i = 0; i < nbParticles; i++)
 	{

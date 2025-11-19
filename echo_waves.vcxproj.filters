@@ -111,6 +111,9 @@
     <ClCompile Include="AccelerationGrid.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="Tuba.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WaveGame.h">
@@ -193,6 +196,9 @@
     </ClInclude>
     <ClInclude Include="Gong.h">
       <Filter>Fichiers d%27en-tête\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuba.h">
+      <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

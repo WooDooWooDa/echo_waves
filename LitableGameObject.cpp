@@ -22,7 +22,8 @@ void LitableGameObject::Draw(SDL_Renderer* renderer) const
 	RGBColor drawColor = DEBUG_MODE ? COLOR_RED : color;
 	SDL_SetTextureColorMod(spriteTexture, drawColor.R, drawColor.G, drawColor.B);
 	SDL_SetTextureAlphaMod(spriteTexture, color.A);
-	SDL_RenderTexture(renderer, spriteTexture, NULL, &drawRect);
+	//SDL_RenderTexture(renderer, spriteTexture, NULL, &drawRect);
+	SDL_RenderTextureRotated(renderer, spriteTexture, NULL, &drawRect, SpriteDirToAngle(), NULL, SDL_FLIP_NONE);
 
 	GameObject::DrawCollider(renderer);
 }

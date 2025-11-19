@@ -39,6 +39,7 @@
     <ClCompile Include="SoundParticle.cpp" />
     <ClCompile Include="SoundWave.cpp" />
     <ClCompile Include="SpriteManager.cpp" />
+    <ClCompile Include="Tuba.cpp" />
     <ClCompile Include="vector.h" />
     <ClCompile Include="WallTile.cpp" />
     <ClCompile Include="WaveGame.cpp" />
@@ -69,6 +70,7 @@
     <ClInclude Include="SoundParticle.h" />
     <ClInclude Include="SoundWave.h" />
     <ClInclude Include="SpriteManager.h" />
+    <ClInclude Include="Tuba.h" />
     <ClInclude Include="WallTile.h" />
     <ClInclude Include="WaveGame.h" />
     <ClInclude Include="Xylophone.h" />

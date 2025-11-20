@@ -37,8 +37,7 @@ void Xylophone::Play()
 {
 	SoundManager::PlaySound(std::format("xylophone_{}", std::to_string(soundNumber)), 0.5);
 
-	auto playWave = SoundWave(10, 25);
-	playWave.emitter = this;
+	auto playWave = SoundWave(this, 10, 25);
 	playWave.MoveTo(position);
 	playWave.Init();
 

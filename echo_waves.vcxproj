@@ -56,6 +56,7 @@
     <ClInclude Include="CollisionType.h" />
     <ClInclude Include="Door.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GameObjectHelper.h" />
     <ClInclude Include="gameSettings.h" />
     <ClInclude Include="Gong.h" />
     <ClInclude Include="IInteractable.h" />

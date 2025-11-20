@@ -18,13 +18,13 @@ void WaveGame::InitGame()
 
 void WaveGame::Update(const Uint64 delta)
 {
-	if (levelManager->GetCurrentLevel() != nullptr)
+	if (levelManager->GetCurrentLevel())
 		levelManager->GetCurrentLevel()->Update(delta);
 }
 
 void WaveGame::Draw(SDL_Renderer* renderer) const
 {
-	if (levelManager->GetCurrentLevel() != nullptr)
+	if (levelManager->GetCurrentLevel())
 		levelManager->GetCurrentLevel()->Draw(renderer);
 }
 

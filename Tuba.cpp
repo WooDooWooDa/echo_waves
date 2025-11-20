@@ -2,7 +2,7 @@
 #include "SpriteManager.h"
 #include "SoundParticle.h"
 #include "SoundWave.h"
-#include "LevelManager.h"
+#include "GameObjectHelper.h"
 
 void Tuba::Init()
 {
@@ -40,21 +40,18 @@ void Tuba::Play()
 	for (size_t i = 0; i < 3; i++)
 	{
 		auto dir = vector2(cosf(angle), sinf(angle));
-		auto newParticle = std::make_shared<SoundParticle>(100, position, dir, 7.5);
-		newParticle->emitter = this;
-		LevelManager::AddGameObjectToLevel(newParticle);
+		auto p = Instantiate<SoundParticle>(100, position, dir, 7.5);
+		p->emitter = this;
 		
 		if (i != 0) {
 			if (std::abs(dir.X) > std::abs(dir.Y)) {
 				dir.Y = -dir.Y;
-			}
-			else {
+			} else {
 				dir.X = -dir.X;
 			}
 
-			newParticle = std::make_shared<SoundParticle>(100, position, dir, 7.5);
-			newParticle->emitter = this;
-			LevelManager::AddGameObjectToLevel(newParticle);
+			auto p = Instantiate<SoundParticle>(100, position, dir, 7.5);
+			p->emitter = this;
 		}
 		angle += angleInc;
 	}

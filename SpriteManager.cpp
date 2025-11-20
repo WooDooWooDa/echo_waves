@@ -71,6 +71,7 @@ void SpriteManager::LoadAllTextures(SDL_Renderer* renderer)
     LoadTexture(renderer, "piano_3");
     LoadTexture(renderer, "piano_4");
     LoadTexture(renderer, "tuba");
+    LoadTexture(renderer, "stairs");
 
     isInit = true;
 }

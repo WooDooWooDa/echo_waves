@@ -21,7 +21,7 @@ private:
 	std::unordered_map<GameObject*, std::vector<vector2>> objectCellMap;
 
 public:
-	AccelerationGrid(int c) : cellSize(c) {}
+	AccelerationGrid(int size) : cellSize(size) {}
 
     void Insert(GameObject*);
     void Update(GameObject*);

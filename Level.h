@@ -33,6 +33,8 @@ public:
 	void Update(Uint64 delta) override;
 	void Draw(SDL_Renderer* renderer) const override;
 
+	void Destroy();
+
 	const AccelerationGrid& GetGrid() const { return accGrid; }
 	const vector2 GetPlayerSpawn() const { return playerSpawnPosition; }
 	

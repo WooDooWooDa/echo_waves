@@ -41,6 +41,10 @@ void LevelManager::SetCurrentLevel(int levelNumber)
 		return;
 	}
 
+	if (currentLevel) {
+		currentLevel->Destroy();
+	}
+
 	InvalidateCache();
 
 	currentLevel = GetLevel(levelNumber);

@@ -34,6 +34,9 @@
     <Filter Include="Fichiers d%27en-tête\Managers">
       <UniqueIdentifier>{ca60a846-c2ac-4fa5-a749-e9ad3a0f75b5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers d%27en-tête\GameObjects\Instruments">
+      <UniqueIdentifier>{ef600b63-31a4-4855-9cb0-3ebf68c17a31}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -170,9 +173,6 @@
     <ClInclude Include="LitableGameObject.h">
       <Filter>Fichiers d%27en-tête\GameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="Xylophone.h">
-      <Filter>Fichiers d%27en-tête\GameObjects</Filter>
-    </ClInclude>
     <ClInclude Include="LevelManager.h">
       <Filter>Fichiers d%27en-tête\Managers</Filter>
     </ClInclude>
@@ -185,9 +185,6 @@
     <ClInclude Include="XylophonePuzzle.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="Piano.h">
-      <Filter>Fichiers d%27en-tête\GameObjects</Filter>
-    </ClInclude>
     <ClInclude Include="PianoPuzzle.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
@@ -197,14 +194,23 @@
     <ClInclude Include="CollisionType.h">
       <Filter>Fichiers d%27en-tête\Collision</Filter>
     </ClInclude>
-    <ClInclude Include="Gong.h">
-      <Filter>Fichiers d%27en-tête\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="Tuba.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="LevelExit.h">
       <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Piano.h">
+      <Filter>Fichiers d%27en-tête\GameObjects\Instruments</Filter>
+    </ClInclude>
+    <ClInclude Include="Xylophone.h">
+      <Filter>Fichiers d%27en-tête\GameObjects\Instruments</Filter>
+    </ClInclude>
+    <ClInclude Include="Tuba.h">
+      <Filter>Fichiers d%27en-tête\GameObjects\Instruments</Filter>
+    </ClInclude>
+    <ClInclude Include="Gong.h">
+      <Filter>Fichiers d%27en-tête\GameObjects\Instruments</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjectHelper.h">
+      <Filter>Fichiers d%27en-tête\Helper</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

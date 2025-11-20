@@ -20,6 +20,7 @@ public:
 	void SetCurrentLevel(int);
 	std::shared_ptr<Level> GetLevel(int levelNumber);
 
+	// GameObject Management
 	static void AddGameObjectToLevel(std::shared_ptr<GameObject> obj) {
 		if (currentLevel != nullptr) {
 			currentLevel->AddGameObject(obj);

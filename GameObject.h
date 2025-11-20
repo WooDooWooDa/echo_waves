@@ -1,11 +1,13 @@
 #pragma once
+#include <memory>
 #include <SDL3/SDL_render.h>
 #include <SDL3/SDL_rect.h>
 #include "vector.h"
 #include "gameSettings.h"
 #include "CollisionComponent.h"
 #include <vector>
-#include <memory>
+
+class LevelManager;
 
 class GameObject
 {
@@ -66,6 +68,7 @@ public:
 	}
 
 	//Life Cycle
+
 	void Destroy() { isDestroyed = true; }
 	bool IsDestroyed() { return isDestroyed; }
 };

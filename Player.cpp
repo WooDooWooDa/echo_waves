@@ -81,8 +81,7 @@ void Player::TryInteract()
 
 void Player::LaunchSoundWave(int nbSoundP, float soundPointTTL, float speed)
 {
-	auto wave = SoundWave(nbSoundP, soundPointTTL, speed);
-	wave.emitter = this;
+	auto wave = SoundWave(this, nbSoundP, soundPointTTL, speed);
 	wave.MoveTo(position);
 	wave.Init();
 }

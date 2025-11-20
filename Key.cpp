@@ -35,7 +35,7 @@ void Key::Interact(GameObject* other)
 	player->AddKey(keyId);
 	SoundManager::PlaySound("pick_up_key");
 
-	auto pickupWave = SoundWave(5, 10, 2);
+	auto pickupWave = SoundWave(this, 5, 10, 2);
 	pickupWave.MoveTo(position);
 	pickupWave.Init();
 

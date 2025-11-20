@@ -103,7 +103,7 @@ vector<std::shared_ptr<GameObject>> Level::CreateLevelObjsFromData(LevelData dat
 			// Handle new object
 			if (newObject) {
 				newObject->MoveTo(TileCenter(j, i));
-				levelGOs.push_back(newObject);
+				//levelGOs.push_back(newObject);
 				vector2 dir;
 				auto litable = dynamic_cast<LitableGameObject*>(newObject.get());
 				if (litable && data.HasASpriteDirection(c, dir)) {
@@ -168,4 +168,9 @@ void Level::Draw(SDL_Renderer* renderer) const
 	for (auto& obj : levelGameObjects) {
 		obj->Draw(renderer);
 	}
+}
+
+void Level::Destroy()
+{
+	levelGameObjects.clear();
 }

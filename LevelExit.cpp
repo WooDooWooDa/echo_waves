@@ -30,8 +30,7 @@ void LevelExit::Interact(GameObject* other)
 {	
 	if (currentLevel->IsLevelDone()) return;
 
-	auto done = SoundWave(36, 25);
-	done.emitter = this;
+	auto done = SoundWave(this, 36, 50);
 	done.MoveTo(position);
 	done.Init();
 

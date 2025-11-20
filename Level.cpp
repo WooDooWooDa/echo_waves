@@ -75,7 +75,6 @@ vector<std::shared_ptr<GameObject>> Level::CreateLevelObjsFromData(LevelData dat
 			if (int note; data.IsTileAXylophone(c, note)) {
 				auto newXylo = make_shared<Xylophone>(c, note);
 				newXylo->MoveTo(TileCenter(j, i));
-				levelGOs.push_back(newXylo);
 
 				auto puzzle = FindOrCreateXylophonePuzzle(levelGOs, data);
 				if (isupper(c)) {
@@ -84,6 +83,7 @@ vector<std::shared_ptr<GameObject>> Level::CreateLevelObjsFromData(LevelData dat
 				else {
 					puzzle->RegisterPatternXylophone(std::toupper(c), newXylo.get());
 				}
+				newObject = newXylo;
 			}
 			if (int note; data.IsTileAPiano(c, note)) {
 				newObject = make_shared<Piano>(c, isupper(c) ? 0 : note, note);
@@ -103,7 +103,7 @@ vector<std::shared_ptr<GameObject>> Level::CreateLevelObjsFromData(LevelData dat
 			// Handle new object
 			if (newObject) {
 				newObject->MoveTo(TileCenter(j, i));
-				//levelGOs.push_back(newObject);
+				levelGOs.push_back(newObject);
 				vector2 dir;
 				auto litable = dynamic_cast<LitableGameObject*>(newObject.get());
 				if (litable && data.HasASpriteDirection(c, dir)) {

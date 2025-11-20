@@ -27,13 +27,15 @@ public:
     }
 
     ECollisionLayer GetLayer() const { return layer; }
-    void SetLayer(ECollisionLayer l) {
+    CollisionComponent* SetLayer(ECollisionLayer l) {
         layer = l;
+        return this;
     }
 
     ECollisionType GetCollisionType() const { return type; }
-    void SetCollisionType(ECollisionType t) {
+    CollisionComponent* SetCollisionType(ECollisionType t) {
         type = t;
+        return this;
     }
 
     void SetTag(std::string newTag) { tag = newTag; }

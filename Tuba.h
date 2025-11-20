@@ -15,7 +15,7 @@ public:
 
 		size = vector2(LEVEL_TILE_SIZE / 1.5);
 
-		AddCollider(size, ECollisionLayer::LObject);
+		AddCollider(size, ECollisionLayer::LObject)->SetCollisionType(ECollisionType::MOVABLE);
 		AddCollider(vector2(LEVEL_TILE_SIZE), ECollisionLayer::LInteraction)->isTrigger = true;
 	}
 

@@ -40,7 +40,7 @@ void Tuba::Play()
 	for (size_t i = 0; i < 3; i++)
 	{
 		auto dir = vector2(cosf(angle), sinf(angle));
-		auto newParticle = std::make_shared<SoundParticle>(150, position, dir, 10);
+		auto newParticle = std::make_shared<SoundParticle>(100, position, dir, 7.5);
 		newParticle->emitter = this;
 		LevelManager::AddGameObjectToLevel(newParticle);
 		
@@ -52,7 +52,7 @@ void Tuba::Play()
 				dir.X = -dir.X;
 			}
 
-			newParticle = std::make_shared<SoundParticle>(150, position, dir, 10);
+			newParticle = std::make_shared<SoundParticle>(100, position, dir, 7.5);
 			newParticle->emitter = this;
 			LevelManager::AddGameObjectToLevel(newParticle);
 		}

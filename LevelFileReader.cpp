@@ -18,13 +18,13 @@ namespace {
 			case 'u':
 				dir = vector2(0, -1);
 				break;
-			case 'r':
+			case 'l':
 				dir = vector2(1, 0);
 				break;
 			case 'd':
 				dir = vector2(0, 1);
 				break;
-			case 'l':
+			case 'r':
 				dir = vector2(-1, 0);
 				break;
 			}

@@ -27,6 +27,7 @@
     <ClCompile Include="Gong.cpp" />
     <ClCompile Include="Key.cpp" />
     <ClCompile Include="Level.cpp" />
+    <ClCompile Include="LevelExit.cpp" />
     <ClCompile Include="LevelFileReader.cpp" />
     <ClCompile Include="LevelFileReader.h" />
     <ClCompile Include="LevelManager.cpp" />
@@ -60,6 +61,7 @@
     <ClInclude Include="IInteractable.h" />
     <ClInclude Include="Key.h" />
     <ClInclude Include="Level.h" />
+    <ClInclude Include="LevelExit.h" />
     <ClInclude Include="LevelManager.h" />
     <ClInclude Include="LitableGameObject.h" />
     <ClInclude Include="math.h" />

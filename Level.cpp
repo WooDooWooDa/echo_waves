@@ -9,8 +9,9 @@
 #include "PianoPuzzle.h"
 #include "Gong.h"
 #include "Tuba.h"
+#include "LevelExit.h"
 
-vector2 TileCenter(int j, int i) {
+static vector2 TileCenter(int j, int i) {
 	return vector2(j * LEVEL_TILE_SIZE + LEVEL_TILE_SIZE / 2,
 		i * LEVEL_TILE_SIZE + LEVEL_TILE_SIZE / 2);
 }
@@ -59,6 +60,9 @@ vector<std::shared_ptr<GameObject>> Level::CreateLevelObjsFromData(LevelData dat
 			}
 			if (c == 'P') {
 				playerSpawnPosition = TileCenter(j, i);
+			}
+			if (c == 'Q') {
+				newObject = make_shared<LevelExit>(this);
 			}
 			if (data.IsTileADoor(c)) {
 				bool isDoorHorizontal = std::isupper(c);

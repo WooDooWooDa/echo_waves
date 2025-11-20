@@ -12,6 +12,8 @@ class LevelManager;
 class Level : public GameObject
 {
 private:
+	bool levelDone = false;
+
 	LevelManager* manager = nullptr;
 	LevelData levelData;
 	vector<std::shared_ptr<GameObject>> levelGameObjects;
@@ -34,6 +36,9 @@ public:
 	const AccelerationGrid& GetGrid() const { return accGrid; }
 	const vector2 GetPlayerSpawn() const { return playerSpawnPosition; }
 	
+	void FinishLevel() { levelDone = true; }
+	bool IsLevelDone() const { return levelDone; }
+
 	void AddGameObject(std::shared_ptr<GameObject> newObj) {
 		levelGameObjects.push_back(newObj);
 		//accGrid.Insert(newObj.get());

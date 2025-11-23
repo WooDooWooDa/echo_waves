@@ -24,7 +24,8 @@ void Gong::Update(Uint64 delta)
 
 	if (banged && litUpTimeLeft <= 0) {
 		banged = false;
-		doorLinked->Lock();
+		if (doorLinked)
+			doorLinked->Lock();
 	}
 }
 
@@ -43,11 +44,11 @@ void Gong::Bang()
 	banged = true;
 	SoundManager::PlaySound("gong", 0.4);
 
-	auto gongWave = SoundWave(this, 20, 25);
+	auto gongWave = SoundWave(this, 20, 50);
 	gongWave.MoveTo(position);
 	gongWave.Init();
 
-	if (doorLinked->isLocked) {
+	if (doorLinked && doorLinked->isLocked) {
 		doorLinked->Unlock();
 	}
 

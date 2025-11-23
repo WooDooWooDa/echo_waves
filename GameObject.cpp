@@ -14,16 +14,11 @@ void GameObject::Update(Uint64 delta) {
 
 void GameObject::Draw(SDL_Renderer* renderer) const
 {
-	RGBColor drawColor = DEBUG_MODE ? COLOR_RED : color;
+	RGBColor drawColor = DEBUG_MODE ? COLOR_WHITE : color;
 	auto drawRect = GetBounds();
 	SDL_SetRenderDrawColor(renderer, drawColor.R, drawColor.G, drawColor.B, drawColor.A);
 	SDL_RenderPoint(renderer, position.X, position.Y);
-	if (DEBUG_MODE) {
-		SDL_RenderRect(renderer, &drawRect);
-	}
-	else {
-		SDL_RenderFillRect(renderer, &drawRect);
-	}
+	SDL_RenderFillRect(renderer, &drawRect);
 
 	DrawCollider(renderer);
 }

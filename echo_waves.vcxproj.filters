@@ -37,6 +37,21 @@
     <Filter Include="Fichiers d%27en-tête\GameObjects\Instruments">
       <UniqueIdentifier>{ef600b63-31a4-4855-9cb0-3ebf68c17a31}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\GameObjects">
+      <UniqueIdentifier>{11f71a3b-48cc-4823-89d8-bca8fbdea29d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Helper">
+      <UniqueIdentifier>{a2e4a524-29fe-4cca-a610-4ad759dada67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Manager">
+      <UniqueIdentifier>{191eb44b-8a01-40b9-854f-a0a448df5248}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\UI">
+      <UniqueIdentifier>{589c2a1f-b469-4c3d-81e5-e0281dea97da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\UI">
+      <UniqueIdentifier>{66803991-672b-4e02-8055-68ff16cdb9c4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -45,26 +60,11 @@
     <ClCompile Include="WaveGame.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Level.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="WallTile.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="LevelFileReader.h">
       <Filter>Fichiers d%27en-tête\Helper</Filter>
     </ClCompile>
     <ClCompile Include="vector.h">
       <Filter>Fichiers d%27en-tête\Helper</Filter>
-    </ClCompile>
-    <ClCompile Include="LevelManager.cpp">
-      <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="CollisionComponent.cpp">
       <Filter>Fichiers sources\Collision</Filter>
@@ -72,53 +72,83 @@
     <ClCompile Include="CollisionSystem.cpp">
       <Filter>Fichiers sources\Collision</Filter>
     </ClCompile>
-    <ClCompile Include="SoundWave.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="SoundParticle.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="LevelFileReader.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="Door.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Key.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="SpriteManager.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="LitableGameObject.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="SoundManager.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Xylophone.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="XylophonePuzzle.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Piano.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="PianoPuzzle.cpp">
-      <Filter>Fichiers sources</Filter>
+      <Filter>Fichiers sources\GameObjects</Filter>
     </ClCompile>
     <ClCompile Include="Gong.cpp">
-      <Filter>Fichiers sources</Filter>
+      <Filter>Fichiers sources\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Fichiers sources\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Key.cpp">
+      <Filter>Fichiers sources\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Level.cpp">
+      <Filter>Fichiers sources\GameObjects</Filter>
     </ClCompile>
     <ClCompile Include="AccelerationGrid.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Tuba.cpp">
-      <Filter>Fichiers sources</Filter>
+      <Filter>Fichiers sources\Helper</Filter>
     </ClCompile>
     <ClCompile Include="LevelExit.cpp">
-      <Filter>Fichiers sources</Filter>
+      <Filter>Fichiers sources\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelFileReader.cpp">
+      <Filter>Fichiers sources\Helper</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelManager.cpp">
+      <Filter>Fichiers sources\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="LitableGameObject.cpp">
+      <Filter>Fichiers sources\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Piano.cpp">
+      <Filter>Fichiers sources\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Fichiers sources\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundManager.cpp">
+      <Filter>Fichiers sources\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteManager.cpp">
+      <Filter>Fichiers sources\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Xylophone.cpp">
+      <Filter>Fichiers sources\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="WallTile.cpp">
+      <Filter>Fichiers sources\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Tuba.cpp">
+      <Filter>Fichiers sources\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundWave.cpp">
+      <Filter>Fichiers sources\Helper</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundParticle.cpp">
+      <Filter>Fichiers sources\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="PianoPuzzle.cpp">
+      <Filter>Fichiers sources\Helper</Filter>
+    </ClCompile>
+    <ClCompile Include="XylophonePuzzle.cpp">
+      <Filter>Fichiers sources\Helper</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuPanel.cpp">
+      <Filter>Fichiers sources\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuButton.cpp">
+      <Filter>Fichiers sources\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="FontManager.cpp">
+      <Filter>Fichiers sources\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Text.cpp">
+      <Filter>Fichiers sources\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Instrument.cpp">
+      <Filter>Fichiers sources\GameObjects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -182,20 +212,8 @@
     <ClInclude Include="SpriteManager.h">
       <Filter>Fichiers d%27en-tête\Managers</Filter>
     </ClInclude>
-    <ClInclude Include="XylophonePuzzle.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="PianoPuzzle.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="AccelerationGrid.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="CollisionType.h">
       <Filter>Fichiers d%27en-tête\Collision</Filter>
-    </ClInclude>
-    <ClInclude Include="LevelExit.h">
-      <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="Piano.h">
       <Filter>Fichiers d%27en-tête\GameObjects\Instruments</Filter>
@@ -212,18 +230,45 @@
     <ClInclude Include="GameObjectHelper.h">
       <Filter>Fichiers d%27en-tête\Helper</Filter>
     </ClInclude>
+    <ClInclude Include="XylophonePuzzle.h">
+      <Filter>Fichiers d%27en-tête\Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="PianoPuzzle.h">
+      <Filter>Fichiers d%27en-tête\Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelExit.h">
+      <Filter>Fichiers d%27en-tête\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="AccelerationGrid.h">
+      <Filter>Fichiers d%27en-tête\Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuPanel.h">
+      <Filter>Fichiers d%27en-tête\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuButton.h">
+      <Filter>Fichiers d%27en-tête\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="FontManager.h">
+      <Filter>Fichiers d%27en-tête\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Text.h">
+      <Filter>Fichiers d%27en-tête\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Instrument.h">
+      <Filter>Fichiers d%27en-tête\GameObjects\Instruments</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="assets\level1_16.txt">
+    <Text Include="assets\levels\itch_title_level.txt">
       <Filter>Assets</Filter>
     </Text>
-    <Text Include="assets\level2_16.txt">
+    <Text Include="assets\levels\menu_level.txt">
       <Filter>Assets</Filter>
     </Text>
-    <Text Include="assets\level1_32.txt">
+    <Text Include="assets\levels\level2_16.txt">
       <Filter>Assets</Filter>
     </Text>
-    <Text Include="assets\level2_32.txt">
+    <Text Include="assets\levels\level1_16.txt">
       <Filter>Assets</Filter>
     </Text>
   </ItemGroup>

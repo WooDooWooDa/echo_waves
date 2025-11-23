@@ -19,7 +19,7 @@ void LitableGameObject::Draw(SDL_Renderer* renderer) const
 	}
 
 	auto drawRect = GetBounds();
-	RGBColor drawColor = DEBUG_MODE ? COLOR_RED : color;
+	RGBColor drawColor = DEBUG_MODE ? COLOR_WHITE : color;
 	SDL_SetTextureColorMod(spriteTexture, drawColor.R, drawColor.G, drawColor.B);
 	SDL_SetTextureAlphaMod(spriteTexture, DEBUG_MODE ? 255 : color.A);
 	SDL_RenderTextureRotated(renderer, spriteTexture, NULL, &drawRect, SpriteDirToAngle(), NULL, SDL_FLIP_NONE);

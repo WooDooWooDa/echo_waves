@@ -10,6 +10,7 @@ add_executable(index ${SOURCES})
 
 # Include SDL3 headers
 target_include_directories(index PRIVATE "C:/SDL/include")
+target_include_directories(index PRIVATE "C:/SDL_TTF/include")
 # target_include_directories(index PRIVATE "C:/SDL3_image-3.2.4/include")
 
 # Web build configuration
@@ -27,7 +28,7 @@ if(EMSCRIPTEN)
     # Configure Emscripten build output
     set_target_properties(index PROPERTIES
         RUNTIME_OUTPUT_DIRECTORY ${DIST_DIR}
-        LINK_FLAGS "-s USE_SDL=3 -s WASM=1 -s ALLOW_MEMORY_GROWTH=1 ${PRELOAD_FLAG} -s EXIT_RUNTIME=1 -s FORCE_FILESYSTEM=1"
+        LINK_FLAGS "-s USE_SDL=3 -s USE_SDL_TTF=3 -s WASM=1 -s ALLOW_MEMORY_GROWTH=1 ${PRELOAD_FLAG} -s EXIT_RUNTIME=1 -s FORCE_FILESYSTEM=1"
         SUFFIX ".html"
     )
 endif()

@@ -14,31 +14,6 @@ void Piano::Init()
 	spriteTexture = pianoTextures[currentNote];
 }
 
-void Piano::Draw(SDL_Renderer* renderer) const
-{
-	LitableGameObject::Draw(renderer);
-
-	if (isHover && IsLitUp()) {
-		IInteractable::ShowInteractText(renderer, "Play", GetBounds(), color);
-	}
-}
-
-void Piano::UnHover()
-{
-	isHover = false;
-}
-
-void Piano::Hover()
-{
-	isHover = true;
-}
-
-void Piano::Interact(GameObject*)
-{
-	ChangeNote();
-	Play();
-}
-
 void Piano::ChangeNote()
 {
 	currentNote = (currentNote + 1) % NB_PIANO_NOTES;
@@ -47,6 +22,10 @@ void Piano::ChangeNote()
 
 void Piano::Play()
 {
+	Instrument::Play();
+
+	ChangeNote();
+
 	if (currentNote != 0) {
 		SoundManager::PlaySound(std::format("piano_{}", 
 			std::to_string(currentNote)), 0.3 + (0.1 * currentNote));
@@ -55,7 +34,4 @@ void Piano::Play()
 		playWave.MoveTo(position);
 		playWave.Init();
 	}
-
-	if (OnPlayDelegate) OnPlayDelegate();
-	ResetLitUpTime();
 }

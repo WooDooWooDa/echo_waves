@@ -6,7 +6,7 @@
 void CollisionSystem::CheckCollision(Level* currentLevel)
 {
     std::unordered_map<CollisionComponent*, std::unordered_set<GameObject*>> newOverlaps;
-    auto& objs = currentLevel->GetAllGameObjects();
+    const auto objs = currentLevel->GetAllGameObjects(); // Temp copy of objs ptrs array
 
     //Test all obj colliders against all NEAR objs
     for (auto& A : objs) {
@@ -22,8 +22,9 @@ void CollisionSystem::CheckCollision(Level* currentLevel)
             if (aCollider->GetCollisionType() == STATIC || !aCollider->IsCollisionEnable()) continue;
 
             for (auto& B : objs) {//nearObjs) {
+                if (!B) continue;  // handles nullptr
                 auto b = B.get();
-                if (b->IsDestroyed() || a == b) continue;
+                if (!b || a == b || b->IsDestroyed()) continue;
 
                 // Skip collision for a soundParticle's emitter
                 if (a->name == "SoundParticle" && b == ((SoundParticle*)a)->emitter)

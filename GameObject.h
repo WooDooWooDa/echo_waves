@@ -70,6 +70,6 @@ public:
 	//Life Cycle
 
 	void Destroy() { isDestroyed = true; }
-	bool IsDestroyed() { return isDestroyed; }
+	bool IsDestroyed() const { return isDestroyed; }
 };
 

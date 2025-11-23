@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "Level.h"
 #include "LevelManager.h"
+#include "Text.h"
 
 class WaveGame
 {
@@ -15,8 +16,13 @@ public:
 	void Draw(SDL_Renderer* renderer) const;
 
 private:
+	int currentLevelNumber = 1;
 	std::shared_ptr<Player> player;
 	std::unique_ptr<LevelManager> levelManager;
+
+	bool removeStartText;
+	std::unique_ptr<Text> startText;
+	void RemoveStartText();
 
 	void ChangeToLevel(int);
 };

@@ -2,7 +2,6 @@
 #include <iostream>
 #include "SoundParticle.h"
 #include "LevelManager.h"
-#include <numbers>
 #include "GameObjectHelper.h"
 
 void SoundWave::Init()
@@ -12,7 +11,7 @@ void SoundWave::Init()
 
 void SoundWave::SpawnParticles()
 {
-	float angleInc = 2.0f * M_PI / nbParticles;
+	float angleInc = 2.0f * std::numbers::pi / nbParticles;
 	float angle = waveAngleDist(random);
 	for (size_t i = 0; i < nbParticles; i++)
 	{

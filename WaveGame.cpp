@@ -10,29 +10,50 @@ void WaveGame::InitGame()
 	player = make_shared<Player>();
 	player->Init();
 
+	startText = make_unique<Text>();
+	startText->SetText("Press SPACE to clap", 72);
+
 	if (levelManager->LoadAllLevels()) {
 		//Load to first level
-		ChangeToLevel(1);
+		currentLevelNumber = 1;
+		ChangeToLevel(currentLevelNumber);
 	}
+	
+	// Load itch cover img level
+	//auto level = levelManager->LoadSpecialLevel("itch_title_level");
+	//levelManager->AddGameObjectToLevel(player);
+	//player->MoveTo(level->GetPlayerSpawn());
 }
 
 void WaveGame::Update(const Uint64 delta)
 {
-	if (levelManager->GetCurrentLevel())
-		levelManager->GetCurrentLevel()->Update(delta);
+	if (levelManager->GetCurrentLevel() == nullptr) return;
+
+	levelManager->GetCurrentLevel()->Update(delta);
+
+	if (levelManager->GetCurrentLevel()->IsLevelDone()) {
+		if (currentLevelNumber > levelManager->GetNbLevels()) {
+			// Games done
+		}
+		currentLevelNumber++;
+		ChangeToLevel(currentLevelNumber);
+	}
 }
 
 void WaveGame::Draw(SDL_Renderer* renderer) const
 {
 	if (levelManager->GetCurrentLevel())
 		levelManager->GetCurrentLevel()->Draw(renderer);
+	
+	if (startText)
+		startText->Draw(renderer, vector2(GAME_WINDOW_SIZE / 2));
 }
 
-void WaveGame::ChangeToLevel(int)
+void WaveGame::ChangeToLevel(int level)
 {
 	// Remove player from previous/current level if any
 	levelManager->RemoveGameObjectFromLevel(player);
-	levelManager->SetCurrentLevel(1);
+	levelManager->SetCurrentLevel(level);
 	// Add player to new level
 	levelManager->AddGameObjectToLevel(player);
 	player->MoveTo(levelManager->GetCurrentLevel()->GetPlayerSpawn());
@@ -84,6 +105,7 @@ void WaveGame::HandleInputs(SDL_Event* event, SDL_Scancode key_code)
 			break;
 		case SDL_SCANCODE_SPACE:
 			player->TryLaunchSoundWave(36, 100);
+			RemoveStartText();
 			break;
 		case SDL_SCANCODE_E:
 			player->TryInteract();
@@ -94,8 +116,18 @@ void WaveGame::HandleInputs(SDL_Event* event, SDL_Scancode key_code)
 		case SDL_SCANCODE_C:
 			SETTINGS::SHOW_COLLIDERS = !SETTINGS::SHOW_COLLIDERS;
 			break;
+		case SDL_SCANCODE_L:
+			levelManager->GetCurrentLevel()->FinishLevel();
+			break;
 		default:
 			break;
 		}
+	}
+}
+
+void WaveGame::RemoveStartText()
+{
+	if (startText) {
+		startText.reset(nullptr);
 	}
 }

@@ -1,6 +1,6 @@
 #pragma once
 #include "GameObject.h"
-#include <corecrt_math_defines.h>
+#include <numbers>
 
 class LitableGameObject : public GameObject
 {
@@ -19,7 +19,7 @@ protected:
 
 private:
 	double SpriteDirToAngle() const {
-		return std::atan2(spriteDirection.X, -spriteDirection.Y) * 180.0f / static_cast<float>(M_PI);
+		return std::atan2(spriteDirection.X, -spriteDirection.Y) * 180.0f / static_cast<float>(std::numbers::pi);
 	}
 
 public:

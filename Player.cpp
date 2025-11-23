@@ -38,7 +38,7 @@ void Player::TryLaunchSoundWave(int nbSoundPoint, float soundPointTTL)
 
 	LaunchSoundWave(nbSoundPoint, soundPointTTL, 5.0);
 	ResetLitUpTime();
-	SoundManager::PlaySound("clap", 0.1);
+	SoundManager::PlaySound("clap", 0.3);
 
 	currentSoundWaveTimer = soundWaveTimer;
 }

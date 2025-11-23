@@ -8,7 +8,7 @@ void PianoPuzzle::RegisterPlayablePiano(GameObject * newPiano)
 	pianos.push_back(piano);
 
 	// Creating a lambda capturing "this" so it can be executed with the right obj
-	piano->OnPlayDelegate = [this]() { VerifyPianos(); };
+	piano->OnPlayDelegate = [this](char) { VerifyPianos(); };
 }
 
 void PianoPuzzle::VerifyPianos()

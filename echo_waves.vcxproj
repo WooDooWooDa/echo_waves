@@ -23,8 +23,10 @@
     <ClCompile Include="CollisionComponent.cpp" />
     <ClCompile Include="CollisionSystem.cpp" />
     <ClCompile Include="Door.cpp" />
+    <ClCompile Include="FontManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Gong.cpp" />
+    <ClCompile Include="Instrument.cpp" />
     <ClCompile Include="Key.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="LevelExit.cpp" />
@@ -33,6 +35,8 @@
     <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="LitableGameObject.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MenuButton.cpp" />
+    <ClCompile Include="MenuPanel.cpp" />
     <ClCompile Include="Piano.cpp" />
     <ClCompile Include="PianoPuzzle.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -40,6 +44,7 @@
     <ClCompile Include="SoundParticle.cpp" />
     <ClCompile Include="SoundWave.cpp" />
     <ClCompile Include="SpriteManager.cpp" />
+    <ClCompile Include="Text.cpp" />
     <ClCompile Include="Tuba.cpp" />
     <ClCompile Include="vector.h" />
     <ClCompile Include="WallTile.cpp" />
@@ -55,17 +60,21 @@
     <ClInclude Include="CollisionSystem.h" />
     <ClInclude Include="CollisionType.h" />
     <ClInclude Include="Door.h" />
+    <ClInclude Include="FontManager.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectHelper.h" />
     <ClInclude Include="gameSettings.h" />
     <ClInclude Include="Gong.h" />
     <ClInclude Include="IInteractable.h" />
+    <ClInclude Include="Instrument.h" />
     <ClInclude Include="Key.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="LevelExit.h" />
     <ClInclude Include="LevelManager.h" />
     <ClInclude Include="LitableGameObject.h" />
     <ClInclude Include="math.h" />
+    <ClInclude Include="MenuButton.h" />
+    <ClInclude Include="MenuPanel.h" />
     <ClInclude Include="Piano.h" />
     <ClInclude Include="PianoPuzzle.h" />
     <ClInclude Include="Player.h" />
@@ -73,6 +82,7 @@
     <ClInclude Include="SoundParticle.h" />
     <ClInclude Include="SoundWave.h" />
     <ClInclude Include="SpriteManager.h" />
+    <ClInclude Include="Text.h" />
     <ClInclude Include="Tuba.h" />
     <ClInclude Include="WallTile.h" />
     <ClInclude Include="WaveGame.h" />
@@ -80,10 +90,10 @@
     <ClInclude Include="XylophonePuzzle.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="assets\level1_16.txt" />
-    <Text Include="assets\level1_32.txt" />
-    <Text Include="assets\level2_16.txt" />
-    <Text Include="assets\level2_32.txt" />
+    <Text Include="assets\levels\itch_title_level.txt" />
+    <Text Include="assets\levels\level1_16.txt" />
+    <Text Include="assets\levels\level2_16.txt" />
+    <Text Include="assets\levels\menu_level.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
@@ -138,7 +148,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <PublicIncludeDirectories>C:\SDL3_image-3.2.4\include;C:\SDL\include;$(PublicIncludeDirectories)</PublicIncludeDirectories>
+    <PublicIncludeDirectories>C:\SDL_TTF\include;C:\SDL\include;$(PublicIncludeDirectories)</PublicIncludeDirectories>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -174,14 +184,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\SDL3_image-3.2.4\include;C:\SDL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\SDL_TTF\include;C:\SDL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\SDL\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL3.lib;SDL3_test.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\SDL_TTF\lib\x64;C:\SDL\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL3_ttf.lib;SDL3.lib;SDL3_test.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

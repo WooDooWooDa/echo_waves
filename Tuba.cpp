@@ -3,39 +3,18 @@
 #include "SoundParticle.h"
 #include "SoundWave.h"
 #include "GameObjectHelper.h"
+#include <numbers>
 
 void Tuba::Init()
 {
 	spriteTexture = SpriteManager::GetTexture("tuba");
 }
 
-void Tuba::Draw(SDL_Renderer* renderer) const
-{
-	LitableGameObject::Draw(renderer);
-
-	if (isHover && IsLitUp()) {
-		IInteractable::ShowInteractText(renderer, "Play", GetBounds(), color);
-	}
-}
-
-void Tuba::UnHover()
-{
-	isHover = false;
-}
-
-void Tuba::Hover()
-{
-	isHover = true;
-}
-
-void Tuba::Interact(GameObject*)
-{
-	Play();
-}
-
 void Tuba::Play()
 {
-	float angleInc = 2.0f * M_PI / 72;
+	Instrument::Play();
+
+	float angleInc = 2.0f * std::numbers::pi / 72;
 	auto angle = std::atan2(spriteDirection.Y, spriteDirection.X);
 	for (size_t i = 0; i < 3; i++)
 	{
@@ -55,6 +34,4 @@ void Tuba::Play()
 		}
 		angle += angleInc;
 	}
-
-	ResetLitUpTime();
 }

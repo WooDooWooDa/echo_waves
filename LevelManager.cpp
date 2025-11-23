@@ -4,28 +4,41 @@
 // static member needs a definition (if not declared with "inline" in the .h prior to c++ 17)
 //std::shared_ptr<Level> LevelManager::currentLevel = nullptr;
 
-static std::string GetAssetPath(const std::string& relativePath)
+static std::string GetLevelPath(const std::string& relativePath)
 {
 #ifdef __EMSCRIPTEN__
-	return "/assets/" + relativePath;  // Matches embedded path
+	return "/assets/levels/" + relativePath + ".txt";  // Matches embedded path
 #else
-	return "./assets/" + relativePath;
+	return "./assets/levels/" + relativePath + ".txt";
 #endif
+}
+
+Level* LevelManager::LoadSpecialLevel(string name) {
+	if (currentLevel) {
+		currentLevel->Destroy();
+	}
+	InvalidateCache();
+
+	LevelData data = ReadLevelFileData(GetLevelPath(name));
+	auto newLevel = std::make_shared<Level>();
+	newLevel->SetData(this, data);
+	currentLevel = newLevel;
+	currentLevel->Init();
+	return newLevel.get();
 }
 
 bool LevelManager::LoadAllLevels()
 {
-	LevelData data = ReadLevelFileData(GetAssetPath("level1_" + std::to_string(LEVEL_TILE_COUNT) + ".txt"));
-	auto newLevel = std::make_shared<Level>();
-	newLevel->SetData(this, data);
-	levels.push_back(newLevel);
+	LevelData data;
+	shared_ptr<Level> newLevel;
+	for (int i = 1; i <= nbLevels; i++)
+	{
+		data = ReadLevelFileData(GetLevelPath("level" + std::to_string(i) + "_" + std::to_string(LEVEL_TILE_COUNT)));
+		newLevel = std::make_shared<Level>();
+		newLevel->SetData(this, data);
+		levels.push_back(newLevel);
+	}
 
-	/*data = ReadLevelFileData(GetAssetPath("level2_" + std::to_string(LEVEL_TILE_COUNT) + ".txt"));
-	newLevel = std::make_shared<Level>();
-	newLevel->SetData(this, data);
-	levels.push_back(newLevel);*/
-
-	nbLevels = levels.size();
 	levelLoaded = true;
 	return true;
 }

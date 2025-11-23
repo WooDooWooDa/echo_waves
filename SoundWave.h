@@ -1,7 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include <random>
-#include <corecrt_math_defines.h>
+#include <numbers>
 
 class SoundWave : public GameObject
 {
@@ -23,7 +23,7 @@ public:
 		nbParticles = nbSoundParticle;
 		particleTtl = ttl;
 		speed = spd;
-		waveAngleDist = std::uniform_int_distribution<int>(0, M_PI / 2);
+		waveAngleDist = std::uniform_int_distribution<int>(0, std::numbers::pi / 2);
 		emitter = cEmitter;
 	}
 

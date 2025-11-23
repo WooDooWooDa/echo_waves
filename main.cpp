@@ -1,5 +1,6 @@
 #define SDL_MAIN_USE_CALLBACKS 1 /* use the callbacks instead of main() */
 #include <SDL3/SDL.h>
+#include <SDL3_ttf/SDL_ttf.h>
 #include <SDL3/SDL_main.h>
 #include <SDL3/SDL_audio.h>
 #include <SDL3/SDL_blendmode.h>
@@ -10,36 +11,32 @@
 #endif
 #include "SpriteManager.h"
 #include "SoundManager.h"
+#include "FontManager.h"
 
 std::unique_ptr<SpriteManager> spriteManager;
 std::unique_ptr<SoundManager> soundManager;
+std::unique_ptr<FontManager> fontManager;
 
 typedef struct
 {
     SDL_Window* window;
     SDL_Renderer* renderer;
-    WaveGame wave_ctx;
+    WaveGame wave_game;
     Uint64 last_step;
 } AppState;
 
-static SDL_AppResult handle_key_event_(WaveGame* ctx, SDL_Event* event, SDL_Scancode key_code)
+static SDL_AppResult handle_key_event_(WaveGame* game, SDL_Event* event, SDL_Scancode key_code)
 {
     if (event->type == SDL_EVENT_KEY_DOWN) {
         switch (key_code) {
-            /* Quit. */
-        case SDL_SCANCODE_ESCAPE:
         case SDL_SCANCODE_Q:
             return SDL_APP_SUCCESS;
-            /* Restart the game as if the program was launched. */
-        case SDL_SCANCODE_R:
-            ctx->InitGame();
-            break;
         default:
             break;
         }
     }
 
-    ctx->HandleInputs(event, key_code);
+    game->HandleInputs(event, key_code);
     
     return SDL_APP_CONTINUE;
 }
@@ -47,7 +44,7 @@ static SDL_AppResult handle_key_event_(WaveGame* ctx, SDL_Event* event, SDL_Scan
 SDL_AppResult SDL_AppIterate(void* appstate)
 {
     AppState* as = (AppState*)appstate;
-    WaveGame* ctx = &as->wave_ctx;
+    WaveGame* ctx = &as->wave_game;
     const Uint64 now = SDL_GetTicks();
 
     // Update
@@ -93,7 +90,7 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char* argv[])
         }
     }
 
-    if (!SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO)) {
+    if (!SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) || !TTF_Init()) {
         SDL_Log("Couldn't initialize SDL: %s", SDL_GetError());
         return SDL_APP_FAILURE;
     }
@@ -127,7 +124,10 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char* argv[])
     soundManager = make_unique<SoundManager>();
     soundManager->LoadAllSounds();
 
-    (&as->wave_ctx)->InitGame();
+    fontManager = make_unique<FontManager>();
+    fontManager->LoadFont();
+
+    (&as->wave_game)->InitGame();
 
     as->last_step = SDL_GetTicks();
 
@@ -136,12 +136,12 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char* argv[])
 
 SDL_AppResult SDL_AppEvent(void* appstate, SDL_Event* event)
 {
-    WaveGame* ctx = &((AppState*)appstate)->wave_ctx;
+    WaveGame* game = &((AppState*)appstate)->wave_game;
     switch (event->type) {
     case SDL_EVENT_QUIT:
         return SDL_APP_SUCCESS;
     default:
-        handle_key_event_(ctx, event, event->key.scancode);
+        return handle_key_event_(game, event, event->key.scancode);
         break;
     }
     return SDL_APP_CONTINUE;
@@ -155,4 +155,5 @@ void SDL_AppQuit(void* appstate, SDL_AppResult result)
         SDL_DestroyWindow(as->window);
         SDL_free(as);
     }
+    TTF_Quit();
 }

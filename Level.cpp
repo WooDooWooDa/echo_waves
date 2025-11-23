@@ -104,9 +104,8 @@ vector<std::shared_ptr<GameObject>> Level::CreateLevelObjsFromData(LevelData dat
 			if (newObject) {
 				newObject->MoveTo(TileCenter(j, i));
 				levelGOs.push_back(newObject);
-				vector2 dir;
 				auto litable = dynamic_cast<LitableGameObject*>(newObject.get());
-				if (litable && data.HasASpriteDirection(c, dir)) {
+				if (vector2 dir; litable && data.HasASpriteDirection(c, dir)) {
 					litable->SetSpriteDirection(dir);
 				}
 			}

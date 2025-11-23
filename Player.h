@@ -42,6 +42,8 @@ public:
 	void AddKey(char key) { keys.insert(key); }
 	std::set<char>& GetKeys() { return keys; }
 
+	void Restart();
+
 private:
 	void LaunchSoundWave(int nbSoundP, float soundPointTTL, float spd);
 	void StepSound();

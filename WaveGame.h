@@ -16,14 +16,16 @@ public:
 	void Draw(SDL_Renderer* renderer) const;
 
 private:
+	bool isGameDone = false;
 	int currentLevelNumber = 1;
 	std::shared_ptr<Player> player;
 	std::unique_ptr<LevelManager> levelManager;
 
-	bool removeStartText;
+	bool removedStartText;
 	std::unique_ptr<Text> startText;
 	void RemoveStartText();
 
+	void RestartLevel();
 	void ChangeToLevel(int);
 };
 

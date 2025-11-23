@@ -79,6 +79,16 @@ void Player::TryInteract()
 	}
 }
 
+void Player::Restart()
+{
+	currentInteractable = nullptr;
+
+	isWalking = false;
+	distanceMoved = 0.0;
+
+	currentSoundWaveTimer = 0.0;
+}
+
 void Player::LaunchSoundWave(int nbSoundP, float soundPointTTL, float speed)
 {
 	auto wave = SoundWave(this, nbSoundP, soundPointTTL, speed);

@@ -11,6 +11,8 @@ public:
 
 	void Init() override;
 
+	void OnCollisionEnter(CollisionResult) override;
+
 	void Play() override;
 };
 

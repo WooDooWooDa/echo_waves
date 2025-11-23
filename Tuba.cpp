@@ -10,6 +10,19 @@ void Tuba::Init()
 	spriteTexture = SpriteManager::GetTexture("tuba");
 }
 
+void Tuba::OnCollisionEnter(CollisionResult res)
+{
+	LitableGameObject::OnCollisionEnter(res);
+
+	auto particle = dynamic_cast<SoundParticle*>(res.other);
+	if (!particle) return;
+
+	// Particle from instrument?
+	auto instrumentParticle = dynamic_cast<Instrument*>(particle->emitter);
+	if (instrumentParticle)
+		Play();
+}
+
 void Tuba::Play()
 {
 	Instrument::Play();

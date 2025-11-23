@@ -144,7 +144,8 @@ void Level::Update(Uint64 delta)
 	collisionSystem.CheckCollision(this);
 
 	// Update all level objects
-	for (auto& obj : levelGameObjects) {
+	auto objects = levelGameObjects;
+	for (auto& obj : objects) {
 		obj->Update(delta);
 	}
 

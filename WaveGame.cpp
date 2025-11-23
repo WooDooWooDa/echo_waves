@@ -15,7 +15,7 @@ void WaveGame::InitGame()
 
 	if (levelManager->LoadAllLevels()) {
 		//Load to first level
-		currentLevelNumber = 1;
+		currentLevelNumber = 2;
 		ChangeToLevel(currentLevelNumber);
 	}
 	
@@ -27,13 +27,16 @@ void WaveGame::InitGame()
 
 void WaveGame::Update(const Uint64 delta)
 {
+	if (isGameDone) return;
+
 	if (levelManager->GetCurrentLevel() == nullptr) return;
 
 	levelManager->GetCurrentLevel()->Update(delta);
 
 	if (levelManager->GetCurrentLevel()->IsLevelDone()) {
 		if (currentLevelNumber > levelManager->GetNbLevels()) {
-			// Games done
+			isGameDone = true;
+			// Show win/thanks screen!
 		}
 		currentLevelNumber++;
 		ChangeToLevel(currentLevelNumber);
@@ -42,11 +45,18 @@ void WaveGame::Update(const Uint64 delta)
 
 void WaveGame::Draw(SDL_Renderer* renderer) const
 {
+	if (isGameDone) return;
+
 	if (levelManager->GetCurrentLevel())
 		levelManager->GetCurrentLevel()->Draw(renderer);
 	
+	//todo : Replace by menu panel
 	if (startText)
 		startText->Draw(renderer, vector2(GAME_WINDOW_SIZE / 2));
+}
+
+void WaveGame::RestartLevel() {
+	ChangeToLevel(currentLevelNumber);
 }
 
 void WaveGame::ChangeToLevel(int level)
@@ -61,6 +71,20 @@ void WaveGame::ChangeToLevel(int level)
 
 void WaveGame::HandleInputs(SDL_Event* event, SDL_Scancode key_code)
 {
+	if (!removedStartText) {
+		if (event->type == SDL_EVENT_KEY_DOWN) {
+			switch (key_code)
+			{
+			case SDL_SCANCODE_SPACE:
+				player->TryLaunchSoundWave(36, 100);
+				RemoveStartText();
+			default:
+				break;
+			}
+		}
+		return;
+	}
+
 	if (event->type == SDL_EVENT_KEY_UP) {
 		switch (key_code)
 		{
@@ -105,10 +129,13 @@ void WaveGame::HandleInputs(SDL_Event* event, SDL_Scancode key_code)
 			break;
 		case SDL_SCANCODE_SPACE:
 			player->TryLaunchSoundWave(36, 100);
-			RemoveStartText();
 			break;
 		case SDL_SCANCODE_E:
 			player->TryInteract();
+			break;
+		case SDL_SCANCODE_R:
+			player->Restart();
+			RestartLevel();
 			break;
 		case SDL_SCANCODE_V:
 			SETTINGS::SHOW_COLLIDER_MODE = (SETTINGS::SHOW_COLLIDER_MODE + 1) % 2;
@@ -129,5 +156,6 @@ void WaveGame::RemoveStartText()
 {
 	if (startText) {
 		startText.reset(nullptr);
+		removedStartText = true;
 	}
 }

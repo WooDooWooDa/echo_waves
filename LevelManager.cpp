@@ -4,22 +4,13 @@
 // static member needs a definition (if not declared with "inline" in the .h prior to c++ 17)
 //std::shared_ptr<Level> LevelManager::currentLevel = nullptr;
 
-static std::string GetLevelPath(const std::string& relativePath)
-{
-#ifdef __EMSCRIPTEN__
-	return "/assets/levels/" + relativePath + ".txt";  // Matches embedded path
-#else
-	return "./assets/levels/" + relativePath + ".txt";
-#endif
-}
-
-Level* LevelManager::LoadSpecialLevel(string name) {
+Level* LevelManager::LoadAndInitSpecialLevel(string name) {
 	if (currentLevel) {
 		currentLevel->Destroy();
 	}
 	InvalidateCache();
 
-	LevelData data = ReadLevelFileData(GetLevelPath(name));
+	LevelData data = ReadLevelFileData(name);
 	auto newLevel = std::make_shared<Level>();
 	newLevel->SetData(this, data);
 	currentLevel = newLevel;
@@ -33,7 +24,7 @@ bool LevelManager::LoadAllLevels()
 	shared_ptr<Level> newLevel;
 	for (int i = 1; i <= nbLevels; i++)
 	{
-		data = ReadLevelFileData(GetLevelPath("level" + std::to_string(i) + "_" + std::to_string(LEVEL_TILE_COUNT)));
+		data = ReadLevelFileData("level" + std::to_string(i));
 		newLevel = std::make_shared<Level>();
 		newLevel->SetData(this, data);
 		levels.push_back(newLevel);

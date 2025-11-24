@@ -101,6 +101,7 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char* argv[])
     }
 
     *appstate = as;
+    //as->wave_game = WaveGame();
 
     if (!SDL_CreateWindowAndRenderer("Echo Waves", GAME_WINDOW_SIZE, GAME_WINDOW_SIZE, SDL_WINDOW_RESIZABLE, &as->window, &as->renderer)) {
         return SDL_APP_FAILURE;

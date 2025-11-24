@@ -11,11 +11,11 @@ private:
 	inline static std::unordered_map<std::type_index, std::vector<GameObject*>> currentLevelObjectsCache;
 
 	bool levelLoaded = false;
-	int nbLevels = 2;
+	int nbLevels = 3;
 	std::vector<std::shared_ptr<Level>> levels;
 
 public:
-	Level* LoadSpecialLevel(string);
+	Level* LoadAndInitSpecialLevel(string);
 	bool LoadAllLevels();
 	int GetNbLevels() const { return nbLevels; }
 	Level* GetCurrentLevel();

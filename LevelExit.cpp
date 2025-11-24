@@ -30,6 +30,8 @@ void LevelExit::Interact(GameObject* other)
 {	
 	if (currentLevel->IsLevelDone()) return;
 
+	colliders[1]->isCollidable = false;
+
 	auto done = SoundWave(this, 36, 50);
 	done.MoveTo(position);
 	done.Init();

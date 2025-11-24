@@ -17,7 +17,7 @@ public:
 
 private:
 	bool isGameDone = false;
-	int currentLevelNumber = 1;
+	int currentLevelNumber;
 	std::shared_ptr<Player> player;
 	std::unique_ptr<LevelManager> levelManager;
 

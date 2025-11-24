@@ -10,7 +10,7 @@
 
 using namespace std;
 
-enum LevelDataStep {
+enum ELevelDataStep {
 	TILE,
 	DOORS,
 	KEYS,
@@ -22,7 +22,7 @@ enum LevelDataStep {
 	END
 };
 
-static unordered_map<string, LevelDataStep> fileSteps = {
+static unordered_map<string, ELevelDataStep> fileSteps = {
 	{"#tile", TILE},
 	{"#doors", DOORS},
 	{"#keys", KEYS},
@@ -110,5 +110,14 @@ struct LevelData {
 	}
 };
 
+static std::string GetLevelPath(const std::string& relativePath)
+{
+#ifdef __EMSCRIPTEN__
+	return "/assets/levels/" + relativePath + ".txt";  // Matches embedded path
+#else
+	return "./assets/levels/" + relativePath + ".txt";
+#endif
+}
+
 // This fonction is public to the .h file and from who includes it
-LevelData ReadLevelFileData(string filePath);
+LevelData ReadLevelFileData(string filename);

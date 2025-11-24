@@ -53,15 +53,19 @@ vector<std::shared_ptr<GameObject>> Level::CreateLevelObjsFromData(LevelData dat
 	for (vector<char> line : data.tiles) {
 		j = 0;
 		for (char c : line) {
-			// WallTile
+			if (c == '.') {
+				j++;
+				continue;
+			}
+
 			shared_ptr<GameObject> newObject = nullptr;
 			if (c == 'W' || c == 'w') {
 				newObject = make_shared<WallTile>(!std::isupper(c));
 			}
-			if (c == 'P') {
+			if (c == '@') {
 				playerSpawnPosition = TileCenter(j, i);
 			}
-			if (c == 'Q') {
+			if (c == '#') {
 				newObject = make_shared<LevelExit>(this);
 			}
 			if (data.IsTileADoor(c)) {

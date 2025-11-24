@@ -265,10 +265,13 @@
     <Text Include="assets\levels\menu_level.txt">
       <Filter>Assets</Filter>
     </Text>
-    <Text Include="assets\levels\level2_16.txt">
+    <Text Include="assets\levels\level1.txt">
       <Filter>Assets</Filter>
     </Text>
-    <Text Include="assets\levels\level1_16.txt">
+    <Text Include="assets\levels\level2.txt">
+      <Filter>Assets</Filter>
+    </Text>
+    <Text Include="assets\levels\level3.txt">
       <Filter>Assets</Filter>
     </Text>
   </ItemGroup>

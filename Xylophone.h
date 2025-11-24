@@ -13,9 +13,6 @@ public:
 	Xylophone(char id, int soundNb) : Instrument(id) {
 		name = "Xylophone";
 		soundNumber = soundNb;
-		size = vector2(LEVEL_TILE_SIZE / 1.5);
-
-		litUpTime = 200;
 
 		AddCollider(size, ECollisionLayer::LWall);
 	}

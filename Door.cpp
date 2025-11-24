@@ -5,6 +5,7 @@
 #include "SoundWave.h"
 #include <format>
 #include "SoundManager.h"
+#include "SoundParticle.h"
 
 
 void Door::Init()
@@ -21,6 +22,16 @@ void Door::Draw(SDL_Renderer* renderer) const
 	if (isHover && IsLitUp()) {
 		std::string text = isLocked ? "Door locked" : "Door open";
 		IInteractable::ShowInteractText(renderer, text, GetBounds(), color);
+	}
+}
+
+void Door::OnTriggerEnter(GameObject* other)
+{
+	if (isLocked) return;
+
+	auto particle = dynamic_cast<SoundParticle*>(other);
+	if (particle) {
+		ResetLitUpTime();
 	}
 }
 

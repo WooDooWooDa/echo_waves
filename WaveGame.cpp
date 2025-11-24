@@ -51,7 +51,7 @@ void WaveGame::Draw(SDL_Renderer* renderer) const
 		levelManager->GetCurrentLevel()->Draw(renderer);
 	
 	//todo : Replace by menu panel
-	if (startText)
+	if (!removedStartText)
 		startText->Draw(renderer, vector2(GAME_WINDOW_SIZE / 2));
 }
 
@@ -62,11 +62,14 @@ void WaveGame::RestartLevel() {
 void WaveGame::ChangeToLevel(int level)
 {
 	// Remove player from previous/current level if any
+	player->Restart();
 	levelManager->RemoveGameObjectFromLevel(player);
 	levelManager->SetCurrentLevel(level);
 	// Add player to new level
 	levelManager->AddGameObjectToLevel(player);
 	player->MoveTo(levelManager->GetCurrentLevel()->GetPlayerSpawn());
+
+	removedStartText = false;
 }
 
 void WaveGame::HandleInputs(SDL_Event* event, SDL_Scancode key_code)
@@ -155,7 +158,7 @@ void WaveGame::HandleInputs(SDL_Event* event, SDL_Scancode key_code)
 void WaveGame::RemoveStartText()
 {
 	if (startText) {
-		startText.reset(nullptr);
+		//startText.reset(nullptr);
 		removedStartText = true;
 	}
 }

@@ -15,6 +15,7 @@ public:
 
 	Instrument(char id) : LitableGameObject() {
 		instrumentId = id;
+		litUpTime = 200;
 		size = vector2(LEVEL_TILE_SIZE / 1.5);
 		AddCollider(vector2(LEVEL_TILE_SIZE), ECollisionLayer::LInteraction)->isTrigger = true;
 	}

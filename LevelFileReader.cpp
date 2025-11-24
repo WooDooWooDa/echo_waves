@@ -180,13 +180,13 @@ namespace {
 	}
 }
 
-LevelData ReadLevelFileData(string filePath) {
+LevelData ReadLevelFileData(string filename) {
 	LevelData levelData;
 
-	ifstream levelFile(filePath);
+	ifstream levelFile(GetLevelPath(filename));
 
 	if (!levelFile.is_open()) {
-		cerr << "Error opening level file : " << filePath << endl;
+		cerr << "Error opening level file named : " << filename << endl;
 		return levelData;
 	}
 
@@ -196,7 +196,7 @@ LevelData ReadLevelFileData(string filePath) {
 	line = TrimLineEndings(line);
 	while (continueReading) {
 		if (line.starts_with("#")) {
-			LevelDataStep step = fileSteps[line];
+			ELevelDataStep step = fileSteps[line];
 			switch (step) {
 			case TILE:
 				line = ReadTiles(levelFile, levelData);

@@ -91,8 +91,9 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="assets\levels\itch_title_level.txt" />
-    <Text Include="assets\levels\level1_16.txt" />
-    <Text Include="assets\levels\level2_16.txt" />
+    <Text Include="assets\levels\level1.txt" />
+    <Text Include="assets\levels\level2.txt" />
+    <Text Include="assets\levels\level3.txt" />
     <Text Include="assets\levels\menu_level.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

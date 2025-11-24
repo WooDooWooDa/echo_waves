@@ -33,6 +33,8 @@ public:
 	void Init() override;
 	void Draw(SDL_Renderer*) const override;
 
+	void OnTriggerEnter(GameObject*) override;
+
 	void UnHover() override;
 	void Hover() override;
 	void Interact(GameObject*) override;

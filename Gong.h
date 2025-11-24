@@ -5,7 +5,6 @@
 class Gong : public LitableGameObject
 {
 private:
-	char gongId;
 	char unlockedDoor;
 	bool banged = false;
 
@@ -13,7 +12,7 @@ private:
 
 public:
 	Gong(char id, char unlockedDoor) : LitableGameObject() {
-		gongId = id;
+		name = "Gong";
 		this->unlockedDoor = unlockedDoor;
 		size = vector2(LEVEL_TILE_SIZE / 1.2);
 		litUpTime = 100.0;

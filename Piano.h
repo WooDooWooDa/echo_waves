@@ -14,9 +14,9 @@ class Piano : public Instrument
 public:
 	Piano(char id, int startingNote, int solution) : Instrument(id) {
 		name = "Piano";
-		litUpTime = 200;
 		currentNote = startingNote;
 		solutionNote = solution;
+		isPlayable = startingNote == 0;
 
 		AddCollider(size, ECollisionLayer::LWall);
 	}

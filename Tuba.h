@@ -6,6 +6,7 @@ class Tuba : public Instrument
 {
 public:
 	Tuba(char id) : Instrument(id) {
+		name = "Tuba";
 		AddCollider(size, ECollisionLayer::LObject)->SetCollisionType(ECollisionType::MOVABLE);
 	}
 

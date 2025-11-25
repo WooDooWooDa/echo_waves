@@ -5,7 +5,7 @@
 void WinPanel::Init()
 {
 	auto winText = new Text();
-	winText->SetText("You escaped the maze", FontManager::FONT_SIZE_72);
+	winText->SetText("You escaped the maze tower", FontManager::FONT_SIZE_72);
 	winText->SetPosition(vector2(GAME_WINDOW_SIZE / 2));
 	texts.push_back(winText);
 

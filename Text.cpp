@@ -11,7 +11,8 @@ void Text::GetFont(int pt)
 
 void Text::CreateSurface()
 {
-	SDL_Color color = {textColor.R, textColor.G, textColor.B, textColor.A};
+	SDL_Color color = {(Uint8)textColor.R, (Uint8)textColor.G, 
+		(Uint8)textColor.B, (Uint8)textColor.A};
 	fontSurface = TTF_RenderText_Blended(font, text.c_str(), text.length(), color);
 }
 

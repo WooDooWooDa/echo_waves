@@ -7,7 +7,7 @@
 ..WWWW...WWwWW..
 ..WZ.W.@.W..EWe.
 ..W..C...B..RWr.
-..WX.W...WL.TWt.
+..WX.WM..WL.TWt.
 ..WWWWwwwWWwWW..
 .....W...W.x....
 .....W...W......
@@ -43,4 +43,6 @@ x4>d
 z2>u
 =unlocks
 A
+#maracas
+M
 #end

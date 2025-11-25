@@ -13,7 +13,7 @@ public:
 	std::function<void()> OnClick;
 
 	MenuButton(vector2 pos, std::string text, std::function<void()> onClickEvent) {
-		position = position;
+		this->position = pos;
 		this->text = text;
 		OnClick = onClickEvent;
 	}

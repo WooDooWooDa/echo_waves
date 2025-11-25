@@ -32,6 +32,8 @@ void Gong::Update(Uint64 delta)
 
 void Gong::OnCollisionEnter(CollisionResult res)
 {
+	LitableGameObject::OnCollisionEnter(res);
+
 	if (banged) return;
 
 	auto particle = dynamic_cast<SoundParticle*>(res.other);

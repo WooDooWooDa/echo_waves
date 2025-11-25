@@ -91,10 +91,27 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char* argv[])
         }
     }
 
-    if (!SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) || !TTF_Init()) {
+#ifdef __EMSCRIPTEN__
+    EM_ASM(
+        FS.syncfs(true, function(err) {
+        if (err) console.error("FS sync failed", err);
+    });
+    );
+#endif
+
+    if (!SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO)) {
         SDL_Log("Couldn't initialize SDL: %s", SDL_GetError());
         return SDL_APP_FAILURE;
     }
+
+    while (!TTF_Init()) {
+        SDL_Log("Couldn't initialize TTF: Trying...");
+        SDL_Delay(50);
+    }
+    //if (!TTF_Init()) {
+    //    SDL_Log("Couldn't initialize TTF: %s", SDL_GetError());
+    //    return SDL_APP_FAILURE;
+    //}
 
     AppState* as = (AppState*)SDL_calloc(1, sizeof(AppState));
     if (!as) {
@@ -109,16 +126,6 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char* argv[])
     }
     SDL_SetRenderLogicalPresentation(as->renderer, GAME_WINDOW_SIZE, GAME_WINDOW_SIZE, SDL_LOGICAL_PRESENTATION_LETTERBOX);
     SDL_SetRenderDrawBlendMode(as->renderer, SDL_BLENDMODE_BLEND);
-
-    // INIT GAME
-    //Wait for file system to be loaded
-#ifdef __EMSCRIPTEN__
-    EM_ASM(
-        FS.syncfs(true, function(err) {
-        if (err) console.error("FS sync failed", err);
-    });
-    );
-#endif
 
     spriteManager = make_unique<SpriteManager>();
     spriteManager->LoadAllTextures(as->renderer);

@@ -52,6 +52,8 @@ void XylophonePuzzle::AddPattern(std::string const nextPattern)
 
 void XylophonePuzzle::StartCurrentPattern()
 {
+	if (patterns.size() <= 0) return;
+
 	isPlaying = true;
 	currentTimeBetweenPlay = timeBetweenPlay;
 	currentNotePlayedIdx = 0;

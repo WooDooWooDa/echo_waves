@@ -28,5 +28,5 @@ void StartLevelPanel::DrawIn(SDL_Renderer* r) const
 
 void StartLevelPanel::SetLevelNumber(int number)
 {
-	texts.at(1)->SetText(std::format("Level {}", number), FontManager::FONT_SIZE_48);
+	texts.at(1)->SetText(std::format("Floor {}", number), FontManager::FONT_SIZE_48);
 }

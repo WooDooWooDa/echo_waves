@@ -153,7 +153,6 @@ namespace {
 
 	string ReadGongs(ifstream& levelFile, LevelData& data) {
 		string line;
-		bool readingPatterns = false;
 		while (getline(levelFile, line)) {
 			line = TrimLineEndings(line);
 			if (line.starts_with("#")) {
@@ -175,6 +174,32 @@ namespace {
 			}
 			data.tubas.push_back(line.at(0));
 			AddDirectionIfAny(line.at(0), line, data);
+		}
+		return line;
+	}
+
+	string ReadDrums(ifstream& levelFile, LevelData& data) {
+		string line;
+		while (getline(levelFile, line)) {
+			line = TrimLineEndings(line);
+			if (line.starts_with("#")) {
+				return line;
+			}
+
+			data.drums.push_back({ line.at(0), line.at(1) });
+		}
+		return line;
+	}
+
+	string ReadMaracas(ifstream& levelFile, LevelData& data) {
+		string line;
+		while (getline(levelFile, line)) {
+			line = TrimLineEndings(line);
+			if (line.starts_with("#")) {
+				return line;
+			}
+
+			data.maracas.push_back(line.at(0));
 		}
 		return line;
 	}
@@ -221,6 +246,12 @@ LevelData ReadLevelFileData(string filename) {
 				break;
 			case TUBAS:
 				line = ReadTubas(levelFile, levelData);
+				break;
+			case DRUMS:
+				line = ReadDrums(levelFile, levelData);
+				break;
+			case MARACAS:
+				line = ReadMaracas(levelFile, levelData);
 				break;
 			case END:
 			default:

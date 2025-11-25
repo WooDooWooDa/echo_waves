@@ -23,6 +23,7 @@ protected:
 	bool isDestroyed = false;
 
 public:
+	bool isEnable;
 	std::string name;
 	bool shouldCache = true;
 	GameObject() = default;

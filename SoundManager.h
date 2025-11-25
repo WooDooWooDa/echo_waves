@@ -24,6 +24,7 @@ public:
 	~SoundManager();
 	static SoundData* GetSound(std::string);
 	static bool PlaySound(std::string, float gain = 1.0);
+	static void StopAll();
 	void LoadAllSounds();
 
 	bool IsInit() { return isInit; }

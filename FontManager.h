@@ -20,6 +20,13 @@ private:
 	inline static std::unordered_map<int, TTF_Font*> fonts;
 
 public:
+
+	static constexpr int FONT_SIZE_24 = 24;
+	static constexpr int FONT_SIZE_36 = 36;
+	static constexpr int FONT_SIZE_48 = 48;
+	static constexpr int FONT_SIZE_60 = 60;
+	static constexpr int FONT_SIZE_72 = 72;
+
 	void LoadFont();
 
 	static TTF_Font* GetFont(int);

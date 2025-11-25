@@ -10,6 +10,8 @@
 #include "Gong.h"
 #include "Tuba.h"
 #include "LevelExit.h"
+#include "Drum.h"
+#include "Maracas.h"
 
 static vector2 TileCenter(int j, int i) {
 	return vector2(j * LEVEL_TILE_SIZE + LEVEL_TILE_SIZE / 2,
@@ -102,6 +104,12 @@ vector<std::shared_ptr<GameObject>> Level::CreateLevelObjsFromData(LevelData dat
 			}
 			if (data.IsTileATuba(c)) {
 				newObject = make_shared<Tuba>(c);
+			}
+			if (char door; data.IsTileADrum(c, door)) {
+				newObject = make_shared<Drum>(c, door);
+			}
+			if (data.IsTileAMaracas(c)) {
+				newObject = make_shared<Maracas>(c);
 			}
 
 			// Handle new object

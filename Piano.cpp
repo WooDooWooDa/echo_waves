@@ -22,9 +22,9 @@ void Piano::ChangeNote()
 
 void Piano::Play()
 {
-	Instrument::Play();
-
 	ChangeNote();
+
+	Instrument::Play();
 
 	if (currentNote != 0) {
 		SoundManager::PlaySound(std::format("piano_{}", 

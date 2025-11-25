@@ -23,6 +23,7 @@
     <ClCompile Include="CollisionComponent.cpp" />
     <ClCompile Include="CollisionSystem.cpp" />
     <ClCompile Include="Door.cpp" />
+    <ClCompile Include="Drum.cpp" />
     <ClCompile Include="FontManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Gong.cpp" />
@@ -35,6 +36,7 @@
     <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="LitableGameObject.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Maracas.cpp" />
     <ClCompile Include="MenuButton.cpp" />
     <ClCompile Include="MenuPanel.cpp" />
     <ClCompile Include="Piano.cpp" />
@@ -44,11 +46,13 @@
     <ClCompile Include="SoundParticle.cpp" />
     <ClCompile Include="SoundWave.cpp" />
     <ClCompile Include="SpriteManager.cpp" />
+    <ClCompile Include="StartLevelPanel.cpp" />
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="Tuba.cpp" />
     <ClCompile Include="vector.h" />
     <ClCompile Include="WallTile.cpp" />
     <ClCompile Include="WaveGame.cpp" />
+    <ClCompile Include="WinPanel.cpp" />
     <ClCompile Include="Xylophone.cpp" />
     <ClCompile Include="XylophonePuzzle.cpp" />
   </ItemGroup>
@@ -60,6 +64,7 @@
     <ClInclude Include="CollisionSystem.h" />
     <ClInclude Include="CollisionType.h" />
     <ClInclude Include="Door.h" />
+    <ClInclude Include="Drum.h" />
     <ClInclude Include="FontManager.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectHelper.h" />
@@ -72,6 +77,7 @@
     <ClInclude Include="LevelExit.h" />
     <ClInclude Include="LevelManager.h" />
     <ClInclude Include="LitableGameObject.h" />
+    <ClInclude Include="Maracas.h" />
     <ClInclude Include="math.h" />
     <ClInclude Include="MenuButton.h" />
     <ClInclude Include="MenuPanel.h" />
@@ -82,10 +88,12 @@
     <ClInclude Include="SoundParticle.h" />
     <ClInclude Include="SoundWave.h" />
     <ClInclude Include="SpriteManager.h" />
+    <ClInclude Include="StartLevelPanel.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="Tuba.h" />
     <ClInclude Include="WallTile.h" />
     <ClInclude Include="WaveGame.h" />
+    <ClInclude Include="WinPanel.h" />
     <ClInclude Include="Xylophone.h" />
     <ClInclude Include="XylophonePuzzle.h" />
   </ItemGroup>
@@ -94,6 +102,7 @@
     <Text Include="assets\levels\level1.txt" />
     <Text Include="assets\levels\level2.txt" />
     <Text Include="assets\levels\level3.txt" />
+    <Text Include="assets\levels\level4.txt" />
     <Text Include="assets\levels\menu_level.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

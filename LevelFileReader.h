@@ -19,6 +19,8 @@ enum ELevelDataStep {
 	PIANO,
 	GONGS,
 	TUBAS,
+	DRUMS,
+	MARACAS,
 	END
 };
 
@@ -31,6 +33,8 @@ static unordered_map<string, ELevelDataStep> fileSteps = {
 	{"#pianos", PIANO},
 	{"#gongs", 	GONGS},
 	{"#tubas", TUBAS},
+	{"#drums", DRUMS},
+	{"#maracas", MARACAS},
 	{"#end", END}
 };
 
@@ -55,6 +59,8 @@ struct LevelData {
 	PianoPuzzleData pianoPuzzleData;
 	vector<pair<char, char>> gongs;
 	vector<char> tubas;
+	vector<pair<char, char>> drums;
+	vector<char> maracas;
 	unordered_map<char, char> DoorNeedKey;
 	unordered_map<char, vector2> spriteDirectionPerTile;
 
@@ -100,8 +106,22 @@ struct LevelData {
 		return std::find(tubas.begin(), tubas.end(), tile) != tubas.end();
 	}
 
+	bool IsTileADrum(char tile, char& door) {
+		for (auto& drum : drums) {
+			if (drum.first == tile) {
+				door = drum.second;
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	bool IsTileAMaracas(char tile) {
+		return std::find(maracas.begin(), maracas.end(), tile) != maracas.end();
+	}
+
 	bool HasASpriteDirection(char tile, vector2& dir) {
-		auto found = spriteDirectionPerTile.find(toupper(tile));
+		auto found = spriteDirectionPerTile.find(tile);
 		if (found != spriteDirectionPerTile.end()) {
 			dir = found->second;
 			return true;

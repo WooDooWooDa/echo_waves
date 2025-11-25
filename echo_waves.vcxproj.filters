@@ -135,9 +135,6 @@
     <ClCompile Include="XylophonePuzzle.cpp">
       <Filter>Fichiers sources\Helper</Filter>
     </ClCompile>
-    <ClCompile Include="MenuPanel.cpp">
-      <Filter>Fichiers sources\UI</Filter>
-    </ClCompile>
     <ClCompile Include="MenuButton.cpp">
       <Filter>Fichiers sources\UI</Filter>
     </ClCompile>
@@ -149,6 +146,21 @@
     </ClCompile>
     <ClCompile Include="Instrument.cpp">
       <Filter>Fichiers sources\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Drum.cpp">
+      <Filter>Fichiers sources\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Maracas.cpp">
+      <Filter>Fichiers sources\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuPanel.cpp">
+      <Filter>Fichiers sources\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="WinPanel.cpp">
+      <Filter>Fichiers sources\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="StartLevelPanel.cpp">
+      <Filter>Fichiers sources\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -257,6 +269,18 @@
     <ClInclude Include="Instrument.h">
       <Filter>Fichiers d%27en-tête\GameObjects\Instruments</Filter>
     </ClInclude>
+    <ClInclude Include="Maracas.h">
+      <Filter>Fichiers d%27en-tête\GameObjects\Instruments</Filter>
+    </ClInclude>
+    <ClInclude Include="Drum.h">
+      <Filter>Fichiers d%27en-tête\GameObjects\Instruments</Filter>
+    </ClInclude>
+    <ClInclude Include="WinPanel.h">
+      <Filter>Fichiers d%27en-tête\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="StartLevelPanel.h">
+      <Filter>Fichiers d%27en-tête\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="assets\levels\itch_title_level.txt">
@@ -272,6 +296,9 @@
       <Filter>Assets</Filter>
     </Text>
     <Text Include="assets\levels\level3.txt">
+      <Filter>Assets</Filter>
+    </Text>
+    <Text Include="assets\levels\level4.txt">
       <Filter>Assets</Filter>
     </Text>
   </ItemGroup>

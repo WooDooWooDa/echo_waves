@@ -63,7 +63,7 @@ bool Door::HasCorrectKey()
 
 void Door::Unlock()
 {
-	SoundManager::PlaySound("open_door", 0.5);
+	SoundManager::PlaySound("open_door", 0.4);
 
 	auto pickupWave = SoundWave(this, 20, 25);
 	pickupWave.MoveTo(position);

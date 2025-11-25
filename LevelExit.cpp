@@ -1,10 +1,27 @@
 #include "LevelExit.h"
 #include "SpriteManager.h"
 #include "SoundWave.h"
+#include "SoundManager.h"
+#include "LevelManager.h"
+#include "Player.h"
 
 void LevelExit::Init()
 {
 	spriteTexture = SpriteManager::GetTexture("stairs");
+}
+
+void LevelExit::Update(Uint64 delta)
+{
+	LitableGameObject::Update(delta);
+
+	if (!finishing) return;
+
+	if (finishingTime <= 0) {
+		currentLevel->FinishLevel();
+	}
+	else {
+		finishingTime -= delta;
+	}
 }
 
 void LevelExit::Draw(SDL_Renderer* renderer) const
@@ -36,5 +53,9 @@ void LevelExit::Interact(GameObject* other)
 	done.MoveTo(position);
 	done.Init();
 
-	currentLevel->FinishLevel();
+	auto player = LevelManager::GetObjectsOfType<Player>()[0];
+	player->isEnable = false;
+
+	SoundManager::PlaySound("exit", 0.25);
+	finishing = true;
 }

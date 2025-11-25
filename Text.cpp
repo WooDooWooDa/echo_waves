@@ -7,7 +7,6 @@ void Text::GetFont(int pt)
 	if (newfont == nullptr) return;
 
 	font = newfont;
-	CreateSurface();
 }
 
 void Text::CreateSurface()
@@ -18,8 +17,9 @@ void Text::CreateSurface()
 
 void Text::CreateTexture(SDL_Renderer* renderer)
 {
-	if (font == nullptr || !fontSurface) return;
+	if (font == nullptr) return;
 
+	CreateSurface();
 	fontTexture = SDL_CreateTextureFromSurface(renderer, fontSurface);
 	if (!fontTexture) return;
 
@@ -75,9 +75,14 @@ void Text::SetOpacity(float opacity)
 	textColor.A = opacity;
 }
 
+void Text::Draw(SDL_Renderer* r)
+{
+	Draw(r, overridePosition);
+}
+
 void Text::Draw(SDL_Renderer* renderer, vector2 position)
 {
-	if (text.empty()) return;
+	if (!visible || text.empty()) return;
 
 	if (pendingUpdateTexture || fontTexture == nullptr)
 		CreateTexture(renderer);

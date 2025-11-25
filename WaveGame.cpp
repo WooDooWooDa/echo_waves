@@ -1,7 +1,12 @@
 #include "WaveGame.h"
+#include "SoundManager.h"
 #include <SDL3/SDL_render.h>
 #include <SDL3/SDL_scancode.h>
 #include "gameSettings.h"
+#include "FontManager.h"
+#include <format>
+#include "WinPanel.h"
+#include "StartLevelPanel.h"
 
 void WaveGame::InitGame()
 {
@@ -10,33 +15,33 @@ void WaveGame::InitGame()
 	player = make_shared<Player>();
 	player->Init();
 
-	startText = make_unique<Text>();
-	startText->SetText("Press SPACE to clap", 72);
+	auto startText = new StartLevelPanel();
+	startText->Init();
+	panels.insert({ "start", startText });
+
+	auto winPanel = new WinPanel();
+	winPanel->Init();
+	panels.insert({ "win", winPanel });
 
 	if (levelManager->LoadAllLevels()) {
 		//Load to first level
-		currentLevelNumber = 2;
 		ChangeToLevel(currentLevelNumber);
 	}
-	
-	// Load itch cover img level
-	//auto level = levelManager->LoadSpecialLevel("itch_title_level");
-	//levelManager->AddGameObjectToLevel(player);
-	//player->MoveTo(level->GetPlayerSpawn());
 }
 
 void WaveGame::Update(const Uint64 delta)
 {
-	if (isGameDone) return;
-
 	if (levelManager->GetCurrentLevel() == nullptr) return;
 
 	levelManager->GetCurrentLevel()->Update(delta);
 
-	if (levelManager->GetCurrentLevel()->IsLevelDone()) {
+	// Win check
+	if (!isGameDone && levelManager->GetCurrentLevel()->IsLevelDone()) {
 		if (currentLevelNumber > levelManager->GetNbLevels()) {
 			isGameDone = true;
-			// Show win/thanks screen!
+			panels["start"]->Hide();
+			panels["win"]->Show();
+			return;
 		}
 		currentLevelNumber++;
 		ChangeToLevel(currentLevelNumber);
@@ -45,18 +50,19 @@ void WaveGame::Update(const Uint64 delta)
 
 void WaveGame::Draw(SDL_Renderer* renderer) const
 {
+	for (auto& panel : panels) {
+		panel.second->Draw(renderer);
+	}
+
 	if (isGameDone) return;
 
 	if (levelManager->GetCurrentLevel())
 		levelManager->GetCurrentLevel()->Draw(renderer);
-	
-	//todo : Replace by menu panel
-	if (!removedStartText)
-		startText->Draw(renderer, vector2(GAME_WINDOW_SIZE / 2));
 }
 
 void WaveGame::RestartLevel() {
 	ChangeToLevel(currentLevelNumber);
+	SoundManager::StopAll();
 }
 
 void WaveGame::ChangeToLevel(int level)
@@ -69,18 +75,22 @@ void WaveGame::ChangeToLevel(int level)
 	levelManager->AddGameObjectToLevel(player);
 	player->MoveTo(levelManager->GetCurrentLevel()->GetPlayerSpawn());
 
-	removedStartText = false;
+	auto panel = ((StartLevelPanel*)panels["start"]);
+	panel->SetLevelNumber(currentLevelNumber);
+	panel->Show();
 }
 
 void WaveGame::HandleInputs(SDL_Event* event, SDL_Scancode key_code)
 {
-	if (!removedStartText) {
+	if (isGameDone) return;
+
+	if (panels["start"]->GetVisibility()) {
 		if (event->type == SDL_EVENT_KEY_DOWN) {
 			switch (key_code)
 			{
 			case SDL_SCANCODE_SPACE:
 				player->TryLaunchSoundWave(36, 100);
-				RemoveStartText();
+				panels["start"]->Hide();
 			default:
 				break;
 			}
@@ -152,13 +162,5 @@ void WaveGame::HandleInputs(SDL_Event* event, SDL_Scancode key_code)
 		default:
 			break;
 		}
-	}
-}
-
-void WaveGame::RemoveStartText()
-{
-	if (startText) {
-		//startText.reset(nullptr);
-		removedStartText = true;
 	}
 }

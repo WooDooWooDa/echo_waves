@@ -5,6 +5,7 @@
 #include "SoundManager.h"
 #include "SoundWave.h"
 #include "LevelManager.h"
+#include "Instrument.h"
 
 void Gong::Init()
 {
@@ -34,15 +35,18 @@ void Gong::OnCollisionEnter(CollisionResult res)
 	if (banged) return;
 
 	auto particle = dynamic_cast<SoundParticle*>(res.other);
-	if (particle) {
+	if (!particle) return;
+
+	// Particle from instrument?
+	auto instrumentParticle = dynamic_cast<Instrument*>(particle->emitter);
+	if (instrumentParticle)
 		Bang();
-	}
 }
 
 void Gong::Bang()
 {
 	banged = true;
-	SoundManager::PlaySound("gong", 0.4);
+	SoundManager::PlaySound("gong", 0.25);
 
 	auto gongWave = SoundWave(this, 20, 50);
 	gongWave.MoveTo(position);

@@ -69,6 +69,13 @@ bool SoundManager::PlaySound(std::string soundName, float gain)
 	return SDL_ResumeAudioStreamDevice(soundData->stream);
 }
 
+void SoundManager::StopAll()
+{
+	for (auto& sound : loaded_sounds) {
+		SDL_ClearAudioStream(sound.second->stream);
+	}
+}
+
 void SoundManager::LoadAllSounds()
 {
 	LoadWAV("clap");

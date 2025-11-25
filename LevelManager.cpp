@@ -34,7 +34,7 @@ bool LevelManager::LoadAllLevels()
 	return true;
 }
 
-Level* LevelManager::GetCurrentLevel()
+Level* LevelManager::GetCurrentLevel() const
 {
 	return currentLevel.get();
 }

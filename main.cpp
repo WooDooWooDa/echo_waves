@@ -12,6 +12,7 @@
 #include "SpriteManager.h"
 #include "SoundManager.h"
 #include "FontManager.h"
+#include <time.h>
 
 std::unique_ptr<SpriteManager> spriteManager;
 std::unique_ptr<SoundManager> soundManager;
@@ -21,8 +22,8 @@ typedef struct
 {
     SDL_Window* window;
     SDL_Renderer* renderer;
-    WaveGame wave_game;
-    Uint64 last_step;
+    WaveGame* wave_game;
+    time_t last_step;
 } AppState;
 
 static SDL_AppResult handle_key_event_(WaveGame* game, SDL_Event* event, SDL_Scancode key_code)
@@ -44,8 +45,8 @@ static SDL_AppResult handle_key_event_(WaveGame* game, SDL_Event* event, SDL_Sca
 SDL_AppResult SDL_AppIterate(void* appstate)
 {
     AppState* as = (AppState*)appstate;
-    WaveGame* ctx = &as->wave_game;
-    const Uint64 now = SDL_GetTicks();
+    WaveGame* ctx = as->wave_game;
+    Uint64 now = SDL_GetTicks();
 
     // Update
     while ((now - as->last_step) >= TARGET_MS_PER_FRAME) {
@@ -101,7 +102,7 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char* argv[])
     }
 
     *appstate = as;
-    //as->wave_game = WaveGame();
+    as->wave_game = new WaveGame();
 
     if (!SDL_CreateWindowAndRenderer("Echo Waves", GAME_WINDOW_SIZE, GAME_WINDOW_SIZE, SDL_WINDOW_RESIZABLE, &as->window, &as->renderer)) {
         return SDL_APP_FAILURE;
@@ -128,7 +129,7 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char* argv[])
     fontManager = make_unique<FontManager>();
     fontManager->LoadFont();
 
-    (&as->wave_game)->InitGame();
+    as->wave_game->InitGame();
 
     as->last_step = SDL_GetTicks();
 
@@ -137,7 +138,7 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char* argv[])
 
 SDL_AppResult SDL_AppEvent(void* appstate, SDL_Event* event)
 {
-    WaveGame* game = &((AppState*)appstate)->wave_game;
+    WaveGame* game = ((AppState*)appstate)->wave_game;
     switch (event->type) {
     case SDL_EVENT_QUIT:
         return SDL_APP_SUCCESS;

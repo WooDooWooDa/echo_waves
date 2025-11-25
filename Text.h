@@ -14,6 +14,8 @@ class Text
 	int point = 24;
 	vector2 textSize;
 	RGBColor textColor = COLOR_WHITE;
+	bool visible = true;
+	vector2 overridePosition;
 
 	void GetFont(int);
 	void CreateSurface();
@@ -27,6 +29,10 @@ public:
 	void SetColor(vector3);
 	void SetColor(RGBColor);
 	void SetOpacity(float);
+	void SetVisibility(bool v) { visible = v; };
+	void SetPosition(vector2 p) { overridePosition = p; }
+	bool IsVisible() { return visible; }
+	void Draw(SDL_Renderer*);
 	void Draw(SDL_Renderer*, vector2);
 };
 

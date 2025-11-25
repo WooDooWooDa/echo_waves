@@ -14,6 +14,8 @@ void Player::Init()
 
 void Player::Update(Uint64 delta)
 {
+	if (!isEnable) return;
+
 	auto lastPos = position;
 	LitableGameObject::Update(delta);
 
@@ -34,7 +36,7 @@ void Player::Update(Uint64 delta)
 
 void Player::TryLaunchSoundWave(int nbSoundPoint, float soundPointTTL)
 {
-	if (currentSoundWaveTimer >= 0) return;
+	if (!isEnable || currentSoundWaveTimer >= 0) return;
 
 	LaunchSoundWave(nbSoundPoint, soundPointTTL, 5.0);
 	ResetLitUpTime();
@@ -45,7 +47,7 @@ void Player::TryLaunchSoundWave(int nbSoundPoint, float soundPointTTL)
 
 void Player::OnTriggerEnter(GameObject* other)
 {
-	if (other == nullptr) return;
+	if (!isEnable || other == nullptr) return;
 
 	IInteractable* interactable = dynamic_cast<IInteractable*>(other);
 	if (interactable != nullptr) {
@@ -58,7 +60,7 @@ void Player::OnTriggerEnter(GameObject* other)
 
 void Player::OnTriggerExit(GameObject* other)
 {
-	if (other == nullptr) return;
+	if (!isEnable || other == nullptr) return;
 
 	IInteractable* interactable = dynamic_cast<IInteractable*>(other);
 	if (interactable != nullptr && interactable == currentInteractable) {
@@ -71,6 +73,8 @@ void Player::OnCollisionEnter(CollisionResult res) { }
 
 void Player::TryInteract()
 {
+	if (!isEnable) return;
+
 	if (currentInteractable != nullptr) {
 		LitableGameObject* litable = dynamic_cast<LitableGameObject*>(currentInteractable);
 		if (litable && !litable->IsLitUp()) return;
@@ -87,6 +91,7 @@ void Player::Restart()
 	distanceMoved = 0.0;
 
 	currentSoundWaveTimer = 0.0;
+	isEnable = true;
 }
 
 void Player::LaunchSoundWave(int nbSoundP, float soundPointTTL, float speed)

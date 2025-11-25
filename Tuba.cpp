@@ -4,6 +4,7 @@
 #include "SoundWave.h"
 #include "GameObjectHelper.h"
 #include <numbers>
+#include "SoundManager.h"
 
 void Tuba::Init()
 {
@@ -26,6 +27,8 @@ void Tuba::OnCollisionEnter(CollisionResult res)
 void Tuba::Play()
 {
 	Instrument::Play();
+
+	SoundManager::PlaySound("tuba");
 
 	float angleInc = 2.0f * std::numbers::pi / 72;
 	auto angle = std::atan2(spriteDirection.Y, spriteDirection.X);

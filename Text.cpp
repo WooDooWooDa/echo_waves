@@ -1,6 +1,7 @@
 #include "Text.h"
 #include "FontManager.h"
 
+#ifndef __EMSCRIPTEN__
 void Text::GetFont(int pt)
 {
 	auto newfont = FontManager::GetFont(pt);
@@ -15,9 +16,11 @@ void Text::CreateSurface()
 		(Uint8)textColor.B, (Uint8)textColor.A};
 	fontSurface = TTF_RenderText_Blended(font, text.c_str(), text.length(), color);
 }
+#endif
 
 void Text::CreateTexture(SDL_Renderer* renderer)
 {
+#ifndef __EMSCRIPTEN__
 	if (font == nullptr) return;
 
 	CreateSurface();
@@ -28,6 +31,9 @@ void Text::CreateTexture(SDL_Renderer* renderer)
 	SDL_GetTextureSize(fontTexture, &textWidth, &textHeight);
 
 	textSize = vector2(textWidth, textHeight);
+#else
+	textSize = vector2(text.length() * 8 * textScale, 8 * textScale);
+#endif
 
 	pendingUpdateTexture = false;
 }
@@ -51,10 +57,13 @@ const SDL_FRect Text::GetBounds(vector2 position) const
 void Text::SetText(std::string newText, int pt)
 {
 	text = newText;
+
+#ifndef __EMSCRIPTEN__
 	if (point != pt || font == nullptr) {
 		GetFont(pt);
 		point = pt;
 	}
+#endif
 
 	pendingUpdateTexture = true;
 }
@@ -78,7 +87,7 @@ void Text::SetOpacity(float opacity)
 
 void Text::Draw(SDL_Renderer* r)
 {
-	Draw(r, overridePosition);
+	Text::Draw(r, overridePosition);
 }
 
 void Text::Draw(SDL_Renderer* renderer, vector2 position)
@@ -89,5 +98,12 @@ void Text::Draw(SDL_Renderer* renderer, vector2 position)
 		CreateTexture(renderer);
 
 	auto& rect = GetBounds(position);
+#ifndef __EMSCRIPTEN__
 	SDL_RenderTexture(renderer, fontTexture, NULL, &rect);
+#else
+	SDL_SetRenderScale(renderer, textScale, textScale);
+	SDL_SetRenderDrawColor(renderer, 255, 255, 255, textColor.A);
+	SDL_RenderDebugText(renderer, rect.x / textScale, rect.y / textScale, text.c_str());
+	SDL_SetRenderScale(renderer, 1.0f, 1.0f);
+#endif
 }

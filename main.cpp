@@ -1,14 +1,13 @@
 #define SDL_MAIN_USE_CALLBACKS 1 /* use the callbacks instead of main() */
 #include <SDL3/SDL.h>
+#ifndef __EMSCRIPTEN__
 #include <SDL3_ttf/SDL_ttf.h>
+#endif
 #include <SDL3/SDL_main.h>
 #include <SDL3/SDL_audio.h>
 #include <SDL3/SDL_blendmode.h>
 #include "WaveGame.h"
 #include "gameSettings.h"
-#ifdef __EMSCRIPTEN__
-#include <emscripten.h>
-#endif
 #include "SpriteManager.h"
 #include "SoundManager.h"
 #include "FontManager.h"
@@ -91,27 +90,16 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char* argv[])
         }
     }
 
-#ifdef __EMSCRIPTEN__
-    EM_ASM(
-        FS.syncfs(true, function(err) {
-        if (err) console.error("FS sync failed", err);
-    });
-    );
-#endif
-
     if (!SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO)) {
         SDL_Log("Couldn't initialize SDL: %s", SDL_GetError());
         return SDL_APP_FAILURE;
     }
-
-    while (!TTF_Init()) {
-        SDL_Log("Couldn't initialize TTF: Trying...");
-        SDL_Delay(50);
+#ifndef __EMSCRIPTEN__
+    if (!TTF_Init()) {
+        SDL_Log("Couldn't initialize TTF: %s", SDL_GetError());
+        return SDL_APP_FAILURE;
     }
-    //if (!TTF_Init()) {
-    //    SDL_Log("Couldn't initialize TTF: %s", SDL_GetError());
-    //    return SDL_APP_FAILURE;
-    //}
+#endif
 
     AppState* as = (AppState*)SDL_calloc(1, sizeof(AppState));
     if (!as) {
@@ -133,8 +121,10 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char* argv[])
     soundManager = make_unique<SoundManager>();
     soundManager->LoadAllSounds();
 
+#ifndef __EMSCRIPTEN__
     fontManager = make_unique<FontManager>();
     fontManager->LoadFont();
+#endif
 
     as->wave_game->InitGame();
 
@@ -164,5 +154,7 @@ void SDL_AppQuit(void* appstate, SDL_AppResult result)
         SDL_DestroyWindow(as->window);
         SDL_free(as);
     }
+#ifndef __EMSCRIPTEN__
     TTF_Quit();
+#endif
 }

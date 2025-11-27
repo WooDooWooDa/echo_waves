@@ -24,10 +24,16 @@ if(EMSCRIPTEN)
 
     # set(SDL_IMAGE_FLAGS "-s USE_SDL_IMAGE=2 -s SDL2_IMAGE_FORMATS='png'")
 
+    target_compile_options(index PRIVATE -sUSE_SDL=3)
+
     # Configure Emscripten build output
     set_target_properties(index PROPERTIES
         RUNTIME_OUTPUT_DIRECTORY ${DIST_DIR}
-        LINK_FLAGS "-sUSE_SDL=3 -sUSE_FREETYPE=1 -sUSE_SDL_TTF=3 -sALLOW_MEMORY_GROWTH=1 --preload-file ${ASSETS_DIR}@/assets -sEXIT_RUNTIME=1 -sFORCE_FILESYSTEM=1"
+        LINK_FLAGS "-sUSE_SDL=3 -sALLOW_MEMORY_GROWTH=1 --preload-file ${ASSETS_DIR}@/assets -sEXIT_RUNTIME=1 -sFORCE_FILESYSTEM=1"
         SUFFIX ".html"
     )
+else()
+    # Include SDL3 headers only for native builds
+    target_include_directories(index PRIVATE "C:/SDL/include")
+    target_include_directories(index PRIVATE "C:/SDL_TTF/include")
 endif()

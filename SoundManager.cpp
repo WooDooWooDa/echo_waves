@@ -58,6 +58,12 @@ SoundData* SoundManager::GetSound(std::string soundName)
 
 bool SoundManager::PlaySound(std::string soundName, float gain)
 {
+
+#ifdef __EMSCRIPTEN__
+	// Sound is really low on web player
+	gain *= 2.0;
+#endif
+
 	auto soundData = GetSound(soundName);
 	if (!soundData) {
 		std::cout << "No data found for : " + soundName << std::endl;

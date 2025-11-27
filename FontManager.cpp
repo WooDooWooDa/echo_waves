@@ -1,3 +1,4 @@
+#ifndef __EMSCRIPTEN__
 #include "FontManager.h"
 
 void FontManager::LoadFont()
@@ -18,3 +19,4 @@ TTF_Font* FontManager::GetFont(int pointSize)
 	}
 	return nullptr;
 }
+#endif

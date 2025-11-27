@@ -150,6 +150,7 @@ void WaveGame::HandleInputs(SDL_Event* event, SDL_Scancode key_code)
 			player->Restart();
 			RestartLevel();
 			break;
+#if DEBUG_MODE
 		case SDL_SCANCODE_V:
 			SETTINGS::SHOW_COLLIDER_MODE = (SETTINGS::SHOW_COLLIDER_MODE + 1) % 2;
 			break;
@@ -159,6 +160,7 @@ void WaveGame::HandleInputs(SDL_Event* event, SDL_Scancode key_code)
 		case SDL_SCANCODE_L:
 			levelManager->GetCurrentLevel()->FinishLevel();
 			break;
+#endif
 		default:
 			break;
 		}
